@@ -38,7 +38,7 @@ MAINOBJS    := $(shell echo $(OBJECTS) | sed 's/[^ ]*test[^ ]* *//g')
 TESTOBJS    := $(filter-out $(MAINOBJS), $(OBJECTS))
 
 #Defauilt Make
-all: directories lexer parser $(TARGET) $(TESTTARGET)
+all: directories $(TARGET) $(TESTTARGET)
 
 #Remake
 remake: cleaner all

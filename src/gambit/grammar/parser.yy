@@ -9,6 +9,7 @@
 
   #include <vector>
   #include <string>
+  #include <iostream>
   #include "dev/debugnew/debug_new.h"
 
   namespace Gambit {
@@ -31,6 +32,7 @@
   #undef yylex
   #define yylex scanner.yylex
 
+  using namespace std;
 }
 
 %locations
@@ -79,10 +81,11 @@ Expression:
 
 Literals:
   T_INTEGER                           {
-
+                                        cout << "found integer" << endl;
                                       }
   | T_STRING                          {
-
+                                        cout << "found string" << endl;
+                                        delete($1);
                                       }
   ;
 
