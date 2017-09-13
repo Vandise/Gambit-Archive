@@ -22,9 +22,10 @@ namespace Exception
 
       const char * what () const throw ()
       {
+        this->check->load(this->e);
         std::vector<std::string> p;
         p.push_back("MODULE NOT LOADED");
-        return Check::MessageFactory(this->e).create()->with(p)->emit().c_str();
+        return this->check->getFactory()->create()->with(p)->emit().c_str();
       };
 
   };

@@ -1,15 +1,13 @@
 #ifndef __CHECKFACTORY
 #define __CHECKFACTORY 1
 
-#include "shared/exception/captureEvents.hpp"
+#include "shared/check/iMessageFactory.hpp"
 #include "check/events/defaultEvent.hpp"
 
 namespace Check
 {
-  class MessageFactory
+  class MessageFactory : public iMessageFactory
   {
-    private:
-      Check::iEvent* E;
 
     public:
       MessageFactory(CaptureEvents e);

@@ -38,7 +38,10 @@ namespace Extensions
         dlclose(this->handle);
       };
 
-      virtual bool load() = 0;
+      virtual bool load()
+      {
+        return false;
+      };
 
       bool loaded()
       {

@@ -31,7 +31,7 @@ PARSER_LEXER =  parser lexer
 #DO NOT EDIT BELOW THIS LINE
 #---------------------------------------------------------------------------------
 
-SOURCES     := $(shell find $(SRCDIR) $(LIBDIR) -type f -name *.$(SRCEXT) -not -path "$(SRCDIR)/gambit/*")
+SOURCES     := $(shell find $(SRCDIR) $(LIBDIR) -type f -name *.$(SRCEXT) -not -path "$(SRCDIR)/gambit/*" -not -path "$(SRCDIR)/check/*")
 #SOURCES     := $(shell find $(SRCDIR) $(LIBDIR) -type f -name *.$(SRCEXT))
 OBJECTS     := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
 MAINOBJS    := $(shell echo $(OBJECTS) | sed 's/[^ ]*test[^ ]* *//g')
@@ -81,6 +81,7 @@ cleaner: clean
 #Pull in dependency info for *existing* .o files
 -include $(OBJECTS:.$(OBJEXT)=.$(DEPEXT))
 -include build/gambit.mk
+-include build/check.mk
 
 #Link
 $(TARGET): $(filter-out $(TESTOBJS),$(OBJECTS))

@@ -5,8 +5,8 @@
 #include <vector>
 #include <iostream>
 #include <exception>
-#include "check/messageFactory.hpp"
 #include "shared/exception/captureEvents.hpp"
+#include "ext/loader/checkLoader.hpp"
 
 namespace Exception
 {
@@ -17,6 +17,7 @@ namespace Exception
     protected:
       std::string message;
       CaptureEvents e = DEFAULT;
+      Extensions::CheckLoader* check = new Extensions::CheckLoader();
 
     public:
 
@@ -25,6 +26,11 @@ namespace Exception
       iException(std::string message)
       {
         this->message = message;
+      };
+
+      virtual ~iException()
+      {
+        delete(this->check);
       };
 
       virtual const char * what () const throw ()
