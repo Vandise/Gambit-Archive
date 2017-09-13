@@ -3,6 +3,7 @@
 
 #include "shared/lang/iDriver.hpp"
 #include "ext/loader/iModuleLoader.hpp"
+#include "capture/loader/moduleNotFound.hpp"
 
 typedef Extensions::iDriver* createDriverT();
 typedef void destroyDriverT(Extensions::iDriver*);

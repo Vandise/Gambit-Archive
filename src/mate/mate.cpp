@@ -7,15 +7,27 @@
 int
 main( const int argc, const char **argv )
 {
-  if ( argc == 2 )
+
+  Extensions::DriverLoader* driver = new Extensions::DriverLoader();
+
+  try
   {
-    Extensions::DriverLoader* driver = new Extensions::DriverLoader();
-    driver->load();
-    if (driver->loaded())
+    if ( argc == 2 )
     {
-      driver->getDriver()->parse(argv[1]);
+      driver->load();
+      if (driver->loaded())
+      {
+        driver->getDriver()->parse(argv[1]);
+      }
     }
-    delete(driver);
+
   }
-  return 1;
+  catch (Exception::iException &e)
+  {
+    std::cout << e.what() << std::endl;
+  }
+
+  delete(driver);
+
+  return 0;
 }

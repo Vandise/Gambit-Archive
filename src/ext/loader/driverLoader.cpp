@@ -18,6 +18,12 @@ Extensions::DriverLoader::~DriverLoader()
 bool
 Extensions::DriverLoader::load()
 {
+
+  if (!this->handle)
+  {
+    throw Exception::ModuleNotFound(this->errorMsg, this->moduleName);
+  }
+
   this->create  = (createDriverT*)dlsym(handle,"create");
   this->destroy = (destroyDriverT*)dlsym(handle,"destroy");
   if (!this->create || !this->destroy)
