@@ -25,6 +25,10 @@ namespace Exception
         this->check->load(this->e);
         std::vector<std::string> p;
         p.push_back("MODULE NOT LOADED");
+        p.push_back(
+          std::string("Unable to load module: ").append(this->module)
+        );
+        p.push_back(std::string("The module ").append(this->module).append(" exists in the lib directory."));
         return this->check->getFactory()->create()->with(p)->emit().c_str();
       };
 
