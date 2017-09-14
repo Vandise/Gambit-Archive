@@ -24,7 +24,7 @@ namespace Extensions
       CheckLoader();
       virtual ~CheckLoader();
       using Extensions::iModuleLoader::load;
-      bool load(CaptureEvents evt);
+      void load(CaptureEvents evt);
       Check::iMessageFactory* getFactory();
   };
 }

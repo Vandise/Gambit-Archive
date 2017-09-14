@@ -15,13 +15,13 @@ Extensions::CheckLoader::~CheckLoader()
   }
 }
 
-bool
+void
 Extensions::CheckLoader::load(CaptureEvents evt)
 {
 
   if (!this->handle)
   {
-    return false;
+    return;
   }
 
   this->create  = (createCheckT*)dlsym(handle,"create");
@@ -30,10 +30,10 @@ Extensions::CheckLoader::load(CaptureEvents evt)
   {
     this->errored = true;
     this->errorMsg = std::string(dlerror());
-    return false;
+    return;
   }
   this->factory = this->create(evt);
-  return true;
+
 }
 
 Check::iMessageFactory*

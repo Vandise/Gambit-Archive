@@ -4,6 +4,7 @@
 #include <dlfcn.h>
 #include <string>
 #include <iostream>
+#include <typeinfo>
 
 namespace Extensions
 {
@@ -38,9 +39,9 @@ namespace Extensions
         dlclose(this->handle);
       };
 
-      virtual bool load()
+      virtual void load()
       {
-        return false;
+
       };
 
       bool loaded()

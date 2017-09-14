@@ -3,6 +3,7 @@
 
 #include "shared/check/iMessageFactory.hpp"
 #include "check/events/defaultEvent.hpp"
+#include "check/events/invalidInterfaceEvent.hpp"
 
 namespace Check
 {

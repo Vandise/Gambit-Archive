@@ -7,6 +7,15 @@
 
 #define PUSH_BUFFER this->buffer + strlen(this->buffer)
 
+#define INITIALIZE_REFERENCES std::vector<std::string> references; this->emitReferenceLine();
+#define DEFINE_REFERENCE(ref) references.push_back(ref);
+#define EMIT_REFERENCES {                       \
+  for(int i = 0; i < references.size(); i++ ) { \
+    this->emitReference(references[i], i + 1);  \
+  }                                             \
+}
+
+
 namespace Check
 {
   class iEvent
@@ -29,6 +38,7 @@ namespace Check
 
       virtual std::string emit()
       {
+        buffer[strlen(buffer)] = '\0';
         return std::string(this->buffer);
       };
 
@@ -58,12 +68,16 @@ namespace Check
           "\t\t%s \n", msg.c_str());
       };
 
-      virtual void emitReferences(std::string msg)
+      virtual void emitReferenceLine()
       {
         sprintf(PUSH_BUFFER,
           "\t%s Ensure the following: %s\n\n", this->yellow.c_str(), this->reset.c_str());
+      }
+
+      virtual void emitReference(std::string msg, int refCt)
+      {
         sprintf(PUSH_BUFFER,
-          "\t\t%s \n", msg.c_str());
+          "\t\t%d.) %s \n", refCt, msg.c_str());
       }
   };
 }

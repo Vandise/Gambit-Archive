@@ -4,6 +4,9 @@ Check::MessageFactory::MessageFactory(CaptureEvents e)
 {
   switch(e)
   {
+    case INVALID_INTEFACE:
+      this->E = new Check::InvalidInterfaceEvent();
+      break;
     default:
       this->E = new Check::DefaultEvent();
       break;

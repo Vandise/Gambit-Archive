@@ -5,7 +5,8 @@ typedef enum e_CaptureEvents
 {
 
   DEFAULT,
-  MODULE_NOT_FOUND
+  MODULE_NOT_FOUND,
+  INVALID_INTEFACE
 
 } CaptureEvents;
 

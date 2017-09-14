@@ -15,7 +15,7 @@ Extensions::DriverLoader::~DriverLoader()
   }
 }
 
-bool
+void
 Extensions::DriverLoader::load()
 {
 
@@ -29,11 +29,13 @@ Extensions::DriverLoader::load()
   if (!this->create || !this->destroy)
   {
     this->errored = true;
-    this->errorMsg = std::string(dlerror());
-    return false;
+    //this->errorMsg = std::string(dlerror());
+
+    throw Exception::InvalidInterface("create and destroy", std::string(typeid(Extensions::iDriver).name()), this->errorMsg);
+
   }
   this->driver = this->create();
-  return true;
+
 }
 
 Extensions::iDriver*
