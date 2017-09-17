@@ -45,8 +45,11 @@ Gambit::Driver::parse( const char * const filename )
       exit( EXIT_FAILURE );
    }
 
-   int p = parser->parse();
-   this->tree->compile();
+   return parser->parse();;
+}
 
-   return p;
+AST::Tree*
+Gambit::Driver::getTree()
+{
+  return this->tree;
 }

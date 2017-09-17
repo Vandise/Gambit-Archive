@@ -21,11 +21,12 @@ namespace Gambit
 
       Driver();
       virtual ~Driver();
+      AST::Tree* getTree();
       int parse( const char *filename );
 
     private:
 
-      AST::Tree *tree;
+      Gambit::Tree *tree;
       Gambit::Parser  *parser  = nullptr;
       Gambit::Scanner *scanner = nullptr;
 
