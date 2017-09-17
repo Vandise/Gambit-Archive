@@ -7,6 +7,7 @@
 
 #include "dev/debugnew/debug_new.h"
 #include "shared/lang/iDriver.hpp"
+#include "gambit/ast/ast.hpp"
 #include "gambit/scanner.hpp"
 #include "gambit/parser.tab.hpp"
 
@@ -18,14 +19,15 @@ namespace Gambit
 
     public:
 
-      Driver() = default;
+      Driver();
       virtual ~Driver();
       int parse( const char *filename );
 
     private:
 
-       Gambit::Parser  *parser  = nullptr;
-       Gambit::Scanner *scanner = nullptr;
+      AST::Tree *tree;
+      Gambit::Parser  *parser  = nullptr;
+      Gambit::Scanner *scanner = nullptr;
 
   };
 

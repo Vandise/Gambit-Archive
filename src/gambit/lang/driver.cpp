@@ -1,11 +1,18 @@
 #include "gambit/lang/driver.hpp"
 
+Gambit::Driver::Driver()
+{
+  this->tree = new Gambit::Tree();
+}
+
 Gambit::Driver::~Driver()
 {
    delete(scanner);
    scanner = nullptr;
    delete(parser);
    parser = nullptr;
+   delete(this->tree);
+   tree = nullptr;
 }
 
 int
@@ -29,7 +36,7 @@ Gambit::Driver::parse( const char * const filename )
    delete(parser);
    try
    {
-      parser = new Gambit::Parser( (*scanner), (*this) );
+      parser = new Gambit::Parser( (*scanner), (*this->tree) );
    }
    catch( std::bad_alloc &ba )
    {
@@ -38,5 +45,8 @@ Gambit::Driver::parse( const char * const filename )
       exit( EXIT_FAILURE );
    }
 
-   return parser->parse();
+   int p = parser->parse();
+   this->tree->compile();
+
+   return p;
 }

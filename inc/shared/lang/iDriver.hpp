@@ -1,6 +1,8 @@
 #ifndef __iDRIVER_HPP__
 #define __iDRIVER_HPP__ 1
 
+#include "shared/ast/tree.hpp"
+
 namespace Extensions
 {
 

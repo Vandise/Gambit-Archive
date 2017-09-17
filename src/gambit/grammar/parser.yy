@@ -19,10 +19,21 @@
   namespace Extensions {
     class iDriver;
   }
+
+  namespace AST {
+    class Node;
+    class Tree;
+  }
+
+  namespace Gambit {
+    class Tree;
+    class LiteralNode;
+  }
+
 }
 
 %parse-param { Gambit::Scanner &scanner }
-%parse-param { Extensions::iDriver  &driver  }
+%parse-param { AST::Tree  &astTree  }
 
 %code {
 
@@ -52,70 +63,44 @@
 %union {
   int ival;
   std::string *sval;
+  AST::Tree *tree;
+  AST::Node *node;
 }
+
+%type <tree>    Expressions
+%type <node>    Expression Literals
 
 %%
 
 root:
   END
-  | Expressions END                     {  }
+  | Expressions END                     { astTree.pushBranch($1); }
   ;
 
 Expressions:
-  Expression                        {
-
-                                      
-                                    }
+  Expression                          {
+                                        std::vector<AST::Node *> nodes;
+                                        nodes.push_back($1);
+                                        $$ = new Gambit::Tree(nodes);
+                                      }
   | Expressions Terminator Expression {
-
+                                        $1->pushNode($3);
+                                        $$ = $1;
                                       }
 
-  | Expressions Terminator          {  }
+  | Expressions Terminator            { $$ = $1; }
   ;
 
 Expression:
     Literals
-  | LocalDefinition
-  | Array
   ;
 
 Literals:
   T_INTEGER                           {
-                                        cout << "found integer" << endl;
-                                      }
-  | T_STRING                          {
-                                        cout << "found string" << endl;
-                                        delete($1);
+                                        $$ = new Gambit::LiteralNode($1);
                                       }
   ;
 
-LocalDefinition:
-    T_CONSTANT T_BIND T_IDENTIFIER    {
-
-                                      }
-  | T_CONSTANT T_BIND T_IDENTIFIER T_ASSIGN Expression   
-                                      {
-
-                                      }
-  ;
-
-Array:
-  T_OPEN_BRACKET Parameters T_CLOSE_BRACKET {
-
-                                              }
-  ;
-
-Parameters:
-    Expression                      {
-
-                                    }
-  | Parameters T_COMMA Expression   {
-
-                                    }
-  |                                 {
-
-                                    }
-  ;
 
 Terminator:
     T_NEWLINE
