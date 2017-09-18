@@ -17,7 +17,6 @@ namespace Mate
       using Compiler::iCodeGenerator::iCodeGenerator;
       ~CodeGenerator();
       void generate();
-      void setState(std::string s);
 
   };
 

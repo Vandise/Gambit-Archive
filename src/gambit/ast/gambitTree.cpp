@@ -41,5 +41,5 @@ Gambit::Tree::compile(Compiler::iCodeGenerator *cg)
   {
     n->compile(cg);
   }
-  cg->setState("asdfg");
+  cg->setState(CS_DEFAULT);
 }

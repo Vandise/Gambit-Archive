@@ -2,6 +2,9 @@
 #define __iMATECODEGENERATOR 1
 
 #include <string>
+#include <stack>
+
+#include "shared/compiler/compilerState.hpp"
 
 namespace AST
 {
@@ -15,7 +18,8 @@ namespace Compiler
   {
     protected:
       AST::Tree *tree;
-      std::string state;
+      COMPILERSTATE defaultState = CS_DEFAULT;
+      std::stack<COMPILERSTATE> stateStack;
 
     public:
       iCodeGenerator(AST::Tree *tree)
@@ -24,7 +28,25 @@ namespace Compiler
       };
       virtual ~iCodeGenerator() = default;
       virtual void generate() = 0;
-      virtual void setState(std::string s) = 0;
+      virtual void setState(COMPILERSTATE state)
+      {
+        this->stateStack.push(state);
+      };
+      virtual void popState()
+      {
+        if (!this->stateStack.empty())
+        {
+          this->stateStack.pop();
+        }
+      };
+      virtual COMPILERSTATE getState()
+      {
+        if (this->stateStack.empty())
+        {
+          return this->defaultState;
+        }
+        return this->stateStack.top();
+      };
   };
 
 }

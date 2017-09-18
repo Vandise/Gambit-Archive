@@ -23,7 +23,7 @@ main( const int argc, const char **argv )
 
         Mate::CodeGenerator *cg = new Mate::CodeGenerator(driver->getDriver()->getTree());
         cg->generate();
-        //driver->getDriver()->getTree()->compile();
+
         delete(cg);
       }
     }

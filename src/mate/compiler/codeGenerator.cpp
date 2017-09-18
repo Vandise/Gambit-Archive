@@ -9,11 +9,6 @@ void
 Mate::CodeGenerator::generate()
 {
   this->tree->compile( (this) );
-  std::cout << "state: " << this->state << std::endl;
+  std::cout << "state: " << this->getState() << std::endl;
 }
 
-void
-Mate::CodeGenerator::setState(std::string s)
-{
-  this->state = s;
-}
