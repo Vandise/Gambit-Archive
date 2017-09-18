@@ -16,7 +16,7 @@ namespace Gambit
         void pushNode(AST::Node *node);
         void pushBranch(AST::Tree *tree);
         int treeSize();
-        void compile();
+        void compile(Compiler::iCodeGenerator *cg);
   };
 
 }

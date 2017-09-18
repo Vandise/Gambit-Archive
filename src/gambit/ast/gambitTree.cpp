@@ -35,10 +35,11 @@ Gambit::Tree::treeSize()
 }
 
 void
-Gambit::Tree::compile()
+Gambit::Tree::compile(Compiler::iCodeGenerator *cg)
 {
   for (auto &n : nodes)
   {
-    n->compile();
+    n->compile(cg);
   }
+  cg->setState("asdfg");
 }

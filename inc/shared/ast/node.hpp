@@ -2,6 +2,7 @@
 #define __AST_NODE 1
 
 #include <iostream>
+#include "shared/compiler/iCodeGenerator.hpp"
 
 namespace AST
 {
@@ -10,7 +11,7 @@ namespace AST
   {
     public:
       virtual ~Node(){};
-      virtual void compile() = 0;
+      virtual void compile(Compiler::iCodeGenerator *cg) = 0;
 
   };
 

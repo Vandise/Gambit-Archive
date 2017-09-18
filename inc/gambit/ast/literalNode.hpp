@@ -16,7 +16,7 @@ namespace Gambit
 
       LiteralNode(int value);
       ~LiteralNode();
-      void compile();
+      void compile(Compiler::iCodeGenerator *cg);
 
   };
 

@@ -4,6 +4,7 @@
 #include "dev/debugnew/debug_new.h"
 #include "shared/ast/tree.hpp"
 #include "ext/loader/driverLoader.hpp"
+#include "mate/compiler/codeGenerator.hpp"
 
 int
 main( const int argc, const char **argv )
@@ -19,7 +20,11 @@ main( const int argc, const char **argv )
       if (driver->loaded())
       {
         driver->getDriver()->parse(argv[1]);
-        driver->getDriver()->getTree()->compile();
+
+        Mate::CodeGenerator *cg = new Mate::CodeGenerator(driver->getDriver()->getTree());
+        cg->generate();
+        //driver->getDriver()->getTree()->compile();
+        delete(cg);
       }
     }
 

@@ -23,7 +23,7 @@ namespace AST
       virtual void pushBranch(AST::Tree *tree) = 0;
       virtual void pushNode(AST::Node *node) = 0;
       virtual int treeSize() = 0;
-      virtual void compile() = 0;
+      virtual void compile(Compiler::iCodeGenerator *cg) = 0;
 
     protected:
       std::vector<AST::Node*> nodes;

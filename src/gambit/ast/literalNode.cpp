@@ -12,7 +12,7 @@ Gambit::LiteralNode::~LiteralNode()
 }
 
 void
-Gambit::LiteralNode::compile()
+Gambit::LiteralNode::compile(Compiler::iCodeGenerator *cg)
 {
   std::cout << "Compiling Type: Integer" << " with value: " << intValue << " Addr: " <<  this << std::endl;
 }
