@@ -11,6 +11,9 @@
 #include "shared/ast/tree.hpp"
 #include "compiler/frame/compilerFrameStack.hpp"
 
+// TODO: remove valueobject header
+#include "runtime/objectspace/valueObject.hpp"
+
 namespace Mate
 {
 

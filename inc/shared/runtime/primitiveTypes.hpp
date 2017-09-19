@@ -1,0 +1,10 @@
+#ifndef __RUNTIMEPRIMITIVETYPEENUM
+#define __RUNTIMEPRIMITIVETYPEENUM 1
+
+typedef enum {
+  VOID,
+  INTEGER,
+  STRING
+} PRIMITIVE_TYPE;
+
+#endif
