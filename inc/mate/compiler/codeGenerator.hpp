@@ -1,6 +1,8 @@
 #ifndef __MATECODEGENERATOR
 #define __MATECODEGENERATOR 1
 
+#define DEFAULT_FRAME "MAIN"
+
 #include <iostream>
 #include <string>
 

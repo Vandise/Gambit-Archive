@@ -48,7 +48,7 @@ namespace VM
         return false;
       };
 
-      virtual VM::iFrame* getState()
+      virtual VM::iFrame* getCurrentFrame()
       {
         if (!this->frameStack.empty())
         {

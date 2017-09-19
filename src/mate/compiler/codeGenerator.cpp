@@ -3,7 +3,7 @@
 Mate::CodeGenerator::CodeGenerator(AST::Tree *t) : Compiler::iCodeGenerator(t)
 {
   this->frameStack = new Compiler::CompilerFrameStack();
-  this->frameStack->pushFrame( (new Compiler::CompilerFrame("MAIN")) );
+  this->frameStack->pushFrame( (new Compiler::CompilerFrame(DEFAULT_FRAME)) );
 }
 
 Mate::CodeGenerator::~CodeGenerator()
@@ -17,6 +17,6 @@ void
 Mate::CodeGenerator::generate()
 {
   this->tree->compile( (this) );
-  std::cout << "state: " << this->getState() << std::endl;
+  std::cout << "Current Frame: " << this->frameStack->getCurrentFrame()->getFrameName() << std::endl;
 }
 
