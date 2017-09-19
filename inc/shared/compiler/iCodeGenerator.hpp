@@ -5,6 +5,7 @@
 #include <stack>
 
 #include "shared/compiler/compilerState.hpp"
+#include "shared/vm/frame/iFrameStack.hpp"
 
 namespace AST
 {
@@ -18,6 +19,7 @@ namespace Compiler
   {
     protected:
       AST::Tree *tree;
+      VM::iFrameStack *frameStack;
       COMPILERSTATE defaultState = CS_DEFAULT;
       std::stack<COMPILERSTATE> stateStack;
 

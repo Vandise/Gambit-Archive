@@ -4,8 +4,10 @@
 #include <iostream>
 #include <string>
 
+#include "dev/debugnew/debug_new.h"
 #include "shared/compiler/iCodeGenerator.hpp"
 #include "shared/ast/tree.hpp"
+#include "compiler/frame/compilerFrameStack.hpp"
 
 namespace Mate
 {
@@ -14,7 +16,7 @@ namespace Mate
   {
 
     public:
-      using Compiler::iCodeGenerator::iCodeGenerator;
+      CodeGenerator(AST::Tree *tree);
       ~CodeGenerator();
       void generate();
 
