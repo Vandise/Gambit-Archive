@@ -1,7 +1,10 @@
 #ifndef __RUNTIMEiSTANDARDCLASS
 #define __RUNTIMEiSTANDARDCLASS 1
 
+#define IT_NOT_INITIAL_CLASSES it->first != "Object" && it->first != "Klass"
+
 #include <string>
+#include <iostream>
 #include <map>
 #include "shared/runtime/iObject.hpp"
 #include "shared/runtime/langRuntime.hpp"
@@ -37,10 +40,23 @@ namespace Runtime
 
       virtual ~iStandardClass()
       {
-        if (this->superClass != nullptr)
+        /*
+        if (this->superClass != NULL)
         {
-          //delete(this->superClass);
+          delete(this->superClass);
+          this->superClass = NULL;
         }
+        */
+        std::map<std::string, Runtime::iStandardClass*>::iterator it;
+        for (it = this->constants.begin(); it != this->constants.end(); it++)
+        {
+          if (IT_NOT_INITIAL_CLASSES && it->second != NULL)
+          {
+            delete(it->second);
+            it->second = NULL;
+          }
+        }
+
       };
 
       virtual Runtime::iStandardClass* getSuperClass()
@@ -83,6 +99,11 @@ namespace Runtime
         }
         // TODO: create exception
         return nullptr;
+      };
+
+      virtual void newSubclass(std::string name)
+      {
+        Runtime::LangRuntime::objectClass->setConstant(name, (new Runtime::iStandardClass(name, this)) );
       };
 
       virtual std::string getName()

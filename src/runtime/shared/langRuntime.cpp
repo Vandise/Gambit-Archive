@@ -25,12 +25,15 @@ Runtime::LangRuntime::bootstrap()
   Runtime::LangRuntime::objectClass->setConstant("Object", Runtime::LangRuntime::objectClass);
   Runtime::LangRuntime::objectClass->setConstant("Klass", Runtime::LangRuntime::klass);
 
+  Runtime::LangRuntime::objectClass->newSubclass(std::string("String"));
+  Runtime::LangRuntime::objectClass->newSubclass(std::string("Integer"));
+
 }
 
 void
 Runtime::LangRuntime::destroy()
 {
-  delete(Runtime::LangRuntime::klass);
-  delete(Runtime::LangRuntime::objectClass);
-  delete(Runtime::LangRuntime::mainObject);
+  REMOVED_FROM_RUNTIME(Runtime::LangRuntime::klass);
+  REMOVED_FROM_RUNTIME(Runtime::LangRuntime::objectClass);
+  REMOVED_FROM_RUNTIME(Runtime::LangRuntime::mainObject);
 }

@@ -1,6 +1,8 @@
 #ifndef __RUNTIMELANGRUNTIME
 #define __RUNTIMELANGRUNTIME 1
 
+#define REMOVED_FROM_RUNTIME(x) if (x != NULL) { delete(x); } x = NULL;
+
 namespace Runtime
 {
 
