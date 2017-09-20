@@ -27,6 +27,7 @@ namespace Runtime
       virtual ~iObject();
       virtual Runtime::iStandardClass* getStandardClass();
       virtual std::string getName();
+      virtual void setStandardClass(Runtime::iStandardClass *klass);
       virtual Runtime::iPrimitiveDataType* getValue();
 
   };

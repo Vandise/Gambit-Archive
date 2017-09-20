@@ -15,7 +15,7 @@ Runtime::iObject::~iObject()
 {
   if (this->klass != nullptr)
   {
-    delete(this->klass);
+    //delete(this->klass);
   }
 };
 
@@ -24,6 +24,12 @@ Runtime::iObject::getStandardClass()
 {
   return this->klass;
 };
+
+void
+Runtime::iObject::setStandardClass(Runtime::iStandardClass *klass)
+{
+  this->klass = klass;
+}
 
 std::string
 Runtime::iObject::getName()

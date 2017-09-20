@@ -2,7 +2,9 @@
 #define __RUNTIMEiSTANDARDCLASS 1
 
 #include <string>
+#include <map>
 #include "shared/runtime/iObject.hpp"
+#include "shared/runtime/langRuntime.hpp"
 
 namespace Runtime
 {
@@ -15,6 +17,7 @@ namespace Runtime
     protected:
 
       std::string name;
+      std::map<std::string, Runtime::iStandardClass*> constants;
       Runtime::iStandardClass *superClass;
 
     public:
@@ -28,15 +31,58 @@ namespace Runtime
       iStandardClass(std::string name)
       {
         this->name = name;
-        // TODO: when the runtime is implemented, get and the "object class"
+        this->klass = Runtime::LangRuntime::objectClass;
+        this->superClass = Runtime::LangRuntime::objectClass;
       };
 
       virtual ~iStandardClass()
       {
         if (this->superClass != nullptr)
         {
-          delete(this->superClass);
+          //delete(this->superClass);
         }
+      };
+
+      virtual Runtime::iStandardClass* getSuperClass()
+      {
+        return this->superClass;
+      };
+
+      virtual void setSuperClass(Runtime::iStandardClass *klass)
+      {
+        this->superClass = klass;
+      };
+
+      virtual void setConstant(std::string name, Runtime::iStandardClass* klass)
+      {
+        this->constants[name] = klass;
+      };
+
+      virtual bool hasConstant(std::string name)
+      {
+        if(this->constants.count(name) >= 1)
+        {
+          return true;
+        }
+        if(this->superClass)
+        {
+          return this->superClass->hasConstant(name);
+        }
+        return false;
+      };
+
+      virtual Runtime::iStandardClass* getConstant(std::string name)
+      {
+        if(this->constants.count(name) >= 1)
+        {
+          return this->constants[name];
+        }
+        if(this->superClass)
+        {
+          return this->superClass->getConstant(name);
+        }
+        // TODO: create exception
+        return nullptr;
       };
 
       virtual std::string getName()
