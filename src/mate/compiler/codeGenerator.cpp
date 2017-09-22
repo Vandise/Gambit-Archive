@@ -24,6 +24,10 @@ Mate::CodeGenerator::generate()
 
   Runtime::LangRuntime::bootstrap();
 
+    Runtime::iStandardClass* integer = Runtime::LangRuntime::objectClass->getConstant("Integer")->newInstance();
+    std::cout << integer->getName() << std::endl;
+    delete(integer);
+
     std::cout << "Class Name: " << Runtime::LangRuntime::objectClass->getName() << " Parent Class: " << Runtime::LangRuntime::objectClass->getSuperClass()->getName() << std::endl;
     std::cout << "Parent Name: " << Runtime::LangRuntime::klass->getName() << " Parent Class: " << Runtime::LangRuntime::klass->getSuperClass()->getName() << std::endl;
 

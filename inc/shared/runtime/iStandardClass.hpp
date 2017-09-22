@@ -25,6 +25,8 @@ namespace Runtime
 
     public:
 
+      using Runtime::iObject::iObject;
+
       iStandardClass(std::string name, Runtime::iStandardClass *superClass)
       {
         this->name = name;
@@ -101,6 +103,12 @@ namespace Runtime
         return nullptr;
       };
 
+      virtual Runtime::iStandardClass* newInstance()
+      {
+        std::cout << "Instance name: " << this->getName() << std::endl;
+        return new Runtime::iStandardClass(this);
+      };
+
       virtual void newSubclass(std::string name)
       {
         Runtime::LangRuntime::objectClass->setConstant(name, (new Runtime::iStandardClass(name, this)) );
@@ -108,6 +116,10 @@ namespace Runtime
 
       virtual std::string getName()
       {
+        if (this->klass)
+        {
+          return this->klass->getName();
+        }
         return this->name;
       };
 
