@@ -97,6 +97,7 @@ Expression:
 
 Literals:
   T_INTEGER                           {
+                                        //std::cout << yylhs.location << std::endl;
                                         $$ = new Gambit::LiteralNode($1);
                                       }
   ;

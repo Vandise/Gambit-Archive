@@ -36,6 +36,7 @@ float_num ({digit}+\.{digit}+)
 
 [ \t]*              /* skip whitespace */
 \n                  {
+                      loc->lines();
                       return( token::T_NEWLINE );
                     }
 ([A-Z][a-zA-Z]*)+   {

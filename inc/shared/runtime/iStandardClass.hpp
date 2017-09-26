@@ -105,7 +105,6 @@ namespace Runtime
 
       virtual Runtime::iStandardClass* newInstance()
       {
-        std::cout << "Instance name: " << this->getName() << std::endl;
         return new Runtime::iStandardClass(this);
       };
 

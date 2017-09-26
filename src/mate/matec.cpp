@@ -5,12 +5,14 @@
 #include "shared/ast/tree.hpp"
 #include "ext/loader/driverLoader.hpp"
 #include "mate/compiler/codeGenerator.hpp"
+#include "shared/runtime/langRuntime.hpp"
 
 int
 main( const int argc, const char **argv )
 {
 
   Extensions::DriverLoader* driver = new Extensions::DriverLoader();
+  Runtime::LangRuntime::bootstrap();
 
   try
   {
@@ -35,6 +37,8 @@ main( const int argc, const char **argv )
   }
 
   delete(driver);
+
+  Runtime::LangRuntime::destroy();
 
   return 0;
 }

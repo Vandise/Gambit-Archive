@@ -16,7 +16,7 @@ namespace Runtime
 
       static ::Runtime::iStandardClass *klass;
       static ::Runtime::iStandardClass *objectClass;
-      static ::Runtime::iObject *mainObject;
+      static ::Runtime::iStandardClass *mainObject;
 
       static void bootstrap();
       static void destroy();

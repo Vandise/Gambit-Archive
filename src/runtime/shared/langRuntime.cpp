@@ -3,7 +3,7 @@
 
 Runtime::iStandardClass* Runtime::LangRuntime::klass;
 Runtime::iStandardClass* Runtime::LangRuntime::objectClass;
-Runtime::iObject* Runtime::LangRuntime::mainObject;
+Runtime::iStandardClass* Runtime::LangRuntime::mainObject;
 
 void
 Runtime::LangRuntime::bootstrap()
@@ -16,8 +16,7 @@ Runtime::LangRuntime::bootstrap()
   Runtime::LangRuntime::objectClass = new Runtime::StandardClass("Object", Runtime::LangRuntime::klass);
 
   // Main object provides the user access to the object hierarchy 
-  Runtime::LangRuntime::mainObject = new Runtime::iObject();
-  Runtime::LangRuntime::mainObject->setStandardClass(Runtime::LangRuntime::objectClass);
+  Runtime::LangRuntime::mainObject = new Runtime::iStandardClass(Runtime::LangRuntime::objectClass);
 
   // Define our object hierarchy available to the user
   //  Klass
