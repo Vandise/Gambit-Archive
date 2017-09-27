@@ -16,20 +16,18 @@ Compiler::InstructionEmitter::pushInteger(int value)
 
   // Push an integer to the local stack
 
-    Runtime::iStandardClass* integer = this->cg->getRuntime()->getConstant("Integer")->newInstance();
-      integer->setInstanceVariable("value", (new Runtime::ValueObject(value)) );
+  Runtime::iStandardClass* integer = this->cg->getRuntime()->getConstant("Integer")->newInstance();
+  integer->setInstanceVariable("value", (new Runtime::ValueObject(value)) );
 
-    Runtime::iPrimitiveDataType *primitive = integer->getInstanceVariable("value")->getValue();
-
-    std::cout << integer->getName() << " " << primitive->getInteger() << std::endl;
-
-    delete(integer);
-    delete(primitive);
+  cg->getFrameStack()->getCurrentFrame()->pushStack(integer);
+    integer = nullptr;
 
   std::cout << Pawn::Instructions::getInstruction(Pawn::Instructions::PUSH_INTEGER) << " " << value << std::endl;
   if (this->cg->getState() == CS_DEFAULT)
   {
     std::cout << Pawn::Instructions::getInstruction(Pawn::Instructions::POP) << std::endl;
+      Runtime::iStandardClass* v = cg->getFrameStack()->getCurrentFrame()->popStack();
+      delete(v);
   }
 }
 
@@ -43,7 +41,15 @@ Compiler::InstructionEmitter::setLocal(std::string dataType, std::string identif
   }
   else
   {
-    std::cout << "TODO: check datatype on stack" << std::endl;
+    // Check value on stack
+
+    Runtime::iStandardClass* integer = cg->getFrameStack()->getCurrentFrame()->popStack();
+    Runtime::iPrimitiveDataType *primitive = integer->getInstanceVariable("value")->getValue();
+
+      std::cout << "Class Name: " << integer->getName() << " C++ Value: " << primitive->getInteger() << std::endl;
+
+      delete(integer);
+      delete(primitive);
   }
 }
 

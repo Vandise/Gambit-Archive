@@ -73,6 +73,11 @@ namespace Compiler
         return this->runtime;
       };
 
+      virtual VM::iFrameStack* getFrameStack()
+      {
+        return this->frameStack;
+      };
+
   };
 
 }
