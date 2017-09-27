@@ -3,6 +3,8 @@
 
 #define REMOVED_FROM_RUNTIME(x) if (x != NULL) { delete(x); } x = NULL;
 
+#include "runtime/objectspace/valueObject.hpp"
+
 namespace Runtime
 {
 

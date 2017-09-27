@@ -4,6 +4,7 @@
 #include <string>
 #include <stack>
 
+#include "shared/runtime/langRuntime.hpp"
 #include "shared/compiler/compilerState.hpp"
 #include "shared/vm/frame/iFrameStack.hpp"
 #include "shared/compiler/instructionEmitter.hpp"
@@ -24,6 +25,7 @@ namespace Compiler
     protected:
 
       AST::Tree *tree;
+      Runtime::iStandardClass* runtime;
       VM::iFrameStack *frameStack;
       Compiler::InstructionEmitter *instructionEmitter;
       COMPILERSTATE defaultState = CS_DEFAULT;
@@ -64,6 +66,11 @@ namespace Compiler
       virtual Compiler::InstructionEmitter* emit()
       {
         return this->instructionEmitter;
+      };
+
+      virtual Runtime::iStandardClass* getRuntime()
+      {
+        return this->runtime;
       };
 
   };

@@ -41,6 +41,34 @@ Runtime::iObject::getName()
   return DEFAULT_CLASS_NAME;
 };
 
+Runtime::iStandardClass*
+Runtime::iObject::getInstanceVariable(std::string name)
+{
+  if(this->hasInstanceVariable(name))
+  {
+    return this->instanceVariables[name];
+  }
+  // TODO: throw exception
+  return nullptr;
+}
+
+bool
+Runtime::iObject::hasInstanceVariable(std::string name)
+{
+  if (this->instanceVariables.count(name) > 0)
+  {
+    return true;
+  }
+  return false;
+}
+
+void
+Runtime::iObject::setInstanceVariable(std::string name, Runtime::iStandardClass* value)
+{
+  // TODO: check datatypes etc.
+  this->instanceVariables[name] = value;
+}
+
 Runtime::iPrimitiveDataType*
 Runtime::iObject::getValue()
 {

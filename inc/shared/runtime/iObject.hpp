@@ -4,6 +4,7 @@
 #define DEFAULT_CLASS_NAME "Object"
 
 #include <string>
+#include <map>
 #include "shared/runtime/iPrimitiveDataType.hpp"
 
 namespace Runtime
@@ -16,6 +17,7 @@ namespace Runtime
 
     protected:
       Runtime::iStandardClass *klass;
+      std::map<std::string, Runtime::iStandardClass*> instanceVariables;
 
     public:
 
@@ -28,6 +30,9 @@ namespace Runtime
       virtual Runtime::iStandardClass* getStandardClass();
       virtual std::string getName();
       virtual void setStandardClass(Runtime::iStandardClass *klass);
+      virtual Runtime::iStandardClass* getInstanceVariable(std::string name);
+      virtual bool hasInstanceVariable(std::string name);
+      virtual void setInstanceVariable(std::string name, Runtime::iStandardClass* value);
       virtual Runtime::iPrimitiveDataType* getValue();
 
   };

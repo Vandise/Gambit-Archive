@@ -13,6 +13,19 @@ Compiler::InstructionEmitter::~InstructionEmitter()
 void
 Compiler::InstructionEmitter::pushInteger(int value)
 {
+
+  // Push an integer to the local stack
+
+    Runtime::iStandardClass* integer = this->cg->getRuntime()->getConstant("Integer")->newInstance();
+      integer->setInstanceVariable("value", (new Runtime::ValueObject(value)) );
+
+    Runtime::iPrimitiveDataType *primitive = integer->getInstanceVariable("value")->getValue();
+
+    std::cout << integer->getName() << " " << primitive->getInteger() << std::endl;
+
+    delete(integer);
+    delete(primitive);
+
   std::cout << Pawn::Instructions::getInstruction(Pawn::Instructions::PUSH_INTEGER) << " " << value << std::endl;
   if (this->cg->getState() == CS_DEFAULT)
   {
