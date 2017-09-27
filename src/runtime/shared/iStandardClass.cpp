@@ -106,8 +106,5 @@ Runtime::iStandardClass::getName()
   {
     return this->name;
   }
-  if (this->klass)
-  {
-    return this->klass->getName();
-  }
+  return this->klass->getName();
 }
