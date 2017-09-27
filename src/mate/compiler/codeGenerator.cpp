@@ -1,9 +1,9 @@
 #include "mate/compiler/codeGenerator.hpp"
-
 #include "shared/runtime/langRuntime.hpp"
 
 Mate::CodeGenerator::CodeGenerator(AST::Tree *t) : Compiler::iCodeGenerator(t)
 {
+  this->instructionEmitter = new Compiler::InstructionEmitter( (this) );
   this->frameStack = new Compiler::CompilerFrameStack();
   this->frameStack->pushFrame( (new Compiler::CompilerFrame(DEFAULT_FRAME)) );
 }
@@ -13,6 +13,8 @@ Mate::CodeGenerator::~CodeGenerator()
   this->tree = nullptr;
   delete(this->frameStack);
   this->frameStack = nullptr;
+  delete(this->instructionEmitter);
+  this->instructionEmitter = nullptr;
 }
 
 void
