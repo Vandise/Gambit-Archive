@@ -47,6 +47,7 @@ Compiler::InstructionEmitter::setLocal(std::string dataType, std::string identif
     Runtime::iPrimitiveDataType *primitive = integer->getInstanceVariable("value")->getValue();
 
       std::cout << "Class Name: " << integer->getName() << " C++ Value: " << primitive->getInteger() << std::endl;
+	  	std::cout << integer->getSuperClass()->getName() << std::endl;
 
       delete(integer);
       delete(primitive);

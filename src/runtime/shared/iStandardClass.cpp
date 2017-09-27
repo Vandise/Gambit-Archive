@@ -1,6 +1,12 @@
 #include "shared/runtime/langRuntime.hpp"
 #include "shared/runtime/iStandardClass.hpp"
 
+Runtime::iStandardClass::iStandardClass( Runtime::iStandardClass* klass ) : Runtime::iObject(klass)
+{
+  this->superClass = klass->getSuperClass();
+  this->name = klass->getName();
+}
+
 Runtime::iStandardClass::iStandardClass(std::string name, Runtime::iStandardClass *superClass)
 {
   this->name = name;
@@ -96,9 +102,12 @@ Runtime::iStandardClass::newSubclass(std::string name)
 std::string
 Runtime::iStandardClass::getName()
 {
+  if (this->name.size() > 0)
+  {
+    return this->name;
+  }
   if (this->klass)
   {
     return this->klass->getName();
   }
-  return this->name;
 }

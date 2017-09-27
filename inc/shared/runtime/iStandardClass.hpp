@@ -25,6 +25,7 @@ namespace Runtime
     public:
 
       using Runtime::iObject::iObject;
+      iStandardClass( Runtime::iStandardClass* klass );
 
       iStandardClass(std::string name, Runtime::iStandardClass *superClass);
 
