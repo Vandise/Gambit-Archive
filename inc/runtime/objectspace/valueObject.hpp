@@ -2,13 +2,13 @@
 #define __RUNTIMEVALUEOBJECT 1
 
 #include <string>
-#include "shared/runtime/iObject.hpp"
+#include "shared/runtime/iStandardClass.hpp"
 #include "runtime/datatypes/primitive.hpp"
 
 namespace Runtime
 {
 
-  class ValueObject : public Runtime::iObject
+  class ValueObject : public Runtime::iStandardClass
   {
 
     private:
@@ -20,7 +20,7 @@ namespace Runtime
 
       ValueObject(std::string value);
       ValueObject(int value);
-      Runtime::iPrimitiveDataType* getValue();
+      virtual Runtime::iPrimitiveDataType* getValue();
 
   };
 
