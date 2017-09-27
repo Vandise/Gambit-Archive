@@ -3,5 +3,6 @@
 
 #include "gambit/ast/gambitTree.hpp"
 #include "gambit/ast/literalNode.hpp"
+#include "gambit/ast/localDefinitionNode.hpp"
 
 #endif

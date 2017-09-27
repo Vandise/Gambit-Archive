@@ -22,6 +22,7 @@ namespace Compiler
       InstructionEmitter(Compiler::iCodeGenerator *cg);
       ~InstructionEmitter();
       void pushInteger(int value);
+      void setLocal(std::string dataType, std::string identifier, bool isNull = false);
 
   };
 

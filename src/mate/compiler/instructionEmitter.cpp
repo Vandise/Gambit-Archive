@@ -20,3 +20,17 @@ Compiler::InstructionEmitter::pushInteger(int value)
   }
 }
 
+void
+Compiler::InstructionEmitter::setLocal(std::string dataType, std::string identifier, bool isNull)
+{
+  std::cout << Pawn::Instructions::getInstruction(Pawn::Instructions::SET_LOCAL) << " " << dataType << " " << identifier << std::endl;
+  if (isNull)
+  {
+    std::cout << "Value: Null" << std::endl;
+  }
+  else
+  {
+    std::cout << "TODO: check datatype on stack" << std::endl;
+  }
+}
+

@@ -28,6 +28,7 @@
   namespace Gambit {
     class Tree;
     class LiteralNode;
+    class LocalDefinitionNode;
   }
 
 }
@@ -68,7 +69,7 @@
 }
 
 %type <tree>    Expressions
-%type <node>    Expression Literals
+%type <node>    Expression Literals LocalDefinition
 
 %%
 
@@ -93,6 +94,7 @@ Expressions:
 
 Expression:
     Literals
+  | LocalDefinition
   ;
 
 Literals:
@@ -102,6 +104,20 @@ Literals:
                                       }
   ;
 
+LocalDefinition:
+    T_CONSTANT T_BIND T_IDENTIFIER    {
+                                        $$ = new Gambit::LocalDefinitionNode(*$1, *$3, nullptr);
+                                        delete($1);
+                                        delete($3);
+                                      }
+
+  | T_CONSTANT T_BIND T_IDENTIFIER T_ASSIGN Expression   
+                                      {
+                                        $$ = new Gambit::LocalDefinitionNode(*$1, *$3, $5);
+                                        delete($1);
+                                        delete($3);
+                                      }
+  ;
 
 Terminator:
     T_NEWLINE

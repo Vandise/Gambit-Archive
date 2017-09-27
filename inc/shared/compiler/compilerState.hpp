@@ -2,7 +2,8 @@
 #define __COMPILERSTATE 1
 
 typedef enum {
-  CS_DEFAULT
+  CS_DEFAULT,
+  CS_LOCAL_DEFINITION
 } COMPILERSTATE;
 
 #endif
