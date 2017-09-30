@@ -49,6 +49,10 @@ namespace Runtime
 
       virtual std::string getName();
 
+      virtual Runtime::iMethod* lookup(std::string name);
+      virtual bool hasMethod(std::string name);
+      virtual void addMethod(std::string name, Runtime::iMethod *method);
+
   };
 
 }

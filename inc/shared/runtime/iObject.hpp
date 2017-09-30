@@ -5,6 +5,7 @@
 
 #include <string>
 #include <map>
+#include "shared/runtime/iMethod.hpp"
 #include "shared/runtime/iPrimitiveDataType.hpp"
 
 namespace Runtime
@@ -17,6 +18,7 @@ namespace Runtime
 
     protected:
       Runtime::iStandardClass *klass;
+      std::map<std::string, Runtime::iMethod*> methods;
       std::map<std::string, Runtime::iStandardClass*> instanceVariables;
 
     public:

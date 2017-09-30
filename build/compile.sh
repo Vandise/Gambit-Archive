@@ -3,6 +3,9 @@
 make clean
 make directories
 
+make sqlite_src
+make ext_sqlite
+
 make parser
 make lexer
 

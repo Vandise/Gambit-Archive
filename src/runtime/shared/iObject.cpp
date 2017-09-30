@@ -74,4 +74,5 @@ Runtime::iObject::getValue()
 {
   // default to void
   return new Runtime::iPrimitiveDataType();
-};
+}
+

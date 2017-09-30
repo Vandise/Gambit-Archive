@@ -109,3 +109,44 @@ Runtime::iStandardClass::getName()
   }
   return this->klass->getName();
 }
+
+Runtime::iMethod*
+Runtime::iStandardClass::lookup(std::string name)
+{
+  if(this->methods.count(name) >= 1)
+  {
+    return this->methods[name];
+  }
+
+  if(this->superClass != nullptr)
+  {
+    return this->superClass->lookup(name);
+  }
+
+  // TODO:
+  //    create exception for undefined method, parser will catch this
+  return nullptr;
+}
+
+bool
+Runtime::iStandardClass::hasMethod(std::string name)
+{
+
+  if(methods.count(name) >= 1)
+  {
+    return true;
+  }
+
+  if(superClass)
+  {
+    return superClass->hasMethod(name);
+  }
+
+  return false;
+}
+
+void
+Runtime::iStandardClass::addMethod(std::string name, Runtime::iMethod *method)
+{
+  this->methods[name] = method;
+}
