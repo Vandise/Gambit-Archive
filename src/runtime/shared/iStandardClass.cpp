@@ -27,6 +27,7 @@ Runtime::iStandardClass::~iStandardClass()
   {
     if (IT_NOT_INITIAL_CLASSES && it->second != NULL)
     {
+      std::cout << "Deleting Class: " << it->second << std::endl;
       delete(it->second);
       it->second = NULL;
     }
