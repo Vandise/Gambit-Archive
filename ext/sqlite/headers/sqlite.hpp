@@ -4,6 +4,7 @@
 #include <iostream>
 #include "sqlite/lib/sqlite3.h"
 #include "shared/runtime/iStandardClass.hpp"
+#include "shared/runtime/iMethod.hpp"
 
 namespace Runtime
 {
@@ -22,6 +23,23 @@ namespace Runtime
       virtual ~Sqlite()
       {
         std::cout << "deleting sqlite" << std::endl;
+      };
+
+  };
+
+  //
+  //  METHODS
+  //
+
+  class SqliteInitializeMethod : public Runtime::iMethod
+  {
+
+    public:
+
+      virtual Runtime::iStandardClass* call(Runtime::iStandardClass *receiver, std::vector<Runtime::iStandardClass*> arguments)
+      {
+        std::cout << "called initialize" << std::endl;
+        return receiver;
       };
 
   };

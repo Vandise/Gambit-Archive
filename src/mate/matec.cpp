@@ -9,6 +9,8 @@
 
 #include "ext/loader/extensionLoader.hpp"
 
+#include <vector>
+
 int
 main( const int argc, const char **argv )
 {

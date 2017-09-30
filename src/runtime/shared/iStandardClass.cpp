@@ -39,6 +39,12 @@ Runtime::iStandardClass::~iStandardClass()
     delete(lt->second);
   }
 
+  std::map<std::string, Runtime::iMethod*>::iterator methodIt;
+  for(methodIt = this->methods.begin(); methodIt != this->methods.end(); methodIt++)
+  {
+    delete(methodIt->second);
+  }
+
 }
 
 Runtime::iStandardClass*

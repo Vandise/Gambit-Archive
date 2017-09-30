@@ -14,6 +14,7 @@ namespace Runtime
     public:
 
       virtual Runtime::iStandardClass* call(Runtime::iStandardClass *receiver, std::vector<Runtime::iStandardClass*> arguments) = 0;
+      virtual ~iMethod(){};
 
   };
 

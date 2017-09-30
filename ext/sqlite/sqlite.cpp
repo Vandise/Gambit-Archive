@@ -5,6 +5,8 @@ extern "C" Runtime::iStandardClass* create(Runtime::iStandardClass* obj)
   Runtime::Sqlite *sqliteExt = new Runtime::Sqlite("Sqlite");
 
   sqliteExt->setSuperClass(obj);
+  sqliteExt->addMethod("initialize", (new Runtime::SqliteInitializeMethod()));
+
   obj->setConstant("Sqlite", sqliteExt);
 
   return sqliteExt;
