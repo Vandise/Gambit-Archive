@@ -12,5 +12,12 @@ extern "C" Runtime::iStandardClass* create(Runtime::iStandardClass* obj)
 
 extern "C" void destroy(Runtime::iStandardClass* obj)
 {
-   delete obj;
+  /*
+  Runtime::Sqlite *sqliteExt = dynamic_cast<Runtime::Sqlite*>(obj);
+  if (sqliteExt != nullptr)
+  {
+    std::cout << "valid sqlite class passed in for deletion" << std::endl;
+  }
+  */
+   //delete obj;
 }

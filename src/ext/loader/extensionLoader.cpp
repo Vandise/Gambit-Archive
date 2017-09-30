@@ -37,6 +37,12 @@ Extensions::ExtensionLoader::load(Runtime::iStandardClass* obj)
 
 }
 
+void
+Extensions::ExtensionLoader::destroyExtension()
+{
+  this->destroy(this->klass);
+}
+
 
 Runtime::iStandardClass*
 Extensions::ExtensionLoader::getClass()

@@ -25,6 +25,7 @@ namespace Extensions
       virtual ~ExtensionLoader();
       using Extensions::iModuleLoader::load;
       void load(Runtime::iStandardClass* obj);
+      void destroyExtension();
       Runtime::iStandardClass* getClass();
 
   };
