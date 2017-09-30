@@ -21,6 +21,7 @@ Extensions::CheckLoader::load(CaptureEvents evt)
 
   if (!this->handle)
   {
+    this->errored = true;
     return;
   }
 

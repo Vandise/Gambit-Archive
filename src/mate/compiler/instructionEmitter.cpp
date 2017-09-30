@@ -42,7 +42,7 @@ Compiler::InstructionEmitter::setLocal(std::string dataType, std::string identif
   else
   {
     // Check value on stack
-
+/*
     Runtime::iStandardClass* integer = cg->getFrameStack()->getCurrentFrame()->popStack();
     Runtime::iPrimitiveDataType *primitive = integer->getInstanceVariable("value")->getValue();
 
@@ -50,6 +50,7 @@ Compiler::InstructionEmitter::setLocal(std::string dataType, std::string identif
 
       delete(integer);
       delete(primitive);
+      */
   }
 }
 

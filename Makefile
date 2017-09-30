@@ -1,5 +1,6 @@
 #Compiler and Linker
 CC          := clang++
+GCC         := gcc
 
 #The Target Binary Program
 TARGET      := matec
@@ -7,6 +8,7 @@ TESTTARGET  := test_suite
 
 #The Directories, Source, Includes, Objects, Binary and Resources
 SRCDIR      := src
+EXTDIR      := ext
 TESTDIR     := test
 INCDIR      := inc
 LIBDIR      := lib
@@ -24,7 +26,7 @@ CXXSTD      := -std=c++11 -Wno-deprecated-register
 CFLAGS      := $(CXXSTD) -fopenmp -Wall -O3 -g
 #LIB        := -fopenmp -lm -larmadillo
 DYNLIBPARAM := -dynamiclib
-INC         := -I$(INCDIR) -Isrc -Isrc/test -I$(LIBDIR) -I/usr/local/opt/flex/include
+INC         := -I$(INCDIR) -Isrc -Isrc/test -I$(LIBDIR) -I$(EXTDIR) -I/usr/local/opt/flex/include
 PARSER_LEXER =  parser lexer
 
 #---------------------------------------------------------------------------------
@@ -71,7 +73,7 @@ clean:
 
 #Clean only Objecst
 watch: $(SRCDIR)
-	@fswatch -o $^/*.cpp | xargs -I{} make 
+	@fswatch -o $^/*.cpp | xargs -I{} bash build/compile.sh 
 
 
 #Full Clean, Objects and Binaries
@@ -82,6 +84,7 @@ cleaner: clean
 -include $(OBJECTS:.$(OBJEXT)=.$(DEPEXT))
 -include build/gambit.mk
 -include build/check.mk
+-include build/ext/sqlite.mk
 
 #Link
 $(TARGET): $(filter-out $(TESTOBJS),$(OBJECTS))

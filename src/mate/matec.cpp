@@ -7,17 +7,24 @@
 #include "mate/compiler/codeGenerator.hpp"
 #include "shared/runtime/langRuntime.hpp"
 
+#include "ext/loader/extensionLoader.hpp"
+
 int
 main( const int argc, const char **argv )
 {
 
-  Extensions::DriverLoader* driver = new Extensions::DriverLoader();
   Runtime::LangRuntime::bootstrap();
+
+  Extensions::DriverLoader* driver = new Extensions::DriverLoader();
+  Extensions::ExtensionLoader *extLoader = new Extensions::ExtensionLoader("sqlite");
 
   try
   {
     if ( argc == 2 )
     {
+
+      extLoader->load(Runtime::LangRuntime::objectClass);
+
       driver->load();
       if (driver->loaded())
       {
@@ -36,9 +43,10 @@ main( const int argc, const char **argv )
     std::cout << e.what() << std::endl;
   }
 
-  delete(driver);
-
   Runtime::LangRuntime::destroy();
+
+  delete(extLoader);
+  delete(driver);
 
   return 0;
 }
