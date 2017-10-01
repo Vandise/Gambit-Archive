@@ -44,10 +44,18 @@
   #undef yylex
   #define yylex scanner.yylex
 
+  #define SOURCE_LINE yylhs.location.begin.line
+  #define SOURCE_COLUMN yylhs.location.end.column
+
   using namespace std;
 }
 
 %locations
+%initial-action
+{
+  std::string f("initial file");
+  @$.begin.filename = @$.end.filename = &f;
+};
 
 %token                   END          0  "end of file"
 %token       <ival>      T_INTEGER
@@ -99,21 +107,21 @@ Expression:
 
 Literals:
   T_INTEGER                           {
-                                        //std::cout << yylhs.location << std::endl;
-                                        $$ = new Gambit::LiteralNode($1);
+                                        std::cout << yylhs.location.begin.line << std::endl;
+                                        $$ = new Gambit::LiteralNode($1, (new AST::SourceTrace("default", SOURCE_LINE, SOURCE_COLUMN)));
                                       }
   ;
 
 LocalDefinition:
     T_CONSTANT T_BIND T_IDENTIFIER    {
-                                        $$ = new Gambit::LocalDefinitionNode(*$1, *$3, nullptr);
+                                        $$ = new Gambit::LocalDefinitionNode(*$1, *$3, nullptr, (new AST::SourceTrace("default", SOURCE_LINE, SOURCE_COLUMN)));
                                         delete($1);
                                         delete($3);
                                       }
 
   | T_CONSTANT T_BIND T_IDENTIFIER T_ASSIGN Expression   
                                       {
-                                        $$ = new Gambit::LocalDefinitionNode(*$1, *$3, $5);
+                                        $$ = new Gambit::LocalDefinitionNode(*$1, *$3, $5, (new AST::SourceTrace("default", SOURCE_LINE, SOURCE_COLUMN)));
                                         delete($1);
                                         delete($3);
                                       }

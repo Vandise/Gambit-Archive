@@ -7,6 +7,9 @@ Check::MessageFactory::MessageFactory(CaptureEvents e)
     case INVALID_INTEFACE:
       this->E = new Check::InvalidInterfaceEvent();
       break;
+    case ASSIGN_DATATYPE_MISMATCH:
+      this->E = new Check::AssignDataTypeMismatch();
+      break;
     default:
       this->E = new Check::DefaultEvent();
       break;

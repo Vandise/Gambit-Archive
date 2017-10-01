@@ -16,7 +16,7 @@ namespace Gambit
 
     public:
 
-      LocalDefinitionNode(std::string className, std::string identifier, AST::Node* expression);
+      LocalDefinitionNode(std::string className, std::string identifier, AST::Node* expression, AST::SourceTrace* trace);
       ~LocalDefinitionNode();
       void compile(Compiler::iCodeGenerator *cg);
 

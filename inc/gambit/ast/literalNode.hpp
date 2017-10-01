@@ -14,7 +14,7 @@ namespace Gambit
 
     public:
 
-      LiteralNode(int value);
+      LiteralNode(int value, AST::SourceTrace* trace);
       ~LiteralNode();
       void compile(Compiler::iCodeGenerator *cg);
 

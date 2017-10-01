@@ -57,6 +57,12 @@ namespace VM
         this->localStack.pop_back();
         return obj;
       };
+
+      virtual Runtime::iStandardClass* peekStack()
+      {
+        return this->localStack.back();
+      };
+
   };
 
 }

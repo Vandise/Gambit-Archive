@@ -1,11 +1,12 @@
 #include "gambit/ast/localDefinitionNode.hpp"
 #include <iostream>
 
-Gambit::LocalDefinitionNode::LocalDefinitionNode(std::string className, std::string identifier, AST::Node* expression)
+Gambit::LocalDefinitionNode::LocalDefinitionNode(std::string className, std::string identifier, AST::Node* expression, AST::SourceTrace *trace)
 {
   this->identifier = identifier;
   this->className = className;
   this->valueNode = expression;
+  this->trace = trace;
 }
 
 Gambit::LocalDefinitionNode::~LocalDefinitionNode()
@@ -29,7 +30,7 @@ Gambit::LocalDefinitionNode::compile(Compiler::iCodeGenerator *cg)
     isNull = false;
   }
 
-  cg->emit()->setLocal(this->className, this->identifier, isNull);
+  cg->emit()->withTrace(this->trace)->setLocal(this->className, this->identifier, isNull);
 
   cg->popState();
 }

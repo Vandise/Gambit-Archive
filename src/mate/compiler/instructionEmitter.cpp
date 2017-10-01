@@ -8,6 +8,14 @@ Compiler::InstructionEmitter::InstructionEmitter(Compiler::iCodeGenerator *cg)
 Compiler::InstructionEmitter::~InstructionEmitter()
 {
   this->cg = nullptr;
+  this->trace = nullptr;
+}
+
+Compiler::InstructionEmitter*
+Compiler::InstructionEmitter::withTrace(AST::SourceTrace* trace)
+{
+  this->trace = trace;
+  return this;
 }
 
 void
@@ -42,16 +50,12 @@ Compiler::InstructionEmitter::setLocal(std::string dataType, std::string identif
   else
   {
     // Check value on stack
-
-    Runtime::iStandardClass* integer = cg->getFrameStack()->getCurrentFrame()->popStack();
-    Runtime::iPrimitiveDataType *primitive = integer->getInstanceVariable("value")->getValue();
-
-      std::cout << "Class Name: " << integer->getName() << " C++ Value: " << primitive->getInteger() << std::endl;
-	  	std::cout << integer->getSuperClass()->getName() << std::endl;
-
-      delete(integer);
-      delete(primitive);
-
+    std::string topStackDataType = cg->getFrameStack()->getCurrentFrame()->peekStack()->getName();
+    if (topStackDataType != dataType)
+    {
+      // TODO: check if parent datatype
+      throw Exception::AssignDataTypeMismatch(identifier, dataType, topStackDataType, this->trace->filename, this->trace->line, this->trace->column);
+    }
   }
 }
 

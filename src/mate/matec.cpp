@@ -17,6 +17,7 @@ main( const int argc, const char **argv )
 
   Runtime::LangRuntime::bootstrap();
 
+  Mate::CodeGenerator *cg = nullptr;
   Extensions::DriverLoader* driver = new Extensions::DriverLoader();
   Extensions::ExtensionLoader *extLoader = new Extensions::ExtensionLoader("sqlite");
 
@@ -32,10 +33,9 @@ main( const int argc, const char **argv )
       {
         driver->getDriver()->parse(argv[1]);
 
-        Mate::CodeGenerator *cg = new Mate::CodeGenerator(driver->getDriver()->getTree());
+        cg = new Mate::CodeGenerator(driver->getDriver()->getTree());
         cg->generate();
 
-        delete(cg);
       }
     }
 
@@ -43,6 +43,11 @@ main( const int argc, const char **argv )
   catch (Exception::iException &e)
   {
     std::cout << e.what() << std::endl;
+  }
+
+  if (cg != nullptr)
+  {
+    delete(cg);
   }
 
   Runtime::LangRuntime::destroy();

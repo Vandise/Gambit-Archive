@@ -4,6 +4,7 @@
 #include "shared/check/iMessageFactory.hpp"
 #include "check/events/defaultEvent.hpp"
 #include "check/events/invalidInterfaceEvent.hpp"
+#include "check/events/assignDataTypeMismatch.hpp"
 
 namespace Check
 {

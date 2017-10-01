@@ -48,6 +48,12 @@ namespace Check
           "\n%s -- %s -------------------------------------------- %s \n\n", this->cyan.c_str(), msg.c_str(), this->reset.c_str());
       };
 
+      virtual void emitTrace()
+      {
+        sprintf(PUSH_BUFFER,
+          "\n%s -- %s -------------------------------------------- %s \n\n", this->yellow.c_str(), "TRACE", this->reset.c_str());
+      };
+
       virtual void emitError(std::string err)
       {
         sprintf(PUSH_BUFFER,

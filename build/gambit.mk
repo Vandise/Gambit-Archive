@@ -2,6 +2,7 @@ GAMBITFILES := $(shell find $(SRCDIR)/gambit -type f -name *.$(SRCEXT))
 DEBUGFILES := $(shell find $(SRCDIR)/dev/debugnew -type f -name *.$(SRCEXT))
 MATECOMPILER := $(shell find $(SRCDIR)/mate/compiler -type f -name *.$(SRCEXT))
 INSTRFILES := $(shell find $(SRCDIR)/pawn -type f -name *.$(SRCEXT))
+LOADER := $(shell find $(SRCDIR)/ext/loader -type f -name *.$(SRCEXT))
 RUNTIME := $(shell find $(SRCDIR)/runtime -type f -name *.$(SRCEXT))
 
 parser: $(SRCDIR)/gambit/grammar/parser.yy
@@ -13,4 +14,4 @@ lexer: $(SRCDIR)/gambit/grammar/lexer.l
 	#$(CC)  $(CFLAGS) $(INC) -c src/gambit/lexer.yy.cpp -o $(BUILDDIR)/lexer.o
 
 gambit: parser lexer
-	$(CC) $(CXXSTD) $(INC) $(DYNLIBPARAM) $(GAMBITFILES) $(DEBUGFILES) $(INSTRFILES) $(MATECOMPILER) $(RUNTIME) -o $(LIBDIR)/gambit.so
+	$(CC) $(CXXSTD) $(INC) $(DYNLIBPARAM) $(GAMBITFILES) $(DEBUGFILES) $(INSTRFILES) $(MATECOMPILER) $(RUNTIME) $(LOADER) -o $(LIBDIR)/gambit.so
