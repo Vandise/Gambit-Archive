@@ -5,6 +5,7 @@
 #include <fstream>
 #include <cassert>
 
+#include <string>
 #include "dev/debugnew/debug_new.h"
 #include "shared/lang/iDriver.hpp"
 #include "gambit/ast/ast.hpp"

@@ -6,6 +6,7 @@
   #include <fstream>
 #endif
 
+#include <string>
 #include "gambit/parser.tab.hpp"
 #include "gambit/location.hh"
 
@@ -16,14 +17,22 @@ namespace Gambit {
 
     private:
 
+      std::string filename;
+
       Gambit::Parser::semantic_type *yylval = nullptr;
       Gambit::Parser::location_type *loc    = nullptr;
 
     public:
 
-      Scanner(std::istream *in) : yyFlexLexer(in)
+      Scanner(std::istream *in, std::string filename) : yyFlexLexer(in)
       {
+        this->filename = filename;
         loc = new Gambit::Parser::location_type();
+      };
+
+      virtual std::string getFileName()
+      {
+        return this->filename;
       };
 
       virtual ~Scanner()

@@ -2,6 +2,7 @@
 #define __iCHECKEVENT 1
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -78,13 +79,55 @@ namespace Check
       {
         sprintf(PUSH_BUFFER,
           "\t%s Ensure the following: %s\n\n", this->yellow.c_str(), this->reset.c_str());
-      }
+      };
 
       virtual void emitReference(std::string msg, int refCt)
       {
         sprintf(PUSH_BUFFER,
           "\t\t%d.) %s \n", refCt, msg.c_str());
-      }
+      };
+
+      virtual void emitStackTrace(std::string filename, std::string errline, std::string column)
+      {
+        int line_number = std::stoi(errline);
+        int column_number = std::stoi(column) - 3;
+        int i = 1;
+        std::string line;
+        std::ifstream error_file(filename);
+
+        this->emitLineLabel(
+          std::string(this->cyan).append("In file ")
+            .append(filename).append(" on line ").append(errline).append(this->reset.c_str())
+        );
+
+        if (error_file)
+        {
+          while(std::getline(error_file, line))
+          {
+            if (i >= line_number - 5 || i <= line_number + 5)
+            {
+              this->emitLine(std::to_string(i).append(": ").append(line));
+            }
+            if (i == line_number)
+            {
+              std::string culprit = "";
+              culprit.assign(std::to_string(i).length() + 2, ' ');
+              culprit.append(this->red);
+              int j = 0;
+              while(j <= column_number)
+              {
+                culprit.append("~");
+                j++;
+              }
+              culprit.append("^");
+              culprit.append(this->reset.c_str());
+              this->emitLine(culprit);
+            }
+            i++;
+          }
+        }
+
+      };
   };
 }
 

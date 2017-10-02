@@ -46,6 +46,7 @@
 
   #define SOURCE_LINE yylhs.location.begin.line
   #define SOURCE_COLUMN yylhs.location.end.column
+  #define SOURCE_FILE scanner.getFileName()
 
   using namespace std;
 }
@@ -107,21 +108,20 @@ Expression:
 
 Literals:
   T_INTEGER                           {
-                                        std::cout << yylhs.location.begin.line << std::endl;
-                                        $$ = new Gambit::LiteralNode($1, (new AST::SourceTrace("default", SOURCE_LINE, SOURCE_COLUMN)));
+                                        $$ = new Gambit::LiteralNode($1, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN)));
                                       }
   ;
 
 LocalDefinition:
     T_CONSTANT T_BIND T_IDENTIFIER    {
-                                        $$ = new Gambit::LocalDefinitionNode(*$1, *$3, nullptr, (new AST::SourceTrace("default", SOURCE_LINE, SOURCE_COLUMN)));
+                                        $$ = new Gambit::LocalDefinitionNode(*$1, *$3, nullptr, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN)));
                                         delete($1);
                                         delete($3);
                                       }
 
   | T_CONSTANT T_BIND T_IDENTIFIER T_ASSIGN Expression   
                                       {
-                                        $$ = new Gambit::LocalDefinitionNode(*$1, *$3, $5, (new AST::SourceTrace("default", SOURCE_LINE, SOURCE_COLUMN)));
+                                        $$ = new Gambit::LocalDefinitionNode(*$1, *$3, $5, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN)));
                                         delete($1);
                                         delete($3);
                                       }

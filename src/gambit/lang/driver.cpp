@@ -25,7 +25,7 @@ Gambit::Driver::parse( const char * const filename )
    delete(scanner);
    try
    {
-      scanner = new Gambit::Scanner( &in_file );
+      scanner = new Gambit::Scanner( &in_file, std::string(filename) );
    }
    catch( std::bad_alloc &ba )
    {

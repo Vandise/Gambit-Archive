@@ -9,9 +9,11 @@ Check::AssignDataTypeMismatch::with(std::vector<std::string> parameters)
                       .append(" You assigned a value of Class ").append(parameters[3]).append(".");
 
   this->emitError(error);
-  this->emitTrace();
+  //this->emitTrace();
 
-  this->emitLine("TODO file trace: " + std::string(parameters[4] + " :: " + parameters[5] + " - " + parameters[6]));
+  //this->emitLine("TODO file trace: " + std::string(parameters[4] + " :: " + parameters[5] + " - " + parameters[6]));
+
+  emitStackTrace(std::string(parameters[4]), std::string(parameters[5]), std::string(parameters[6]));
 
   this->emitLine("\n");
 
