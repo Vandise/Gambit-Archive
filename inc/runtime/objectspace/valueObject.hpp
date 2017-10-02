@@ -18,6 +18,8 @@ namespace Runtime
 
     public:
 
+      using Runtime::iStandardClass::iStandardClass;
+
       ValueObject(std::string value);
       ValueObject(int value);
       virtual Runtime::iPrimitiveDataType* getValue();
