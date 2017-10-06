@@ -5,6 +5,7 @@
 #include "check/events/defaultEvent.hpp"
 #include "check/events/invalidInterfaceEvent.hpp"
 #include "check/events/assignDataTypeMismatch.hpp"
+#include "check/events/uselessStatement.hpp"
 
 namespace Check
 {

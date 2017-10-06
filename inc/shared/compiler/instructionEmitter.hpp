@@ -7,7 +7,9 @@
 #include "shared/pawn/instructions.hpp"
 #include "shared/compiler/iCodeGenerator.hpp"
 #include "capture/runtime/assignDataTypeMismatch.hpp"
+#include "capture/runtime/uselessStatement.hpp"
 
+#define TRACE_PARAMETERS this->trace->filename, this->trace->line, this->trace->column
 
 namespace Compiler
 {

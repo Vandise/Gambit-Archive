@@ -10,6 +10,9 @@ Check::MessageFactory::MessageFactory(CaptureEvents e)
     case ASSIGN_DATATYPE_MISMATCH:
       this->E = new Check::AssignDataTypeMismatch();
       break;
+    case USELESS_STATEMENT:
+    this->E = new Check::UselessStatement();
+      break;
     default:
       this->E = new Check::DefaultEvent();
       break;

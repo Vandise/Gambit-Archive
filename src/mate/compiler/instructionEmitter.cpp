@@ -35,7 +35,9 @@ Compiler::InstructionEmitter::pushInteger(int value)
   {
     std::cout << Pawn::Instructions::getInstruction(Pawn::Instructions::POP) << std::endl;
       Runtime::iStandardClass* v = cg->getFrameStack()->getCurrentFrame()->popStack();
+      std::string name = v->getName();
       delete(v);
+    throw Exception::UselessStatement(name, std::to_string(value), TRACE_PARAMETERS);
   }
 }
 
@@ -54,7 +56,7 @@ Compiler::InstructionEmitter::setLocal(std::string dataType, std::string identif
     if (topStackDataType != dataType)
     {
       // TODO: check if parent datatype
-      throw Exception::AssignDataTypeMismatch(identifier, dataType, topStackDataType, this->trace->filename, this->trace->line, this->trace->column);
+      throw Exception::AssignDataTypeMismatch(identifier, dataType, topStackDataType, TRACE_PARAMETERS);
     }
   }
 }
