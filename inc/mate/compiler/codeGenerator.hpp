@@ -23,7 +23,7 @@ namespace Mate
     public:
       CodeGenerator(AST::Tree *tree);
       ~CodeGenerator();
-      void generate();
+      void generate(std::string outfile);
 
   };
 

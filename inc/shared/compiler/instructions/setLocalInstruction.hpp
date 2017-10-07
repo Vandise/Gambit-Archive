@@ -17,21 +17,11 @@ namespace Compiler
 
 
       using Compiler::iInstructionSet::iInstructionSet;
-      SetLocalInstruction(std::string opcode, std::string dataType, std::string identifier) : iInstructionSet(opcode)
-      {
-        this->dataType = dataType;
-        this->identifier = identifier;
-      };
+      SetLocalInstruction(std::string opcode, std::string dataType, std::string identifier);
 
-      virtual ~SetLocalInstruction()
-      {
+      virtual ~SetLocalInstruction();
 
-      };
-
-      virtual void emit(Compiler::iCodeGenerator *cg)
-      {
-        std::cout << this->opCode << " " << this->dataType << " " << this->identifier << std::endl;
-      };
+      virtual void emit(Compiler::iCodeGenerator *cg);
 
   };
 

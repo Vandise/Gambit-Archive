@@ -70,7 +70,7 @@ main( const int argc, const char **argv )
         driver->getDriver()->parse(args::get(compile).c_str());
 
         cg = new Mate::CodeGenerator(driver->getDriver()->getTree());
-        cg->generate();
+        cg->generate(args::get(out));
 
       }
     }

@@ -42,7 +42,7 @@ namespace Compiler
       };
 
       virtual ~iCodeGenerator() = default;
-      virtual void generate() = 0;
+      virtual void generate(std::string outfile) = 0;
 
       virtual void setState(COMPILERSTATE state)
       {

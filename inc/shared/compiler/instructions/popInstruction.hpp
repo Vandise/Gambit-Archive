@@ -14,15 +14,9 @@ namespace Compiler
 
       using Compiler::iInstructionSet::iInstructionSet;
 
-      virtual ~PopInstruction()
-      {
+      virtual ~PopInstruction();
 
-      };
-
-      virtual void emit(Compiler::iCodeGenerator *cg)
-      {
-        std::cout << this->opCode << std::endl;
-      };
+      virtual void emit(Compiler::iCodeGenerator *cg);
 
   };
 

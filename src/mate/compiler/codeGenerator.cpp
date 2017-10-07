@@ -22,9 +22,8 @@ Mate::CodeGenerator::~CodeGenerator()
 }
 
 void
-Mate::CodeGenerator::generate()
+Mate::CodeGenerator::generate(std::string outfile)
 {
   this->tree->compile( (this) );
-  this->instructionBuffer->writeToFile("somewhere", (this));
+  this->instructionBuffer->writeToFile(outfile, (this));
 }
-

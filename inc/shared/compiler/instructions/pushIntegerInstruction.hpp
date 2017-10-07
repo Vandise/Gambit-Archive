@@ -16,20 +16,11 @@ namespace Compiler
 
 
       using Compiler::iInstructionSet::iInstructionSet;
-      PushIntegerInstruction(std::string opcode, std::string value) : iInstructionSet(opcode)
-      {
-        this->value = value;
-      };
+      PushIntegerInstruction(std::string opcode, std::string value);
 
-      virtual ~PushIntegerInstruction()
-      {
+      virtual ~PushIntegerInstruction();
 
-      };
-
-      virtual void emit(Compiler::iCodeGenerator *cg)
-      {
-        std::cout << this->opCode << " " << this->value << std::endl;
-      };
+      virtual void emit(Compiler::iCodeGenerator *cg);
 
   };
 

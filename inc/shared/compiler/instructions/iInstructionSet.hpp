@@ -2,7 +2,6 @@
 #define __iMATEINSTRUCTIONSET 1
 
 #include <iostream>
-#include "shared/compiler/iCodeGenerator.hpp"
 
 namespace Compiler
 {
