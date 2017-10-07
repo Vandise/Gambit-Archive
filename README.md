@@ -1,6 +1,27 @@
 # The Gambit Language
 This is a for-educational-purposes only programming language, compiler, and virtual machine.
 
+## How to build this project
+This project requires both a C (for extensions) and C++ compiler. By default it was tested on `GCC v8.1.0`, `clang version 4.0.0`, and `g++` with modifications to the makefile parameters. `sed` is also utilized to resolve and compile dependencies.
+
+This project depends on bison v3.0.4 and flex v2.5.37. I can't guarantee it'll work on other versions, so they are included in the util package. Compile these two projects and update `build/gambit.mk` to point to their executables. You will also need to update the following line in the `Makefile` to include the header within util/flex as opposed to your system headers. You do not need to install these on your system, but the executables to generate the grammar files are needed.
+
+```
+INC         := -I$(INCDIR) -Isrc -Isrc/test -I$(LIBDIR) -I$(EXTDIR) -I/usr/local/opt/flex/include
+```
+
+Within the `build` directory, there is a bash file that will run various make commands to setup the mate compiler and its dependencies.
+
+### What has this been tested on?
+Mac, Ubuntu, CentOS.
+
+### Will this work on Windows?
+Possibly. If you utilize `clang v4.0` with C++ installed, set your PATH to include `mingw-w64`, and have `gnuwin32` on your system: you might be able to get Mate to compile. Due to different versions of `Flex`, `Bision`, and `Sed`, it is unlikely. 
+
+Mate utilizes two external libraries, `args.hxx` for argument parsing, and `debugnew` for memory debugging. These both port over to Windows without an issue.  
+
+Porting to Windows may come in the future.
+
 ## Gambit
 Gambit is a strongly-typed, object-based, programming language. Not much has been implemented in the language as of yet.
 
