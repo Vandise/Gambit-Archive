@@ -53,6 +53,17 @@ catch(Exception::iException &e)
 ## Mate
 An extensible compiler that accepts a language driver containing a parsed AST. Mate emits Pawn bytecode.
 
+### Basic Usage
+Mate has the following flags:
+
+```
+-h displays the help meny
+-c[filename] compile a file
+-o[outfile] output filename of pawn bytecode
+```
+
+Example: `matec -c test.gbt -o test.pwn`
+
 ### Extending Mate / Gambit
 Mate provides a simple interface for creating extensions. Mate uses `dlfcn` for extensions, so you can utilize both C and C++. This is still under development. A generic Make file will be provided once the interface is finalized. Macros will also be defined.
 
