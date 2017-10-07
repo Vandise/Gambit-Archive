@@ -83,8 +83,13 @@ namespace Compiler
         {
 
           this->outBuffer.append(".literals\n");
+            std::vector<std::string>::iterator it;
+            for( it = this->literals.begin(); it != this->literals.end(); it++ )
+            {
+              this->outBuffer.append("\t").append(*it).append("\n");
+            }
           this->outBuffer.append(".code\n");
-          this->outBuffer.append(this->instructionBuffer);
+            this->outBuffer.append(this->instructionBuffer);
 
           std::ofstream out(filename);
             out << this->outBuffer;
