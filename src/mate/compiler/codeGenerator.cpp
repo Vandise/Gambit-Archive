@@ -1,3 +1,4 @@
+
 #include "mate/compiler/codeGenerator.hpp"
 
 Mate::CodeGenerator::CodeGenerator(AST::Tree *t) : Compiler::iCodeGenerator(t)
@@ -16,11 +17,14 @@ Mate::CodeGenerator::~CodeGenerator()
   delete(this->instructionEmitter);
   this->instructionEmitter = nullptr;
   this->runtime = nullptr;
+  delete(this->instructionBuffer);
+  this->instructionBuffer = nullptr;
 }
 
 void
 Mate::CodeGenerator::generate()
 {
   this->tree->compile( (this) );
+  this->instructionBuffer->writeToFile("somewhere", (this));
 }
 

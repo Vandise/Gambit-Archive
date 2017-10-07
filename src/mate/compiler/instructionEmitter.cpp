@@ -30,10 +30,15 @@ Compiler::InstructionEmitter::pushInteger(int value)
   cg->getFrameStack()->getCurrentFrame()->pushStack(integer);
     integer = nullptr;
 
-  std::cout << Pawn::Instructions::getInstruction(Pawn::Instructions::PUSH_INTEGER) << " " << value << std::endl;
+  this->cg->getInstructionBuffer()->pushInstruction(
+    (new Compiler::PushIntegerInstruction( Pawn::Instructions::getInstruction(Pawn::Instructions::PUSH_INTEGER), std::to_string(value) ))
+  );
+
   if (this->cg->getState() == CS_DEFAULT)
   {
-    std::cout << Pawn::Instructions::getInstruction(Pawn::Instructions::POP) << std::endl;
+    this->cg->getInstructionBuffer()->pushInstruction(
+      (new Compiler::PopInstruction( Pawn::Instructions::getInstruction(Pawn::Instructions::POP) ))
+    );
       Runtime::iStandardClass* v = cg->getFrameStack()->getCurrentFrame()->popStack();
       std::string name = v->getName();
       delete(v);
@@ -44,7 +49,10 @@ Compiler::InstructionEmitter::pushInteger(int value)
 void
 Compiler::InstructionEmitter::setLocal(std::string dataType, std::string identifier, bool isNull)
 {
-  std::cout << Pawn::Instructions::getInstruction(Pawn::Instructions::SET_LOCAL) << " " << dataType << " " << identifier << std::endl;
+  this->cg->getInstructionBuffer()->pushInstruction(
+    (new Compiler::SetLocalInstruction(
+      Pawn::Instructions::getInstruction(Pawn::Instructions::SET_LOCAL), dataType, identifier ))
+  );
   if (isNull)
   {
     std::cout << "Value: Null" << std::endl;

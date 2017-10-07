@@ -9,6 +9,10 @@
 #include "capture/runtime/assignDataTypeMismatch.hpp"
 #include "capture/runtime/uselessStatement.hpp"
 
+#include "shared/compiler/instructions/pushIntegerInstruction.hpp"
+#include "shared/compiler/instructions/popInstruction.hpp"
+#include "shared/compiler/instructions/setLocalInstruction.hpp"
+
 #define TRACE_PARAMETERS this->trace->filename, this->trace->line, this->trace->column
 
 namespace Compiler
