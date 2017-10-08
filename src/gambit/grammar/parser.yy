@@ -82,6 +82,8 @@
 %type <tree>    Expressions
 %type <node>    Expression Literals LocalDefinition
 
+%destructor { delete($$); } <tree> <sval>
+
 %%
 
 root:
