@@ -11,7 +11,10 @@ Check::MessageFactory::MessageFactory(CaptureEvents e)
       this->E = new Check::AssignDataTypeMismatch();
       break;
     case USELESS_STATEMENT:
-    this->E = new Check::UselessStatement();
+      this->E = new Check::UselessStatement();
+      break;
+    case INVALID_TOKEN:
+      this->E = new Check::UnexpectedToken();
       break;
     default:
       this->E = new Check::DefaultEvent();

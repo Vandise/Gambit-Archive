@@ -4,6 +4,7 @@
 %defines 
 %define api.namespace {Gambit}
 %define parser_class_name {Parser}
+%define parse.error verbose
 
 %code requires {
 
@@ -40,6 +41,7 @@
 
   #include "gambit/lang/driver.hpp"
   #include "gambit/scanner.hpp"
+  #include "capture/parsing/unexpectedToken.hpp"
 
   #undef yylex
   #define yylex scanner.yylex
@@ -137,5 +139,5 @@ Terminator:
 void
 Gambit::Parser::error(const location_type& l, const std::string& m )
 {
-  std::cout << m << std::endl;
+  throw Exception::UnexpectedToken(m, SOURCE_FILE, l.begin.line, l.end.column);
 }
