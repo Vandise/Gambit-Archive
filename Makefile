@@ -33,7 +33,7 @@ PARSER_LEXER =  parser lexer
 #DO NOT EDIT BELOW THIS LINE
 #---------------------------------------------------------------------------------
 
-SOURCES     := $(shell find $(SRCDIR) $(LIBDIR) -type f -name *.$(SRCEXT) -not -path "$(SRCDIR)/gambit/*" -not -path "$(SRCDIR)/check/*")
+SOURCES     := $(shell find $(SRCDIR) $(LIBDIR) -type f -name *.$(SRCEXT) -not -path "$(SRCDIR)/gambit/*" -not -path "$(SRCDIR)/check/*" -not -path "$(SRCDIR)/rook/*")
 #SOURCES     := $(shell find $(SRCDIR) $(LIBDIR) -type f -name *.$(SRCEXT))
 OBJECTS     := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.$(OBJEXT)))
 MAINOBJS    := $(shell echo $(OBJECTS) | sed 's/[^ ]*test[^ ]* *//g')
@@ -65,11 +65,11 @@ clean:
 	$(RM) -rf $(TARGETDIR)
 	$(RM) -r $(LIBDIR)/*.so
 	$(RM) -f $(TARGETDIR)
-	$(RM) -f src/gambit/parser.*
-	$(RM) -f src/gambit/location.hh
-	$(RM) -f src/gambit/position.hh
-	$(RM) -f src/gambit/stack.hh
-	$(RM) -f src/gambit/lexer.yy.cpp
+	$(RM) -f src/gambit/parser.* src/rook/parser.*
+	$(RM) -f src/gambit/location.hh src/rook/location.hh
+	$(RM) -f src/gambit/position.hh src/rook/position.hh
+	$(RM) -f src/gambit/stack.hh src/rook/stack.hh
+	$(RM) -f src/gambit/lexer.yy.cpp src/rook/lexer.yy.cpp
 
 #Clean only Objecst
 watch: $(SRCDIR)
@@ -84,6 +84,7 @@ cleaner: clean
 -include $(OBJECTS:.$(OBJEXT)=.$(DEPEXT))
 -include build/gambit.mk
 -include build/check.mk
+-include build/rook.mk
 -include build/ext/sqlite.mk
 
 #Link
