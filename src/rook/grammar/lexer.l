@@ -24,6 +24,8 @@ using token = Rook::Parser::token;
 %option c++
 %option yylineno
 
+%x literals code
+
 digit ([0-9])
 integer ({digit}+)
 float_num ({digit}+\.{digit}+)
@@ -34,10 +36,20 @@ float_num ({digit}+\.{digit}+)
   yylval = lval;
 %}
 
-[ \t]*              /* skip whitespace */
-\n                  {
+<*>[ \t]*          /* skip whitespace */
+<*>\n              {
                       loc->lines();
                       return( token::T_NEWLINE );
                     }
+
+<INITIAL>.literals  		 {
+								std::cout << "switching to lierals" << std::endl;
+								BEGIN(literals);
+							 }
+
+<literals>[_a-zA-Z\\?\\!]+   { std::cout << "Adding Literal: " << yytext << std::endl; }
+
+
+<*>. { std::cout << "Unexpected token " << yytext << std::endl; }
 
 %%
