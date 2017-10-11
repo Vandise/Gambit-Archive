@@ -59,8 +59,6 @@ main( const int argc, const char **argv )
     {
       extLoader->load(Runtime::LangRuntime::objectClass);
 
-      std::cout << "Running file: " << args::get(run).c_str() << std::endl;
-
       std::string filename = args::get(run);
 
       std::ifstream in_file( filename );

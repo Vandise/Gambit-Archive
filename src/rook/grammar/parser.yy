@@ -53,6 +53,10 @@
 };
 
 %token                   END          0  "end of file"
+%token       <ival>      T_INTEGER
+%token       <sval>      T_CONSTANT
+%token                   T_PUSH_INTEGER
+%token                   T_SET_LOCAL
 %token                   T_NEWLINE
 
 %union {
@@ -80,10 +84,12 @@ Expressions:
 
 Expression:
     Instructions
+  |
   ;
 
 Instructions:
-
+    T_PUSH_INTEGER T_INTEGER         { std::cout << "push integer " << $2 << std::endl; }
+  | T_SET_LOCAL T_CONSTANT T_INTEGER { std::cout << "set local " << *$2 << std::endl; delete($2); }
   ;
 
 Terminator:
