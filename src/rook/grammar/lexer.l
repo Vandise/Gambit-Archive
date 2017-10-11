@@ -42,12 +42,21 @@ float_num ({digit}+\.{digit}+)
                       return( token::T_NEWLINE );
                     }
 
-<INITIAL>.literals  		 {
-								std::cout << "switching to lierals" << std::endl;
+<*>.literals  		 		 {
+								std::cout << "switching to literals" << std::endl;
 								BEGIN(literals);
+							 }
+<*>.code  		 		     {
+								std::cout << "switching to code" << std::endl;
+								BEGIN(code);
 							 }
 
 <literals>[_a-zA-Z\\?\\!]+   { std::cout << "Adding Literal: " << yytext << std::endl; }
+
+<code>SET_LOCAL              { std::cout << "setting local" << std::endl; }
+<code>PUSH_INTEGER           { std::cout << "pushing integer instr" << std::endl;    }
+<code>([A-Z][a-zA-Z]*)+      { std::cout << "Found classname " << yytext << std::endl; }
+<code>{integer}  			 { std::cout << "Found integer " << yytext << std::endl; }
 
 
 <*>. { std::cout << "Unexpected token " << yytext << std::endl; }
