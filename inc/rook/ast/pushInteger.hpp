@@ -16,7 +16,7 @@ namespace RookAST
 
       PushIntegerNode(int value);
       ~PushIntegerNode();
-      void compile();
+      void compile(RookVM::PawnExecutor* e);
 
   };
 

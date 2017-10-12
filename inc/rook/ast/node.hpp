@@ -2,7 +2,9 @@
 #define __ROOK_AST_NODE 1
 
 #include <iostream>
-#include "shared/ast/sourceTrace.hpp"
+#include "shared/runtime/iStandardClass.hpp"
+#include "runtime/objectspace/valueObject.hpp"
+#include "rook/vm/pawnExecutor.hpp"
 
 namespace RookAST
 {
@@ -12,7 +14,7 @@ namespace RookAST
 
     public:
       virtual ~Node() {};
-      virtual void compile() = 0;
+      virtual void compile(RookVM::PawnExecutor* e) = 0;
 
   };
 

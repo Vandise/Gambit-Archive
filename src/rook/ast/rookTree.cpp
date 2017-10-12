@@ -35,10 +35,10 @@ RookAST::RookTree::treeSize()
 }
 
 void
-RookAST::RookTree::compile()
+RookAST::RookTree::compile(RookVM::PawnExecutor* e)
 {
   for (auto &n : nodes)
   {
-    if (n != nullptr ) n->compile();
+    if (n != nullptr ) n->compile(e);
   }
 }

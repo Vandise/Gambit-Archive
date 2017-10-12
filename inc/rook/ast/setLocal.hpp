@@ -18,7 +18,7 @@ namespace RookAST
 
       SetLocalNode(std::string constant, int identifierOffset);
       ~SetLocalNode();
-      void compile();
+      void compile(RookVM::PawnExecutor* e);
 
   };
 

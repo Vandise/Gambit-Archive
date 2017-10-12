@@ -5,9 +5,13 @@
 
 #include <iostream>
 
-#include "rook/ast/tree.hpp"
 #include "shared/runtime/langRuntime.hpp"
 #include "shared/vm/frame/iFrameStack.hpp"
+
+namespace RookAST
+{
+  class Tree;
+}
 
 namespace RookVM
 {
@@ -23,29 +27,14 @@ namespace RookVM
 
     public:
 
-      PawnExecutor(RookAST::Tree *tree)
-      {
-        this->runtime = Runtime::LangRuntime::objectClass;
-        this->frameStack = new VM::iFrameStack();
-        this->frameStack->pushFrame( (new VM::iFrame(DEFAULT_FRAME)) );
-        this->tree = tree;
-      };
+      PawnExecutor(RookAST::Tree *tree);
 
-      virtual ~PawnExecutor()
-      {
-        delete(this->tree);
-        delete(this->frameStack);
-      }
+      virtual ~PawnExecutor();
 
-      virtual void run()
-      {
-        this->tree->compile();
-      };
+      virtual void run();
 
-      virtual Runtime::iStandardClass* getRuntime()
-      {
-        return this->runtime;
-      };
+      virtual Runtime::iStandardClass* getRuntime();
+      virtual VM::iFrameStack* getFrameStack();
 
   };
 

@@ -16,7 +16,7 @@ namespace RookAST
         void pushNode(RookAST::Node *node);
         void pushBranch(RookAST::Tree *tree);
         int treeSize();
-        void compile();
+        void compile(RookVM::PawnExecutor* e);
   };
 
 }

@@ -12,7 +12,7 @@ RookAST::SetLocalNode::~SetLocalNode()
 }
 
 void
-RookAST::SetLocalNode::compile()
+RookAST::SetLocalNode::compile(RookVM::PawnExecutor* e)
 {
   std::cout << "Compiling SET_LOCAL: " << this->constant << " " << this->identifierOffset << std::endl;
 }

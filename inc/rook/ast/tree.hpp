@@ -23,7 +23,7 @@ namespace RookAST
       virtual void pushBranch(RookAST::Tree *tree) = 0;
       virtual void pushNode(RookAST::Node *node) = 0;
       virtual int treeSize() = 0;
-      virtual void compile() = 0;
+      virtual void compile(RookVM::PawnExecutor* e) = 0;
 
     protected:
       std::vector<RookAST::Node*> nodes;
