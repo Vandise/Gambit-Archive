@@ -9,6 +9,7 @@
 #include "capture/runtime/assignDataTypeMismatch.hpp"
 #include "capture/runtime/uselessStatement.hpp"
 
+#include "shared/compiler/instructions/pushStringInstruction.hpp"
 #include "shared/compiler/instructions/pushIntegerInstruction.hpp"
 #include "shared/compiler/instructions/popInstruction.hpp"
 #include "shared/compiler/instructions/setLocalInstruction.hpp"
@@ -33,6 +34,7 @@ namespace Compiler
       ~InstructionEmitter();
       Compiler::InstructionEmitter* withTrace(AST::SourceTrace* trace);
       void pushInteger(int value);
+      void pushString(std::string value);
       void setLocal(std::string dataType, std::string identifier, bool isNull = false);
 
   };

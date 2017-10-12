@@ -1,6 +1,6 @@
 #include "runtime/objectspace/valueObject.hpp"
 
-Runtime::ValueObject::ValueObject(std::string value) : Runtime::iStandardClass(value)
+Runtime::ValueObject::ValueObject(std::string value) : Runtime::iStandardClass("String")
 {
   this->stringValue = value;
   this->type = STRING;

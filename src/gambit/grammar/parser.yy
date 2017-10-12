@@ -114,6 +114,9 @@ Literals:
   T_INTEGER                           {
                                         $$ = new Gambit::LiteralNode($1, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN)));
                                       }
+  | T_STRING                          {
+                                        $$ = new Gambit::LiteralNode(*$1, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN))); delete($1);
+                                      }
   ;
 
 LocalDefinition:

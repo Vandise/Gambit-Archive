@@ -47,6 +47,32 @@ Compiler::InstructionEmitter::pushInteger(int value)
 }
 
 void
+Compiler::InstructionEmitter::pushString(std::string value)
+{
+  Runtime::iStandardClass* str = this->cg->getRuntime()->getConstant("String")->newInstance();
+  str->setInstanceVariable("value", (new Runtime::ValueObject(value)) );
+
+  cg->getFrameStack()->getCurrentFrame()->pushStack(str);
+    str = nullptr;
+
+  this->cg->getInstructionBuffer()->pushInstruction(
+    (new Compiler::PushStringInstruction( Pawn::Instructions::getInstruction(Pawn::Instructions::PUSH_STRING), value ))
+  );
+
+  if (this->cg->getState() == CS_DEFAULT)
+  {
+    this->cg->getInstructionBuffer()->pushInstruction(
+      (new Compiler::PopInstruction( Pawn::Instructions::getInstruction(Pawn::Instructions::POP) ))
+    );
+      Runtime::iStandardClass* v = cg->getFrameStack()->getCurrentFrame()->popStack();
+      std::string name = v->getName();
+      delete(v);
+    throw Exception::UselessStatement(name, value, TRACE_PARAMETERS);
+  }
+
+}
+
+void
 Compiler::InstructionEmitter::setLocal(std::string dataType, std::string identifier, bool isNull)
 {
   this->cg->getInstructionBuffer()->pushInstruction(

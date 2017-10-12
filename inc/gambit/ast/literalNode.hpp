@@ -10,11 +10,14 @@ namespace Gambit
   {
 
     private:
+      int type = 0;
       int intValue;
+      std::string stringValue;
 
     public:
 
       LiteralNode(int value, AST::SourceTrace* trace);
+      LiteralNode(std::string stringValue, AST::SourceTrace* trace);
       ~LiteralNode();
       void compile(Compiler::iCodeGenerator *cg);
 
