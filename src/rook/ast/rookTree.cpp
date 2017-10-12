@@ -37,5 +37,8 @@ RookAST::RookTree::treeSize()
 void
 RookAST::RookTree::compile()
 {
-
+  for (auto &n : nodes)
+  {
+    if (n != nullptr ) n->compile();
+  }
 }

@@ -73,6 +73,8 @@ main( const int argc, const char **argv )
 
       parser->parse();
 
+      tree->compile();
+
     }
     catch (Exception::iException &e)
     {

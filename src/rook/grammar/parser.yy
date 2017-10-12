@@ -100,8 +100,8 @@ Expression:
   ;
 
 Instructions:
-    T_PUSH_INTEGER T_INTEGER         { std::cout << "push integer " << $2 << std::endl; $$ = nullptr; }
-  | T_SET_LOCAL T_CONSTANT T_INTEGER { std::cout << "set local " << *$2 << std::endl; delete($2); $$ = nullptr; }
+    T_PUSH_INTEGER T_INTEGER         { $$ = new RookAST::PushIntegerNode($2); }
+  | T_SET_LOCAL T_CONSTANT T_INTEGER { $$ = new RookAST::SetLocalNode(*$2, $3); delete($2); }
   ;
 
 Labels:
