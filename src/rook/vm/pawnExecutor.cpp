@@ -7,6 +7,7 @@ RookVM::PawnExecutor::PawnExecutor(RookAST::Tree *tree)
   this->runtime = Runtime::LangRuntime::objectClass;
   this->frameStack = new VM::iFrameStack();
   this->frameStack->pushFrame( (new VM::iFrame(DEFAULT_FRAME)) );
+  this->literalsTable = new RookVM::LiteralsTable();
   this->tree = tree;
 };
 
@@ -14,6 +15,7 @@ RookVM::PawnExecutor::~PawnExecutor()
 {
   delete(this->tree);
   delete(this->frameStack);
+  delete(this->literalsTable);
 }
 
 void
@@ -32,4 +34,10 @@ VM::iFrameStack*
 RookVM::PawnExecutor::getFrameStack()
 {
   return this->frameStack;
+}
+
+RookVM::LiteralsTable*
+RookVM::PawnExecutor::getLiteralsTable()
+{
+  return this->literalsTable;
 }

@@ -60,6 +60,7 @@
 %token       <sval>      T_CONSTANT
 %token                   T_PUSH_INTEGER
 %token                   T_SET_LOCAL
+%token       <sval>      T_ADD_LITERAL
 %token                   T_MAIN_LABEL
 %token                   T_NEWLINE
 
@@ -71,7 +72,7 @@
 }
 
 %type <tree>    Expressions
-%type <node>    Expression Instructions Labels
+%type <node>    Expression Instructions Labels Literals
 
 %%
 
@@ -97,6 +98,7 @@ Expressions:
 Expression:
     Instructions
   | Labels
+  | Literals
   ;
 
 Instructions:
@@ -106,6 +108,10 @@ Instructions:
 
 Labels:
     T_MAIN_LABEL { $$ = nullptr; }
+  ;
+
+Literals:
+    T_ADD_LITERAL { $$ = new RookAST::AddLiteralNode(*$1); delete($1); }
   ;
 
 Terminator:

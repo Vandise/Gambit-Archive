@@ -45,7 +45,7 @@ float_num ({digit}+\.{digit}+)
 <*>.literals  		 		 { BEGIN(literals); return( token::T_MAIN_LABEL );  }
 <*>.code  		 		     { BEGIN(code); return( token::T_MAIN_LABEL ); }
 
-<literals>[_a-zA-Z\\?\\!]+   { /* todo */ }
+<literals>[_a-zA-Z\\?\\!]+   { yylval->sval = new std::string(yytext); return( token::T_ADD_LITERAL ); }
 
 <code>SET_LOCAL              { return( token::T_SET_LOCAL ); }
 <code>PUSH_INTEGER           { return( token::T_PUSH_INTEGER ); }

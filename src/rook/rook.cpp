@@ -126,15 +126,6 @@ main( const int argc, const char **argv )
 
       vm->run();
 
-      Runtime::iStandardClass* i = vm->getFrameStack()->getCurrentFrame()->popStack();
-      Runtime::iStandardClass* j = vm->getFrameStack()->getCurrentFrame()->popStack();
-
-      std::cout << sizeof(*i) << std::endl << hexdump(*i) << std::endl;
-      //std::cout << sizeof( *(i->getInstanceVariable("value")) ) << std::endl << hexdump( *(i->getInstanceVariable("value")) ) << std::endl;
-      std::cout << sizeof(*j) << std::endl << hexdump(*j) << std::endl;
-      //std::cout << sizeof( *(j->getInstanceVariable("value")) ) << std::endl << hexdump( *(j->getInstanceVariable("value")) ) << std::endl;
-
-      delete(i); delete(j);
     }
     catch (Exception::iException &e)
     {

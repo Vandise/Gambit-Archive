@@ -48,12 +48,17 @@ namespace VM
       virtual bool hasLocal(std::string name)
       {
         return (this->locals.count(name) > 0);
-      }
+      };
 
       virtual void setLocal(std::string name, Runtime::iStandardClass* obj)
       {
         this->locals[name] = obj;
-      }
+      };
+
+      virtual Runtime::iStandardClass* getLocal(std::string local)
+      {
+        return this->locals[local];
+      };
 
       virtual Runtime::iStandardClass* getCurrentSelf()
       {

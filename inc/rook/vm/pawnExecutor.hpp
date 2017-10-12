@@ -7,6 +7,7 @@
 
 #include "shared/runtime/langRuntime.hpp"
 #include "shared/vm/frame/iFrameStack.hpp"
+#include "rook/vm/literalsTable.hpp"
 
 namespace RookAST
 {
@@ -24,6 +25,7 @@ namespace RookVM
       Runtime::iStandardClass* runtime;
       VM::iFrameStack *frameStack;
       RookAST::Tree *tree;
+      RookVM::LiteralsTable* literalsTable;
 
     public:
 
@@ -35,6 +37,7 @@ namespace RookVM
 
       virtual Runtime::iStandardClass* getRuntime();
       virtual VM::iFrameStack* getFrameStack();
+      virtual RookVM::LiteralsTable* getLiteralsTable();
 
   };
 
