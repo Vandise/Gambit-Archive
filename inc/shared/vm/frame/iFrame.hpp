@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <map>
 
 #include "shared/runtime/langRuntime.hpp"
 #include "shared/runtime/iStandardClass.hpp"
@@ -15,6 +16,7 @@ namespace VM
   {
     protected:
       std::string frameName;
+      std::map<std::string, Runtime::iStandardClass*> locals;
       std::vector<Runtime::iStandardClass*> localStack;
       Runtime::iStandardClass* currentSelf;
 
@@ -33,8 +35,25 @@ namespace VM
         {
           delete(*it);
         }
+
+        std::map<std::string, Runtime::iStandardClass*>::iterator iu;
+        for(iu = this->locals.begin(); iu != this->locals.end(); iu++)
+        {
+          delete(iu->second);
+        }
+
         this->localStack.clear();
       };
+
+      virtual bool hasLocal(std::string name)
+      {
+        return (this->locals.count(name) > 0);
+      }
+
+      virtual void setLocal(std::string name, Runtime::iStandardClass* obj)
+      {
+        this->locals[name] = obj;
+      }
 
       virtual Runtime::iStandardClass* getCurrentSelf()
       {

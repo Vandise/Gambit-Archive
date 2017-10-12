@@ -17,7 +17,10 @@ void
 Compiler::SetLocalInstruction::emit(Compiler::iCodeGenerator *cg)
 {
   // TODO:
-  //  idetifier should be an integer offset of literals
+  //  check to see if already defined, throw exception if it is
+  //
+  cg->getFrameStack()->getCurrentFrame()->setLocal(this->identifier,
+    cg->getFrameStack()->getCurrentFrame()->popStack());
   int offset = cg->getInstructionBuffer()->addLiteral(this->identifier);
   cg->getInstructionBuffer()->emitInstructionLine(
     std::string(this->opCode).append(" ").append(this->dataType).append(" ").append(std::to_string(offset))

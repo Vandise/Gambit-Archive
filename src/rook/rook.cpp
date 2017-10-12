@@ -11,6 +11,7 @@
 #include "rook/scanner.hpp"
 #include "rook/parser.tab.hpp"
 #include "rook/ast/rookTree.hpp"
+#include "rook/vm/pawnExecutor.hpp"
 
 int
 main( const int argc, const char **argv )
@@ -56,6 +57,7 @@ main( const int argc, const char **argv )
     Rook::Scanner *scanner = nullptr;
     Rook::Parser  *parser  = nullptr;
     RookAST::RookTree *tree = nullptr;
+    RookVM::PawnExecutor *vm = nullptr;
 
     try
     {
@@ -67,13 +69,14 @@ main( const int argc, const char **argv )
       if( ! in_file.good() ) exit( EXIT_FAILURE );
 
       tree = new RookAST::RookTree();
+      vm = new RookVM::PawnExecutor(tree);
 
       scanner = new Rook::Scanner( &in_file, std::string(filename) );
       parser = new Rook::Parser( (*scanner), (*tree) );
 
       parser->parse();
 
-      tree->compile();
+      vm->run();
 
     }
     catch (Exception::iException &e)
@@ -83,9 +86,10 @@ main( const int argc, const char **argv )
 
     Runtime::LangRuntime::destroy();
     delete(extLoader);
+
     if (scanner != nullptr) delete(scanner);
     if (parser != nullptr) delete(parser);
-    if (tree != nullptr) delete(tree);
+    if (vm != nullptr) delete(vm);
 
   }
 
