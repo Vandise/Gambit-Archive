@@ -10,6 +10,7 @@
 #include "cli/args.hpp"
 #include "rook/scanner.hpp"
 #include "rook/parser.tab.hpp"
+#include "rook/ast/rookTree.hpp"
 
 int
 main( const int argc, const char **argv )
@@ -54,6 +55,7 @@ main( const int argc, const char **argv )
 
     Rook::Scanner *scanner = nullptr;
     Rook::Parser  *parser  = nullptr;
+    RookAST::RookTree *tree = nullptr;
 
     try
     {
@@ -64,8 +66,10 @@ main( const int argc, const char **argv )
       std::ifstream in_file( filename );
       if( ! in_file.good() ) exit( EXIT_FAILURE );
 
+      tree = new RookAST::RookTree();
+
       scanner = new Rook::Scanner( &in_file, std::string(filename) );
-      parser = new Rook::Parser( (*scanner) );
+      parser = new Rook::Parser( (*scanner), (*tree) );
 
       parser->parse();
 
@@ -79,6 +83,7 @@ main( const int argc, const char **argv )
     delete(extLoader);
     if (scanner != nullptr) delete(scanner);
     if (parser != nullptr) delete(parser);
+    if (tree != nullptr) delete(tree);
 
   }
 

@@ -42,8 +42,8 @@ float_num ({digit}+\.{digit}+)
                       return( token::T_NEWLINE );
                     }
 
-<*>.literals  		 		 { BEGIN(literals); }
-<*>.code  		 		     { BEGIN(code); }
+<*>.literals  		 		 { BEGIN(literals); return( token::T_MAIN_LABEL );  }
+<*>.code  		 		     { BEGIN(code); return( token::T_MAIN_LABEL ); }
 
 <literals>[_a-zA-Z\\?\\!]+   { /* todo */ }
 

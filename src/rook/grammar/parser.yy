@@ -21,17 +21,20 @@
     class iDriver;
   }
 
-  namespace AST {
+  namespace RookAST {
     class Node;
     class Tree;
+    class RookTree;
   }
 
 }
 
 %parse-param { Rook::Scanner &scanner }
+%parse-param { RookAST::Tree  &astTree  }
 
 %code {
 
+  #include "rook/ast/ast.hpp"
   #include "rook/scanner.hpp"
   #include "capture/parsing/unexpectedToken.hpp"
 
@@ -57,39 +60,52 @@
 %token       <sval>      T_CONSTANT
 %token                   T_PUSH_INTEGER
 %token                   T_SET_LOCAL
+%token                   T_MAIN_LABEL
 %token                   T_NEWLINE
 
 %union {
   int ival;
   std::string *sval;
+  RookAST::Tree *tree;
+  RookAST::Node *node;
 }
+
+%type <tree>    Expressions
+%type <node>    Expression Instructions Labels
 
 %%
 
 root:
   END
-  | Expressions END                     {  }
+  | Expressions END                     { astTree.pushBranch($1); }
   ;
 
 Expressions:
-  Expression                          {
-
-                                      }
+    Expression                          {
+                                          std::vector<RookAST::Node *> nodes;
+                                          nodes.push_back($1);
+                                          $$ = new RookAST::RookTree(nodes);
+                                        }
   | Expressions Terminator Expression {
-
+                                        $1->pushNode($3);
+                                        $$ = $1;
                                       }
 
-  | Expressions Terminator            {  }
+  | Expressions Terminator            { $$ = $1; }
   ;
 
 Expression:
     Instructions
-  |
+  | Labels
   ;
 
 Instructions:
-    T_PUSH_INTEGER T_INTEGER         { std::cout << "push integer " << $2 << std::endl; }
-  | T_SET_LOCAL T_CONSTANT T_INTEGER { std::cout << "set local " << *$2 << std::endl; delete($2); }
+    T_PUSH_INTEGER T_INTEGER         { std::cout << "push integer " << $2 << std::endl; $$ = nullptr; }
+  | T_SET_LOCAL T_CONSTANT T_INTEGER { std::cout << "set local " << *$2 << std::endl; delete($2); $$ = nullptr; }
+  ;
+
+Labels:
+    T_MAIN_LABEL { $$ = nullptr; }
   ;
 
 Terminator:
