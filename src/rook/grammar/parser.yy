@@ -107,7 +107,7 @@ Instructions:
   ;
 
 Labels:
-    T_MAIN_LABEL { $$ = nullptr; }
+    T_MAIN_LABEL { /*$$ = new RookAST::AddLiteralNode("main");*/ $$ = nullptr; }
   ;
 
 Literals:

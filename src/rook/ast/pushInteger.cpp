@@ -21,4 +21,6 @@ RookAST::PushIntegerNode::compile(RookVM::PawnExecutor* e)
   e->getFrameStack()->getCurrentFrame()->pushStack(integer);
     integer = nullptr;
 
+  e->incrementNodePointer();
+
 }

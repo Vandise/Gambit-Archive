@@ -41,3 +41,21 @@ RookVM::PawnExecutor::getLiteralsTable()
 {
   return this->literalsTable;
 }
+
+void
+RookVM::PawnExecutor::incrementNodePointer()
+{
+  this->currentNode += 1;
+}
+
+void
+RookVM::PawnExecutor::setNodePointer(int value)
+{
+  this->currentNode = value;
+}
+
+int
+RookVM::PawnExecutor::getNodePointer()
+{
+  return this->currentNode;
+}

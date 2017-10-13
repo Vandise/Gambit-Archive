@@ -22,6 +22,7 @@ namespace RookVM
 
     protected:
 
+      int currentNode = 0;
       Runtime::iStandardClass* runtime;
       VM::iFrameStack *frameStack;
       RookAST::Tree *tree;
@@ -38,6 +39,9 @@ namespace RookVM
       virtual Runtime::iStandardClass* getRuntime();
       virtual VM::iFrameStack* getFrameStack();
       virtual RookVM::LiteralsTable* getLiteralsTable();
+      virtual void incrementNodePointer();
+      virtual void setNodePointer(int value);
+      virtual int getNodePointer();
 
   };
 

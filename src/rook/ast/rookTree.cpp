@@ -37,8 +37,22 @@ RookAST::RookTree::treeSize()
 void
 RookAST::RookTree::compile(RookVM::PawnExecutor* e)
 {
-  for (auto &n : nodes)
+  int treeSize = this->nodes.size();
+  e->setNodePointer(0);
+
+
+  //
+  //  The Executor process loop for each instruction.
+  //    - tree
+  //    -- main branch
+  //    --- node
+  //    --- labelnode1
+  //    --- node
+  //    --- go to labelnode1 if condition 
+  //
+  while(e->getNodePointer() < treeSize)
   {
-    if (n != nullptr ) n->compile(e);
+    RookAST::Node* n = this->nodes[e->getNodePointer()];
+    if (n != nullptr ) { n->compile(e); } else { e->incrementNodePointer(); }
   }
 }

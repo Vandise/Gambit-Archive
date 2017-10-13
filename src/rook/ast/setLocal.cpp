@@ -26,6 +26,8 @@ RookAST::SetLocalNode::compile(RookVM::PawnExecutor* e)
     klass = nullptr;
   }
 
+  e->incrementNodePointer();
+
   // if this got past the compiler, then I clearly did something wrong
   //    throw an exception
 
