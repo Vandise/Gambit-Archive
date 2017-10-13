@@ -46,9 +46,15 @@ float_num ({digit}+\.{digit}+)
 <*>.code  		 		     { BEGIN(code); return( token::T_MAIN_LABEL ); }
 
 <literals>[_a-zA-Z\\?\\!]+   { yylval->sval = new std::string(yytext); return( token::T_ADD_LITERAL ); }
+<literals>\"[^"]*\"          {
+                                yylval->sval = new std::string(yytext);
+                                yylval->sval->erase(remove(yylval->sval->begin(), yylval->sval->end(), '\"' ), yylval->sval->end());
+                                return( token::T_ADD_LITERAL );
+                             }
 
 <code>SET_LOCAL              { return( token::T_SET_LOCAL ); }
 <code>PUSH_INTEGER           { return( token::T_PUSH_INTEGER ); }
+<code>PUSH_STRING            { return( token::T_PUSH_STRING ); }
 <code>([A-Z][a-zA-Z]*)+      {
                                yylval->sval = new std::string(yytext);
                                return( token::T_CONSTANT );

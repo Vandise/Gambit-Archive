@@ -59,6 +59,7 @@
 %token       <ival>      T_INTEGER
 %token       <sval>      T_CONSTANT
 %token                   T_PUSH_INTEGER
+%token                   T_PUSH_STRING
 %token                   T_SET_LOCAL
 %token       <sval>      T_ADD_LITERAL
 %token                   T_MAIN_LABEL
@@ -103,6 +104,7 @@ Expression:
 
 Instructions:
     T_PUSH_INTEGER T_INTEGER         { $$ = new RookAST::PushIntegerNode($2); }
+  | T_PUSH_STRING T_INTEGER          { $$ = new RookAST::PushStringNode($2); }
   | T_SET_LOCAL T_CONSTANT T_INTEGER { $$ = new RookAST::SetLocalNode(*$2, $3); delete($2); }
   ;
 
