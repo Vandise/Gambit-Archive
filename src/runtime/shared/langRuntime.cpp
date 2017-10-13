@@ -1,5 +1,7 @@
 #include "shared/runtime/langRuntime.hpp"
 #include "runtime/objectspace/standardClass.hpp"
+#include "shared/runtime/methods/object.hpp"
+
 
 Runtime::iStandardClass* Runtime::LangRuntime::klass;
 Runtime::iStandardClass* Runtime::LangRuntime::objectClass;
@@ -23,6 +25,8 @@ Runtime::LangRuntime::bootstrap()
   //    -> Object
   Runtime::LangRuntime::objectClass->setConstant("Object", Runtime::LangRuntime::objectClass);
   Runtime::LangRuntime::objectClass->setConstant("Klass", Runtime::LangRuntime::klass);
+
+  Runtime::LangRuntime::objectClass->addMethod("puts", (new Runtime::ObjectPutsStringMethod()));
 
   Runtime::LangRuntime::objectClass->newSubclass(std::string("String"));
   Runtime::LangRuntime::objectClass->newSubclass(std::string("Integer"));

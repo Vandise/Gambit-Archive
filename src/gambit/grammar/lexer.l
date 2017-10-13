@@ -56,6 +56,8 @@ float_num ({digit}+\.{digit}+)
                       yylval->ival = (atoi(yytext));
                       return( token::T_INTEGER );
                     }
+"("                 { return( token::T_OPEN_PAREN ); }
+")"                 { return( token::T_CLOSE_PAREN ); }
 "="                 {
                       return( token::T_ASSIGN );
                     }

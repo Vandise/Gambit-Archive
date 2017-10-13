@@ -39,7 +39,7 @@ Gambit::Tree::compile(Compiler::iCodeGenerator *cg)
 {
   for (auto &n : nodes)
   {
-    n->compile(cg);
+    if (n != nullptr) n->compile(cg);
   }
   cg->setState(CS_DEFAULT);
 }

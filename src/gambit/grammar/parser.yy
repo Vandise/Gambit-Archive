@@ -30,6 +30,8 @@
     class Tree;
     class LiteralNode;
     class LocalDefinitionNode;
+    class CallNode;
+    class Arguments;
   }
 
 }
@@ -38,6 +40,8 @@
 %parse-param { AST::Tree  &astTree  }
 
 %code {
+
+  #include <vector>
 
   #include "gambit/lang/driver.hpp"
   #include "gambit/scanner.hpp"
@@ -69,6 +73,8 @@
 %token                   T_ASSIGN
 %token                   T_OPEN_BRACKET
 %token                   T_CLOSE_BRACKET
+%token                   T_OPEN_PAREN
+%token                   T_CLOSE_PAREN
 %token                   T_COMMA
 %token                   T_NEWLINE
 
@@ -77,10 +83,12 @@
   std::string *sval;
   AST::Tree *tree;
   AST::Node *node;
+  Gambit::Arguments *arguments;
 }
 
-%type <tree>    Expressions
-%type <node>    Expression Literals LocalDefinition
+%type <tree>      Expressions
+%type <node>      Expression Literals LocalDefinition Call
+%type <arguments> Arguments
 
 %destructor { delete($$); } <tree> <sval>
 
@@ -108,6 +116,7 @@ Expressions:
 Expression:
     Literals
   | LocalDefinition
+  | Call
   ;
 
 Literals:
@@ -132,6 +141,22 @@ LocalDefinition:
                                         delete($1);
                                         delete($3);
                                       }
+  ;
+
+Call:
+    T_IDENTIFIER T_OPEN_PAREN Arguments T_CLOSE_PAREN { 
+                                                        $$ = new Gambit::CallNode(*$1, $3, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN)));
+                                                        delete($1);
+                                                      }
+  ;
+
+Arguments:
+    Expression {
+                  $$ = new Gambit::Arguments();
+                  $$->add($1);
+               }
+  | Arguments T_COMMA Expression { $1->add($3); $$ = $1; }
+  |            { $$ = new Gambit::Arguments();  }
   ;
 
 Terminator:
