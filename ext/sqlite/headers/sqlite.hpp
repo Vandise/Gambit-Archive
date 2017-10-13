@@ -36,6 +36,12 @@ namespace Runtime
 
     public:
 
+      SqliteInitializeMethod()
+      {
+        PARAMETER_TYPE("String")
+        PARAMETER_TYPE("Integer");
+      };
+
       virtual Runtime::iStandardClass* call(Runtime::iStandardClass *receiver, std::vector<Runtime::iStandardClass*> arguments)
       {
         std::cout << "called initialize" << std::endl;
