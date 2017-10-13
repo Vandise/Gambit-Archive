@@ -59,3 +59,20 @@ RookVM::PawnExecutor::getNodePointer()
 {
   return this->currentNode;
 }
+
+void
+RookVM::PawnExecutor::addLabel(std::string label)
+{
+  std::cout << label << " at position: " << this->getNodePointer() << std::endl;
+  this->labels[label] = this->getNodePointer();
+}
+
+void
+RookVM::PawnExecutor::jumpToLabel(std::string label)
+{
+  int point = this->labels[label];
+  this->setNodePointer(point);
+}
+
+
+

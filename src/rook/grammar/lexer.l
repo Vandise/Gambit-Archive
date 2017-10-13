@@ -42,8 +42,8 @@ float_num ({digit}+\.{digit}+)
                       return( token::T_NEWLINE );
                     }
 
-<*>.literals  		 		 { BEGIN(literals); return( token::T_MAIN_LABEL );  }
-<*>.code  		 		     { BEGIN(code); return( token::T_MAIN_LABEL ); }
+<*>.literals  		 		 { BEGIN(literals); yylval->sval = new std::string(yytext); return( token::T_LABEL );  }
+<*>.code  		 		     { BEGIN(code);     yylval->sval = new std::string(yytext); return( token::T_LABEL ); }
 
 <literals>[_a-zA-Z\\?\\!]+   { yylval->sval = new std::string(yytext); return( token::T_ADD_LITERAL ); }
 <literals>\"[^"]*\"          {

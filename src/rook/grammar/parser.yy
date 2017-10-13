@@ -62,7 +62,7 @@
 %token                   T_PUSH_STRING
 %token                   T_SET_LOCAL
 %token       <sval>      T_ADD_LITERAL
-%token                   T_MAIN_LABEL
+%token       <sval>      T_LABEL
 %token                   T_NEWLINE
 
 %union {
@@ -109,7 +109,7 @@ Instructions:
   ;
 
 Labels:
-    T_MAIN_LABEL { /*$$ = new RookAST::AddLiteralNode("main");*/ $$ = nullptr; }
+    T_LABEL { $$ = new RookAST::LabelNode(*$1); delete($1); }
   ;
 
 Literals:

@@ -3,6 +3,7 @@
 
 #define DEFAULT_FRAME "main"
 
+#include <map>
 #include <iostream>
 
 #include "shared/runtime/langRuntime.hpp"
@@ -27,6 +28,7 @@ namespace RookVM
       VM::iFrameStack *frameStack;
       RookAST::Tree *tree;
       RookVM::LiteralsTable* literalsTable;
+      std::map<std::string, int> labels;
 
     public:
 
@@ -42,6 +44,8 @@ namespace RookVM
       virtual void incrementNodePointer();
       virtual void setNodePointer(int value);
       virtual int getNodePointer();
+      virtual void addLabel(std::string label);
+      virtual void jumpToLabel(std::string label);
 
   };
 
