@@ -35,6 +35,11 @@ namespace Gambit
         this->args.push_back(arg);
       };
 
+      std::vector<AST::Node *> getArgs()
+      {
+        return this->args;
+      };
+
   };
 
 }

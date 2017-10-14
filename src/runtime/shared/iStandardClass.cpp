@@ -137,17 +137,20 @@ Runtime::iStandardClass::lookup(std::string name)
 bool
 Runtime::iStandardClass::hasMethod(std::string name)
 {
-
-  if(methods.count(name) >= 1)
+  if(this->methods.count(name) >= 1)
   {
     return true;
   }
 
-  if(superClass)
+  if(this->superClass != nullptr)
   {
+    // Klass has no methods
+    if (this->superClass->getName() == this->getName())
+    {
+      return false;
+    }
     return superClass->hasMethod(name);
   }
-
   return false;
 }
 

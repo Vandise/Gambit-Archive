@@ -20,7 +20,7 @@ namespace Runtime
 
       std::string name;
       std::map<std::string, Runtime::iStandardClass*> constants;
-      Runtime::iStandardClass *superClass;
+      Runtime::iStandardClass *superClass = nullptr;
 
     public:
 

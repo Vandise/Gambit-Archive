@@ -6,5 +6,7 @@ std::string Pawn::Instructions::instructions[] = {
   "PUSH_STRING",
   "PUSH_ARRAY",
   "SET_LOCAL",
+  "PUSH_SELF",
+  "CALL",
   "POP"
 };

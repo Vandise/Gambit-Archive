@@ -21,6 +21,8 @@ namespace Pawn
         PUSH_STRING,
         PUSH_ARRAY,
         SET_LOCAL,
+        PUSH_SELF,
+        CALL,
         POP
       } OPCODE;
 

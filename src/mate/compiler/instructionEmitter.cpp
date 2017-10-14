@@ -95,3 +95,43 @@ Compiler::InstructionEmitter::setLocal(std::string dataType, std::string identif
   }
 }
 
+void
+Compiler::InstructionEmitter::pushSelf()
+{
+
+  this->cg->getFrameStack()->getCurrentFrame()->pushStack(
+    this->cg->getFrameStack()->getCurrentFrame()->getCurrentSelf()
+  );
+
+  this->cg->getInstructionBuffer()->pushInstruction(
+    (new Compiler::PushSelfInstruction(Pawn::Instructions::getInstruction(Pawn::Instructions::PUSH_SELF)))
+  );
+
+}
+
+void
+Compiler::InstructionEmitter::call(std::string method, int parameters)
+{
+  // TODO:
+  //  check if method exists
+  //  call the method
+  //  push result for data-type validation
+  //  for now pop current self so it won't get deleted and error
+
+  Runtime::iStandardClass* currentSelf = this->cg->getFrameStack()->getCurrentFrame()->popStack();
+
+  if ( currentSelf->hasMethod(method) )
+  {
+    this->cg->getInstructionBuffer()->pushInstruction(
+      (new Compiler::CallInstruction(Pawn::Instructions::getInstruction(Pawn::Instructions::CALL), method, parameters ))
+    );
+  }
+  else
+  {
+    // TODO:
+    //    Method undefined exception
+  }
+
+}
+
+

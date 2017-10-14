@@ -25,7 +25,7 @@ namespace VM
       iFrame(std::string frameName)
       {
         this->frameName = frameName;
-        this->currentSelf = Runtime::LangRuntime::mainObject;
+        this->currentSelf = Runtime::LangRuntime::objectClass;
       };
 
       virtual ~iFrame()

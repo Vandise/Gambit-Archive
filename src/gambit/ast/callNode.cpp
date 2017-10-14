@@ -16,12 +16,26 @@ Gambit::CallNode::~CallNode()
 void
 Gambit::CallNode::compile(Compiler::iCodeGenerator *cg)
 {
-  std::cout << "Compiling call to: " << this->identifier << std::endl;
-  /*
-  if ( this->type == 1 )
+  std::vector<AST::Node *> args = this->arguments->getArgs();
+
+  cg->setState(CS_ARGUMENTS);
+
+  std::vector<AST::Node *>::iterator it;
+  for (it = args.begin(); it != args.end(); it++)
   {
-    cg->emit()->withTrace(this->trace)->pushInteger(this->intValue);
+    (*it)->compile(cg);
+
+    // generate method signature 
+    this->identifier.append("_").append(
+      cg->getFrameStack()->getCurrentFrame()->peekStack()->getName()
+    );
+
   }
-  */
+
+  cg->popState();
+
+  cg->emit()->withTrace(this->trace)->pushSelf();
+  cg->emit()->withTrace(this->trace)->call(this->identifier, args.size());
+
 
 }
