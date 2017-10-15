@@ -204,6 +204,8 @@ The bytecode output by the Mate Compiler.
 | PUSH_STRING   | String Obj    |               |               |               | Pushes a String onto the Stack |
 | PUSH_ARRAY    | Array Size n  |               |               |               | Pops n elements from the Stack and pushes an array|
 | SET_LOCAL     | Class         | Identifier    |               |               | Pops top element on the Stack, sets local variable in current frame |
+| PUSH_SELF     |               |               |               |               | Pushes the current object context onto the stack |
+| CALL          | String MethodSignature | Args Count |         |               | Executes a method. Pushes result to stack. Void types are popped from the stack immediately |
 | POP           |               |               |               |               | Pops top element from the Stack |
 
 
