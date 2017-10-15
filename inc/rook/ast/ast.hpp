@@ -7,5 +7,6 @@
 #include "rook/ast/setLocal.hpp"
 #include "rook/ast/addLiteral.hpp"
 #include "rook/ast/label.hpp"
+#include "rook/ast/pushSelf.hpp"
 
 #endif

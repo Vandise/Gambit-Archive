@@ -25,6 +25,7 @@
     class Node;
     class Tree;
     class RookTree;
+    
   }
 
 }
@@ -61,6 +62,7 @@
 %token                   T_PUSH_INTEGER
 %token                   T_PUSH_STRING
 %token                   T_SET_LOCAL
+%token                   T_PUSH_SELF
 %token       <sval>      T_ADD_LITERAL
 %token       <sval>      T_LABEL
 %token                   T_NEWLINE
@@ -106,6 +108,7 @@ Instructions:
     T_PUSH_INTEGER T_INTEGER         { $$ = new RookAST::PushIntegerNode($2); }
   | T_PUSH_STRING T_INTEGER          { $$ = new RookAST::PushStringNode($2); }
   | T_SET_LOCAL T_CONSTANT T_INTEGER { $$ = new RookAST::SetLocalNode(*$2, $3); delete($2); }
+  | T_PUSH_SELF                      { $$ = new RookAST::PushSelfNode(); }
   ;
 
 Labels:

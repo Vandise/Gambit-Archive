@@ -6,6 +6,7 @@
 #include <iostream>
 #include <map>
 
+#include "dev/debugnew/debug_new.h"
 #include "shared/runtime/langRuntime.hpp"
 #include "shared/runtime/iStandardClass.hpp"
 
@@ -33,7 +34,12 @@ namespace VM
         std::vector<Runtime::iStandardClass*>::iterator it;
         for(it = this->localStack.begin(); it != this->localStack.end(); it++)
         {
-          delete(*it);
+          if ((*it) != this->currentSelf)
+          {
+            delete(*it);
+          } else {
+            std::cout << "Current self found on stack" << std::endl;
+          }
         }
 
         std::map<std::string, Runtime::iStandardClass*>::iterator iu;
@@ -42,7 +48,7 @@ namespace VM
           delete(iu->second);
         }
 
-        this->localStack.clear();
+        //this->localStack.clear();
       };
 
       virtual bool hasLocal(std::string name)

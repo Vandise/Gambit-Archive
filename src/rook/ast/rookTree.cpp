@@ -51,23 +51,17 @@ RookAST::RookTree::compile(RookVM::PawnExecutor* e)
   //
   for (auto &n : nodes)
   {
-    if ( n->getType() == "RookTree" )
+    if ( n->getType() == "LabelNode" )
     {
-      n->compile(e);
+      if (n != nullptr) n->compile(e);
     }
     else
     {
-      if ( n->getType() == "LabelNode" )
-      {
-        if (n != nullptr) n->compile(e);
-      }
-      else
-      {
-        e->incrementNodePointer();
-      }
+      e->incrementNodePointer();
     }
   }
 
+  e->setNodePointer(0);
   //
   //  The Executor process loop for each instruction.
   //    - tree
