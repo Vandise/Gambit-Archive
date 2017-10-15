@@ -17,6 +17,7 @@ namespace RookAST
       LabelNode(std::string label);
       ~LabelNode();
       void compile(RookVM::PawnExecutor* e);
+      virtual std::string getType();
 
   };
 

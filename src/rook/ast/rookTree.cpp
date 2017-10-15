@@ -34,12 +34,39 @@ RookAST::RookTree::treeSize()
   return 0;
 }
 
+std::string
+RookAST::RookTree::getType()
+{
+  return "RookTree";
+}
+
 void
 RookAST::RookTree::compile(RookVM::PawnExecutor* e)
 {
   int treeSize = this->nodes.size();
   e->setNodePointer(0);
 
+  //
+  // Preprocess labels
+  //
+  for (auto &n : nodes)
+  {
+    if ( n->getType() == "RookTree" )
+    {
+      n->compile(e);
+    }
+    else
+    {
+      if ( n->getType() == "LabelNode" )
+      {
+        if (n != nullptr) n->compile(e);
+      }
+      else
+      {
+        e->incrementNodePointer();
+      }
+    }
+  }
 
   //
   //  The Executor process loop for each instruction.

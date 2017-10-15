@@ -16,3 +16,9 @@ RookAST::LabelNode::compile(RookVM::PawnExecutor* e)
   e->addLabel(this->label);
   e->incrementNodePointer();
 }
+
+std::string
+RookAST::LabelNode::getType()
+{
+  return "LabelNode";
+}

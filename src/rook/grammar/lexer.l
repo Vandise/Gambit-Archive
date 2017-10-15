@@ -52,6 +52,7 @@ float_num ({digit}+\.{digit}+)
                                 return( token::T_ADD_LITERAL );
                              }
 
+<code>^\.[a-zA-Z0-9]+        { yylval->sval = new std::string(yytext); return( token::T_LABEL ); }
 <code>SET_LOCAL              { return( token::T_SET_LOCAL ); }
 <code>PUSH_INTEGER           { return( token::T_PUSH_INTEGER ); }
 <code>PUSH_STRING            { return( token::T_PUSH_STRING ); }

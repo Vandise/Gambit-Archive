@@ -2,6 +2,8 @@
 #define __ROOK_TREE_HPP__ 1
 
 #include "rook/ast/tree.hpp"
+#include "shared/lang/instanceOf.hpp"
+#include "rook/ast/label.hpp"
 
 namespace RookAST
 {
@@ -17,6 +19,7 @@ namespace RookAST
         void pushBranch(RookAST::Tree *tree);
         int treeSize();
         void compile(RookVM::PawnExecutor* e);
+        virtual std::string getType();
   };
 
 }

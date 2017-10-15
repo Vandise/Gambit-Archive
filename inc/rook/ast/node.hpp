@@ -15,6 +15,10 @@ namespace RookAST
     public:
       virtual ~Node() {};
       virtual void compile(RookVM::PawnExecutor* e) = 0;
+      virtual std::string getType()
+      {
+        return "Node";
+      };
 
   };
 
