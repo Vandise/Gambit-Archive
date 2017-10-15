@@ -42,7 +42,9 @@ namespace VM
       {
         if (!this->frameStack.empty())
         {
+          VM::iFrame* f = this->frameStack.top();
           this->frameStack.pop();
+          delete(f);
           return true;
         }
         return false;

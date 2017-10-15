@@ -53,6 +53,7 @@ float_num ({digit}+\.{digit}+)
                              }
 
 <code>^\.[a-zA-Z0-9]+        { yylval->sval = new std::string(yytext); return( token::T_LABEL ); }
+<code>CALL                   { return( token::T_CALL ); }
 <code>SET_LOCAL              { return( token::T_SET_LOCAL ); }
 <code>PUSH_SELF              { return( token::T_PUSH_SELF ); }
 <code>PUSH_INTEGER           { return( token::T_PUSH_INTEGER ); }
@@ -61,6 +62,7 @@ float_num ({digit}+\.{digit}+)
                                yylval->sval = new std::string(yytext);
                                return( token::T_CONSTANT );
                              }
+ <code>([A-Z][_a-zA-Z]*)+     { yylval->sval = new std::string(yytext); return( token::T_METHOD_SIGNATURE ); }
 <code>{integer}  			       {
                                 yylval->ival = (atoi(yytext));
                                 return( token::T_INTEGER );

@@ -8,5 +8,6 @@
 #include "rook/ast/addLiteral.hpp"
 #include "rook/ast/label.hpp"
 #include "rook/ast/pushSelf.hpp"
+#include "rook/ast/call.hpp"
 
 #endif

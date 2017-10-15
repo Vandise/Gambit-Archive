@@ -71,9 +71,19 @@ namespace VM
         return this->currentSelf;
       };
 
+      virtual void setCurrentSelf(Runtime::iStandardClass* obj)
+      {
+        this->currentSelf = obj;
+      };
+
       virtual std::string getFrameName()
       {
         return this->frameName;
+      };
+
+      virtual std::vector<Runtime::iStandardClass*> getLocalStack()
+      {
+        return this->localStack;
       };
 
       virtual void pushStack(Runtime::iStandardClass* obj)
