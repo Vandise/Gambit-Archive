@@ -34,8 +34,10 @@ Gambit::CallNode::compile(Compiler::iCodeGenerator *cg)
 
   cg->popState();
 
+  std::string klassName = cg->getFrameStack()->getCurrentFrame()->getCurrentSelf()->getName();
+
   cg->emit()->withTrace(this->trace)->pushSelf();
-  cg->emit()->withTrace(this->trace)->call(this->identifier, args.size());
+  cg->emit()->withTrace(this->trace)->call(klassName.append("_").append(this->identifier), args.size());
 
 
 }

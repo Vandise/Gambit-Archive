@@ -157,6 +157,7 @@ Runtime::iStandardClass::hasMethod(std::string name)
 void
 Runtime::iStandardClass::addMethod(std::string name, Runtime::iMethod *method)
 {
-  std::string identifier = method->generateMethodName(name);
+  std::string thisName = this->getName();
+  std::string identifier = thisName.append("_").append(method->generateMethodName(name));
   this->methods[identifier] = method;
 }
