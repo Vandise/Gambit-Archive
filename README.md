@@ -30,8 +30,20 @@ Gambit is a strongly-typed, object-based, programming language. Not much has bee
 10
 12
 
+# strings
+"Benjamin Anderson"
+
 # assignment
 Integer::my_age = 24
+
+#get locals
+my_age
+
+
+# methods (in current scope)
+String::my_name = "Benjamin Anderson"
+
+puts(my_name)
 
 ```
 
@@ -168,6 +180,13 @@ namespace Runtime
   {
 
     public:
+
+      SqliteInitializeMethod()
+      {
+        // parameter datatypes
+        PARAMETER_TYPE("String")
+        PARAMETER_TYPE("Integer");
+      };
 
       virtual Runtime::iStandardClass* call(Runtime::iStandardClass *receiver, std::vector<Runtime::iStandardClass*> arguments)
       {
