@@ -25,3 +25,20 @@ Runtime::ValueObject::getValue()
       break;
   }
 }
+
+Runtime::iStandardClass*
+Runtime::ValueObject::clone()
+{
+  //std::cout << "Cloning ValueObject" << std::endl;
+
+  switch(this->type)
+  {
+    case INTEGER:
+      return new Runtime::ValueObject( this->intValue );
+      break;
+    default:
+      return new Runtime::ValueObject( this->stringValue );
+      break;
+  }
+
+}

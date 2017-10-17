@@ -76,3 +76,22 @@ Runtime::iObject::getValue()
   return new Runtime::iPrimitiveDataType();
 }
 
+std::map<std::string, Runtime::iMethod*>
+Runtime::iObject::getMethods()
+{
+  return this->methods;
+}
+
+std::map<std::string, Runtime::iStandardClass*>
+Runtime::iObject::getInstanceVariables()
+{
+  return this->instanceVariables;
+}
+
+Runtime::iStandardClass*
+Runtime::iObject::clone()
+{
+  return nullptr;
+}
+
+

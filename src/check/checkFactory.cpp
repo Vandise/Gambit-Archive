@@ -16,6 +16,9 @@ Check::MessageFactory::MessageFactory(CaptureEvents e)
     case INVALID_TOKEN:
       this->E = new Check::UnexpectedToken();
       break;
+    case UNDEFINED_VARIABLE:
+      this->E = new Check::UndefinedVariable();
+      break;
     default:
       this->E = new Check::DefaultEvent();
       break;

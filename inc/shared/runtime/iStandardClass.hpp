@@ -53,6 +53,8 @@ namespace Runtime
       virtual bool hasMethod(std::string name);
       virtual void addMethod(std::string name, Runtime::iMethod *method);
 
+      virtual Runtime::iStandardClass* clone();
+
   };
 
 }

@@ -128,6 +128,12 @@ Compiler::InstructionEmitter::getLocal(std::string identifier)
     {
       Runtime::iStandardClass* local = this->cg->getFrameStack()->getCurrentFrame()->getLocal(identifier);
 
+      // parameters are never passed by reference
+      if ( this->cg->getState() == CS_ARGUMENTS )
+      {
+        local = local->clone();
+      }
+
       this->cg->getFrameStack()->getCurrentFrame()->pushStack(local);
         local = nullptr;
 
@@ -137,13 +143,12 @@ Compiler::InstructionEmitter::getLocal(std::string identifier)
     }
     else
     {
-      throw Exception::UselessStatement("Identifier", identifier, TRACE_PARAMETERS);
+      throw Exception::UselessStatement(this->cg->getFrameStack()->getCurrentFrame()->getLocal(identifier)->getName(), identifier, TRACE_PARAMETERS);
     }
   }
   else
   {
-    //  TODO:
-    //    throw undefined identifier exception
+    throw Exception::UndefinedVariableException(identifier, TRACE_PARAMETERS);
   }
 
   //std::cout << "[Instruction End]Get Local" << std::endl;
@@ -181,10 +186,12 @@ Compiler::InstructionEmitter::call(std::string method, int parameters)
 
     for (int i = 0; i < parameters; i++)
     {
-      // TODO:
-      //    check to see if this object exists in literals
-      //    if so, we don't delete it
-      this->cg->getFrameStack()->getCurrentFrame()->popStack();
+      //
+      //  the item on the stack needs to be a clone if
+      //  a local variable or class
+      //
+      Runtime::iStandardClass* klass = this->cg->getFrameStack()->getCurrentFrame()->popStack();
+      delete(klass);
     }
 
     this->cg->getInstructionBuffer()->pushInstruction(

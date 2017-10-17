@@ -7,6 +7,7 @@
 #include "check/events/assignDataTypeMismatch.hpp"
 #include "check/events/uselessStatement.hpp"
 #include "check/events/unexpectedToken.hpp"
+#include "check/events/undefinedVariable.hpp"
 
 namespace Check
 {

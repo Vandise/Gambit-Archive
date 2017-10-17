@@ -36,6 +36,9 @@ namespace Runtime
       virtual bool hasInstanceVariable(std::string name);
       virtual void setInstanceVariable(std::string name, Runtime::iStandardClass* value);
       virtual Runtime::iPrimitiveDataType* getValue();
+      virtual std::map<std::string, Runtime::iMethod*> getMethods();
+      virtual std::map<std::string, Runtime::iStandardClass*> getInstanceVariables();
+      virtual Runtime::iStandardClass* clone();
 
   };
 

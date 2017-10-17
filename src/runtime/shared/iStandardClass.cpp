@@ -161,3 +161,25 @@ Runtime::iStandardClass::addMethod(std::string name, Runtime::iMethod *method)
   std::string identifier = thisName.append("_").append(method->generateMethodName(name));
   this->methods[identifier] = method;
 }
+
+
+Runtime::iStandardClass*
+Runtime::iStandardClass::clone()
+{
+  //std::cout << "Cloning iStandardClass" << std::endl;
+  Runtime::iStandardClass* clone = new Runtime::iStandardClass( this->getName(), this->getSuperClass() );
+
+  std::map<std::string, Runtime::iMethod*>::iterator im;
+  for( im = this->methods.begin(); im != this->methods.end(); im++ )
+  {
+    clone->addMethod( im->first, im->second );
+  }
+
+  std::map<std::string, Runtime::iStandardClass*>::iterator iv;
+  for( iv = this->instanceVariables.begin(); iv != this->instanceVariables.end(); iv++ )
+  {
+    clone->setInstanceVariable( iv->first, iv->second->clone() );
+  }
+
+  return clone;
+}

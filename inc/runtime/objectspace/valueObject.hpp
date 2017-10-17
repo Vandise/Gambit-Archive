@@ -23,6 +23,7 @@ namespace Runtime
       ValueObject(std::string value);
       ValueObject(int value);
       virtual Runtime::iPrimitiveDataType* getValue();
+      virtual Runtime::iStandardClass* clone();
 
   };
 
