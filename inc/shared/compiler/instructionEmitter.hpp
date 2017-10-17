@@ -15,6 +15,7 @@
 #include "shared/compiler/instructions/setLocalInstruction.hpp"
 #include "shared/compiler/instructions/pushSelfInstruction.hpp"
 #include "shared/compiler/instructions/callInstruction.hpp"
+#include "shared/compiler/instructions/getLocalInstruction.hpp"
 
 #define TRACE_PARAMETERS this->trace->filename, this->trace->line, this->trace->column
 
@@ -38,6 +39,7 @@ namespace Compiler
       void pushInteger(int value);
       void pushString(std::string value);
       void setLocal(std::string dataType, std::string identifier, bool isNull = false);
+      void getLocal(std::string identifier);
       void pushSelf();
       void call(std::string method, int parameters);
 

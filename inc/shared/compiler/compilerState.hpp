@@ -4,7 +4,8 @@
 typedef enum {
   CS_DEFAULT,
   CS_LOCAL_DEFINITION,
-  CS_ARGUMENTS
+  CS_ARGUMENTS,
+  CS_CALL,
 } COMPILERSTATE;
 
 #endif

@@ -87,7 +87,7 @@
 }
 
 %type <tree>      Expressions
-%type <node>      Expression Literals LocalDefinition Call
+%type <node>      Expression Literals LocalDefinition Call Locals
 %type <arguments> Arguments
 
 %destructor { delete($$); } <tree> <sval>
@@ -117,6 +117,7 @@ Expression:
     Literals
   | LocalDefinition
   | Call
+  | Locals
   ;
 
 Literals:
@@ -148,6 +149,10 @@ Call:
                                                         $$ = new Gambit::CallNode(*$1, $3, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN)));
                                                         delete($1);
                                                       }
+  ;
+
+Locals:
+    T_IDENTIFIER                      { $$ = new Gambit::GetLocalNode(*$1, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN))); delete($1); }
   ;
 
 Arguments:

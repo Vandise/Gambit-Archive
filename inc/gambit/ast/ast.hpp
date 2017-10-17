@@ -6,5 +6,6 @@
 #include "gambit/ast/literalNode.hpp"
 #include "gambit/ast/localDefinitionNode.hpp"
 #include "gambit/ast/callNode.hpp"
+#include "gambit/ast/getLocalNode.hpp"
 
 #endif

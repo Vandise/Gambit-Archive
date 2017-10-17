@@ -32,16 +32,18 @@ namespace VM
       virtual ~iFrame()
       {
         std::vector<Runtime::iStandardClass*>::iterator it;
+        //std::cout << "[~Frame] " << localStack.size() << std::endl;
         for(it = this->localStack.begin(); it != this->localStack.end(); it++)
         {
-          if ((*it) != this->currentSelf)
+          if ((*it) != this->currentSelf )
           {
             delete(*it);
           } else {
-            std::cout << "Current self found on stack" << std::endl;
+            //std::cout << "Current self found on stack" << std::endl;
           }
         }
 
+        //std::cout << "[~Frame] " << locals.size() << std::endl;
         std::map<std::string, Runtime::iStandardClass*>::iterator iu;
         for(iu = this->locals.begin(); iu != this->locals.end(); iu++)
         {
@@ -88,13 +90,16 @@ namespace VM
 
       virtual void pushStack(Runtime::iStandardClass* obj)
       {
+        //std::cout << "[Frame] Pushing Object: " << obj << std::endl;
         this->localStack.push_back(obj);
       };
 
       virtual Runtime::iStandardClass* popStack()
       {
+        //std::cout << "[Frame]Pop check locals size: " << this->localStack.size() << std::endl;
         Runtime::iStandardClass* obj = this->localStack.back();
         this->localStack.pop_back();
+        //std::cout << "[Frame]After Pop locals size: " << this->localStack.size() << std::endl;
         return obj;
       };
 

@@ -8,5 +8,6 @@ std::string Pawn::Instructions::instructions[] = {
   "SET_LOCAL",
   "PUSH_SELF",
   "CALL",
+  "GET_LOCAL",
   "POP"
 };
