@@ -18,7 +18,7 @@ Runtime::LangRuntime::bootstrap()
   Runtime::LangRuntime::objectClass = new Runtime::StandardClass("Object", Runtime::LangRuntime::klass);
 
   // Main object provides the user access to the object hierarchy 
-  Runtime::LangRuntime::mainObject = new Runtime::iStandardClass(Runtime::LangRuntime::objectClass);
+  //Runtime::LangRuntime::mainObject = new Runtime::iStandardClass(Runtime::LangRuntime::objectClass);
 
   // Define our object hierarchy available to the user
   //  Klass
@@ -38,5 +38,5 @@ Runtime::LangRuntime::destroy()
 {
   REMOVED_FROM_RUNTIME(Runtime::LangRuntime::klass);
   REMOVED_FROM_RUNTIME(Runtime::LangRuntime::objectClass);
-  REMOVED_FROM_RUNTIME(Runtime::LangRuntime::mainObject);
+  //REMOVED_FROM_RUNTIME(Runtime::LangRuntime::mainObject);
 }
