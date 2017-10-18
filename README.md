@@ -218,7 +218,7 @@ The bytecode output by the Mate Compiler.
 
 | OP Code       | Operand 1     | Operand 2     | Operand 3     | Operand 4     | Description   |
 | ------------- |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:|
-| NOOP		      | 				  | 	            |               |               | No operation  |
+| NOOP		      | 				      | 	            |               |               | No operation  |
 | PUSH_INTEGER  | Integer Obj   |               |               |               | Pushes an Integer onto the Stack |
 | PUSH_STRING   | String Obj    |               |               |               | Pushes a String onto the Stack |
 | PUSH_ARRAY    | Array Size n  |               |               |               | Pops n elements from the Stack and pushes an array|
@@ -227,4 +227,11 @@ The bytecode output by the Mate Compiler.
 | CALL          | String MethodSignature | Args Count |         |               | Executes a method. Pushes result to stack. Void types are popped from the stack immediately |
 | POP           |               |               |               |               | Pops top element from the Stack |
 
+The following are operators that can be appended to operands to modify the state/behavior of the virtual machine.
+
+| Operator      | Description   |
+| ------------- |:-------------:|
+|               | Default behavior of instruction |
+| *             | By Value - Clone        |
+| &             | By Reference - Pointer  |
 
