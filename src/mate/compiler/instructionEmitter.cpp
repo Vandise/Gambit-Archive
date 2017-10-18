@@ -101,7 +101,6 @@ Compiler::InstructionEmitter::setLocal(std::string dataType, std::string identif
     std::string topStackDataType = cg->getFrameStack()->getCurrentFrame()->peekStack()->getName();
     if (topStackDataType != dataType)
     {
-      // TODO: check if parent datatype
       throw Exception::AssignDataTypeMismatch(identifier, dataType, topStackDataType, TRACE_PARAMETERS);
     }
 
@@ -126,11 +125,13 @@ Compiler::InstructionEmitter::getLocal(std::string identifier)
 
     if (this->cg->getState() != CS_DEFAULT)
     {
+      bool cloneFlag = false;
       Runtime::iStandardClass* local = this->cg->getFrameStack()->getCurrentFrame()->getLocal(identifier);
 
       // parameters are never passed by reference
       if ( this->cg->getState() == CS_ARGUMENTS )
       {
+        cloneFlag = true;
         local = local->clone();
       }
 
@@ -138,7 +139,7 @@ Compiler::InstructionEmitter::getLocal(std::string identifier)
         local = nullptr;
 
       this->cg->getInstructionBuffer()->pushInstruction(
-        (new Compiler::GetLocalInstruction( Pawn::Instructions::getInstruction(Pawn::Instructions::GET_LOCAL), identifier))
+        (new Compiler::GetLocalInstruction( Pawn::Instructions::getInstruction(Pawn::Instructions::GET_LOCAL), identifier, cloneFlag))
       );
     }
     else
@@ -177,7 +178,7 @@ Compiler::InstructionEmitter::call(std::string method, int parameters)
   //std::cout << "[Instruction]Call" << std::endl;
 
   // TODO:
-  //  push result for data-type validation
+  //  Change frames
 
   Runtime::iStandardClass* currentSelf = this->cg->getFrameStack()->getCurrentFrame()->popStack();
 

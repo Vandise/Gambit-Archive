@@ -11,12 +11,13 @@ namespace Compiler
 
     private:
       std::string identifier;
+      bool cloneFlag;
 
     public:
 
 
       using Compiler::iInstructionSet::iInstructionSet;
-      GetLocalInstruction(std::string opcode, std::string identifier);
+      GetLocalInstruction(std::string opcode, std::string identifier, bool cloneFlag);
 
       virtual ~GetLocalInstruction();
 

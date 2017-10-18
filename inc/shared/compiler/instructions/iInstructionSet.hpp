@@ -1,6 +1,8 @@
 #ifndef __iMATEINSTRUCTIONSET
 #define __iMATEINSTRUCTIONSET 1
 
+#define CLONE_FLAG "*"
+
 #include <iostream>
 
 namespace Compiler
