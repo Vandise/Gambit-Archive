@@ -12,10 +12,11 @@ namespace RookAST
 
     protected:
       int identifierOffset;
+      bool isClone;
 
     public:
 
-      GetLocalNode(int identifierOffset);
+      GetLocalNode(int identifierOffset, bool isClone);
       ~GetLocalNode();
       void compile(RookVM::PawnExecutor* e);
 

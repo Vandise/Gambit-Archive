@@ -65,6 +65,7 @@
 %token                   T_GET_LOCAL
 %token                   T_PUSH_SELF
 %token                   T_CALL
+%token                   T_BY_VALUE
 %token       <sval>      T_METHOD_SIGNATURE
 %token       <sval>      T_ADD_LITERAL
 %token       <sval>      T_LABEL
@@ -72,6 +73,7 @@
 
 %union {
   int ival;
+  bool bVal;
   std::string *sval;
   RookAST::Tree *tree;
   RookAST::Node *node;
@@ -79,6 +81,7 @@
 
 %type <tree>    Expressions
 %type <node>    Expression Instructions Labels Literals
+%type <bVal>    ReferenceTypes
 
 %%
 
@@ -108,12 +111,17 @@ Expression:
   ;
 
 Instructions:
-    T_PUSH_INTEGER T_INTEGER         { $$ = new RookAST::PushIntegerNode($2); }
-  | T_PUSH_STRING T_INTEGER          { $$ = new RookAST::PushStringNode($2); }
-  | T_SET_LOCAL T_CONSTANT T_INTEGER { $$ = new RookAST::SetLocalNode(*$2, $3); delete($2); }
-  | T_GET_LOCAL T_INTEGER            { $$ = nullptr; }
-  | T_PUSH_SELF                      { $$ = new RookAST::PushSelfNode(); }
-  | T_CALL T_METHOD_SIGNATURE T_INTEGER { $$ = new RookAST::CallNode(*$2, $3); delete($2); }
+    T_PUSH_INTEGER T_INTEGER              { $$ = new RookAST::PushIntegerNode($2); }
+  | T_PUSH_STRING T_INTEGER               { $$ = new RookAST::PushStringNode($2); }
+  | T_SET_LOCAL T_CONSTANT T_INTEGER      { $$ = new RookAST::SetLocalNode(*$2, $3); delete($2); }
+  | T_GET_LOCAL ReferenceTypes T_INTEGER  { $$ = new RookAST::GetLocalNode($3, $2); }
+  | T_PUSH_SELF                           { $$ = new RookAST::PushSelfNode(); }
+  | T_CALL T_METHOD_SIGNATURE T_INTEGER   { $$ = new RookAST::CallNode(*$2, $3); delete($2); }
+  ;
+
+ReferenceTypes:
+    T_BY_VALUE                      { $$ = true; }
+  |                                 { $$ = false; }
   ;
 
 Labels:

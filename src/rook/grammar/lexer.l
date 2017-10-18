@@ -63,12 +63,12 @@ float_num ({digit}+\.{digit}+)
                                yylval->sval = new std::string(yytext);
                                return( token::T_CONSTANT );
                              }
- <code>([A-Z][_a-zA-Z]*)+     { yylval->sval = new std::string(yytext); return( token::T_METHOD_SIGNATURE ); }
+<code>([A-Z][_a-zA-Z]*)+     { yylval->sval = new std::string(yytext); return( token::T_METHOD_SIGNATURE ); }
 <code>{integer}  			       {
                                 yylval->ival = (atoi(yytext));
                                 return( token::T_INTEGER );
                              }
-
+<code>\*                     { return( token::T_BY_VALUE ); }
 
 <*>. { std::cout << "Unexpected token " << yytext << std::endl; }
 

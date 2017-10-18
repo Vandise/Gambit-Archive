@@ -1,8 +1,9 @@
 #include "rook/ast/getLocal.hpp"
 
-RookAST::GetLocalNode::GetLocalNode(int identifierOffset)
+RookAST::GetLocalNode::GetLocalNode(int identifierOffset, bool isClone)
 {
   this->identifierOffset = identifierOffset;
+  this->isClone = isClone;
 }
 
 RookAST::GetLocalNode::~GetLocalNode()
@@ -19,9 +20,14 @@ RookAST::GetLocalNode::compile(RookVM::PawnExecutor* e)
   std::cout << "Compiling GET_LOCAL: " << this->identifierOffset << std::endl;
   std::string local = e->getLiteralsTable()->getLiteral(this->identifierOffset);
 
-  e->getFrameStack()->getCurrentFrame()->pushStack(
-    e->getFrameStack()->getCurrentFrame()->getLocal(local)->clone()
-  );
+  Runtime::iStandardClass* l = e->getFrameStack()->getCurrentFrame()->getLocal(local);
+  if (this->isClone)
+  {
+    l = l->clone();
+  }
+
+  e->getFrameStack()->getCurrentFrame()->pushStack(l);
+    l = nullptr;
 
   e->incrementNodePointer();
 
