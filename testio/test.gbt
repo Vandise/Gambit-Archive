@@ -4,3 +4,13 @@ String::s = "this is a test string"
 
 puts(s)
 puts("string")
+
+@echo -> Void
+{
+ puts(12)
+}
+
+@print -> Integer::x -> Integer::y -> Void
+{
+  puts(10)
+}

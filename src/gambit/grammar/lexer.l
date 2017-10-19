@@ -73,5 +73,16 @@ float_num ({digit}+\.{digit}+)
 "::"                {
                       return( token::T_BIND );
                     }
-
+"->"                {
+                      return( token::T_SKINNY_ARROW );
+                    }
+"{"                 {
+                      return( token::T_OPEN_BRACE );
+                    }
+"}"                 {
+                      return( token::T_CLOSE_BRACE );
+                    }
+"@"                 {
+                      return( token::T_DEFINE );
+                    }
 %%

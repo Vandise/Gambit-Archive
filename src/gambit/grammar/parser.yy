@@ -76,10 +76,15 @@
 %token                   T_OPEN_PAREN
 %token                   T_CLOSE_PAREN
 %token                   T_COMMA
+%token                   T_SKINNY_ARROW
+%token                   T_OPEN_BRACE
+%token                   T_CLOSE_BRACE
+%token                   T_DEFINE
 %token                   T_NEWLINE
 
 %union {
   int ival;
+  int NOOP;
   std::string *sval;
   AST::Tree *tree;
   AST::Node *node;
@@ -89,8 +94,11 @@
 %type <tree>      Expressions
 %type <node>      Expression Literals LocalDefinition Call Locals
 %type <arguments> Arguments
+%type <NOOP>      Terminator
 
+/*
 %destructor { delete($$); } <tree> <sval>
+*/
 
 %%
 
@@ -118,6 +126,7 @@ Expression:
   | LocalDefinition
   | Call
   | Locals
+  | MethodDefinition
   ;
 
 Literals:
@@ -130,13 +139,7 @@ Literals:
   ;
 
 LocalDefinition:
-    T_CONSTANT T_BIND T_IDENTIFIER    {
-                                        $$ = new Gambit::LocalDefinitionNode(*$1, *$3, nullptr, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN)));
-                                        delete($1);
-                                        delete($3);
-                                      }
-
-  | T_CONSTANT T_BIND T_IDENTIFIER T_ASSIGN Expression   
+  T_CONSTANT T_BIND T_IDENTIFIER T_ASSIGN Expression   
                                       {
                                         $$ = new Gambit::LocalDefinitionNode(*$1, *$3, $5, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN)));
                                         delete($1);
@@ -155,6 +158,24 @@ Locals:
     T_IDENTIFIER                      { $$ = new Gambit::GetLocalNode(*$1, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN))); delete($1); }
   ;
 
+MethodDefinition:
+
+    T_DEFINE T_IDENTIFIER T_SKINNY_ARROW ParameterDefinition T_SKINNY_ARROW T_CONSTANT Terminator
+    T_OPEN_BRACE Terminator 
+      Expressions
+    T_CLOSE_BRACE            { std::cout << "Found method definition 2" << std::endl; }
+
+  | T_DEFINE T_IDENTIFIER T_SKINNY_ARROW T_CONSTANT Terminator
+    T_OPEN_BRACE Terminator 
+      Expressions
+    T_CLOSE_BRACE            { std::cout << "Found method definition" << std::endl; }
+  ;
+
+ParameterDefinition:
+    T_CONSTANT T_BIND T_IDENTIFIER                                    { std::cout << "Found parameter" << *$3 << std::endl; }
+  | ParameterDefinition T_SKINNY_ARROW T_CONSTANT T_BIND T_IDENTIFIER { std::cout << "Found many parameters" << std::endl; }
+  ;
+
 Arguments:
     Expression {
                   $$ = new Gambit::Arguments();
@@ -165,7 +186,7 @@ Arguments:
   ;
 
 Terminator:
-    T_NEWLINE
+    T_NEWLINE { $$ = 0; }
   ;
 
 %%
