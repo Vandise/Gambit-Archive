@@ -38,7 +38,7 @@ namespace Compiler
       iCodeGenerator(AST::Tree *tree)
       {
         this->tree = tree;
-        this->instructionBuffer = new Compiler::InstructionBuffer();
+        this->instructionBuffer = new Compiler::InstructionBuffer( (this) );
       };
 
       virtual ~iCodeGenerator() = default;

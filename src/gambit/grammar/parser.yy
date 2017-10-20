@@ -166,12 +166,12 @@ MethodDefinition:
     T_DEFINE T_IDENTIFIER T_SKINNY_ARROW ParameterDefinition T_SKINNY_ARROW T_CONSTANT Terminator
     T_OPEN_BRACE Terminator 
       Expressions
-    T_CLOSE_BRACE            { $$ = new Gambit::MethodDefinitionNode(*$2, $4, *$6, $10); delete($2); delete($6); }
+    T_CLOSE_BRACE            { $$ = new Gambit::MethodDefinitionNode(*$2, $4, *$6, $10, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN))); delete($2); delete($6); }
 
   | T_DEFINE T_IDENTIFIER T_SKINNY_ARROW T_CONSTANT Terminator
     T_OPEN_BRACE Terminator 
       Expressions
-    T_CLOSE_BRACE            { $$ = new Gambit::MethodDefinitionNode(*$2, nullptr, *$4, $8); delete($2); delete($4); }
+    T_CLOSE_BRACE            { $$ = new Gambit::MethodDefinitionNode(*$2, nullptr, *$4, $8, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN))); delete($2); delete($4); }
 
   ;
 

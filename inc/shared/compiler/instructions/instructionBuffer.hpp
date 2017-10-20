@@ -18,84 +18,28 @@ namespace Compiler
 
       std::string outBuffer;
       std::string instructionBuffer;
+      std::string methodBuffer;
       std::vector<std::string> literals;
       std::vector<Compiler::iInstructionSet*> instructions;
+      Compiler::iCodeGenerator *cg;
 
     public:
 
-      InstructionBuffer() = default;
+      InstructionBuffer(Compiler::iCodeGenerator *cg);
 
-      virtual ~InstructionBuffer()
-      {
-        std::vector<Compiler::iInstructionSet*>::iterator it;
-        for( it = this->instructions.begin(); it != this->instructions.end(); it++ )
-        {
-          delete(*it);
-        }
-      };
+      virtual ~InstructionBuffer();
 
-      virtual void pushInstruction(Compiler::iInstructionSet* instruction)
-      {
-        this->instructions.push_back(instruction);
-      };
+      virtual void pushInstruction(Compiler::iInstructionSet* instruction);
 
-      virtual Compiler::iInstructionSet* popInstruction()
-      {
-        Compiler::iInstructionSet* i = this->instructions.back();
-          this->instructions.pop_back();
-        return i;
-      };
+      virtual Compiler::iInstructionSet* popInstruction();
 
-      virtual int addLiteral(std::string literal)
-      {
-        auto pred = [literal](std::string & search)
-        {
-          return search == literal;
-        };
-        auto index = std::find_if(this->literals.begin(), this->literals.end(), pred);
-        if(index != this->literals.end())
-        {
-          return index - this->literals.begin();
-        }
-        this->literals.push_back(literal);
-        return this->literals.size() - 1;
-      };
+      virtual int addLiteral(std::string literal);
 
-      virtual void emitLabelLine(std::string label)
-      {
-        this->instructionBuffer.append(".").append(label).append("\n");
-      };
+      virtual void emitLabelLine(std::string label);
 
-      virtual void emitInstructionLine(std::string instruction)
-      {
-        this->instructionBuffer.append("\t").append(instruction).append("\n");
-      };
+      virtual void emitInstructionLine(std::string instruction);
 
-      virtual void writeToFile(std::string filename, Compiler::iCodeGenerator *cg)
-      {
-        std::vector<Compiler::iInstructionSet*>::iterator it;
-        for( it = this->instructions.begin(); it != this->instructions.end(); it++ )
-        {
-          (*it)->emit(cg);
-        }
-
-        if (!this->instructionBuffer.empty())
-        {
-
-          this->outBuffer.append(".literals\n");
-            std::vector<std::string>::iterator it;
-            for( it = this->literals.begin(); it != this->literals.end(); it++ )
-            {
-              this->outBuffer.append("\t").append(*it).append("\n");
-            }
-          this->outBuffer.append(".code\n");
-            this->outBuffer.append(this->instructionBuffer);
-
-          std::ofstream out(filename);
-            out << this->outBuffer;
-          out.close();
-        }
-      };
+      virtual void writeToFile(std::string filename, Compiler::iCodeGenerator *cg);
 
   };
 

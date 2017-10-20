@@ -15,10 +15,11 @@ namespace Gambit
       std::string identifier;
       std::string returnType;
       AST::Node* body;
+      AST::SourceTrace* trace;
 
     public:
 
-      MethodDefinitionNode(std::string identifier, Gambit::Parameters* params, std::string returnType, AST::Node* body);
+      MethodDefinitionNode(std::string identifier, Gambit::Parameters* params, std::string returnType, AST::Node* body, AST::SourceTrace* trace);
       ~MethodDefinitionNode();
       void compile(Compiler::iCodeGenerator *cg);
 
