@@ -32,6 +32,7 @@
     class LocalDefinitionNode;
     class CallNode;
     class Arguments;
+    class Parameters;
   }
 
 }
@@ -89,11 +90,13 @@
   AST::Tree *tree;
   AST::Node *node;
   Gambit::Arguments *arguments;
+  Gambit::Parameters *params;
 }
 
 %type <tree>      Expressions
-%type <node>      Expression Literals LocalDefinition Call Locals
+%type <node>      Expression Literals LocalDefinition Call Locals MethodDefinition
 %type <arguments> Arguments
+%type <params>    ParameterDefinition
 %type <NOOP>      Terminator
 
 /*
@@ -163,17 +166,18 @@ MethodDefinition:
     T_DEFINE T_IDENTIFIER T_SKINNY_ARROW ParameterDefinition T_SKINNY_ARROW T_CONSTANT Terminator
     T_OPEN_BRACE Terminator 
       Expressions
-    T_CLOSE_BRACE            { std::cout << "Found method definition 2" << std::endl; }
+    T_CLOSE_BRACE            { $$ = new Gambit::MethodDefinitionNode(*$2, $4, *$6, $10); delete($2); delete($6); }
 
   | T_DEFINE T_IDENTIFIER T_SKINNY_ARROW T_CONSTANT Terminator
     T_OPEN_BRACE Terminator 
       Expressions
-    T_CLOSE_BRACE            { std::cout << "Found method definition" << std::endl; }
+    T_CLOSE_BRACE            { $$ = new Gambit::MethodDefinitionNode(*$2, nullptr, *$4, $8); delete($2); delete($4); }
+
   ;
 
 ParameterDefinition:
-    T_CONSTANT T_BIND T_IDENTIFIER                                    { std::cout << "Found parameter" << *$3 << std::endl; }
-  | ParameterDefinition T_SKINNY_ARROW T_CONSTANT T_BIND T_IDENTIFIER { std::cout << "Found many parameters" << std::endl; }
+    T_CONSTANT T_BIND T_IDENTIFIER                                    { $$ = new Gambit::Parameters(); $$->add(*$3, *$1); delete($3); delete($1); }
+  | ParameterDefinition T_SKINNY_ARROW T_CONSTANT T_BIND T_IDENTIFIER { $$->add(*$5, *$3); delete($3); delete($5); }
   ;
 
 Arguments:
