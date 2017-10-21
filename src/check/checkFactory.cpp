@@ -19,6 +19,9 @@ Check::MessageFactory::MessageFactory(CaptureEvents e)
     case UNDEFINED_VARIABLE:
       this->E = new Check::UndefinedVariable();
       break;
+    case UNDEFINED_METHOD:
+      this->E = new Check::UndefinedMethod();
+      break;
     default:
       this->E = new Check::DefaultEvent();
       break;

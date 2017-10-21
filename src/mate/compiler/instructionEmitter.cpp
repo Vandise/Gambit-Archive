@@ -204,8 +204,7 @@ Compiler::InstructionEmitter::call(std::string method, int parameters)
   }
   else
   {
-    // TODO:
-    //    Method undefined exception
+    throw Exception::UndefinedMethodException(method, TRACE_PARAMETERS);
   }
   //std::cout << "[Instruction End]Call" << std::endl;
 }

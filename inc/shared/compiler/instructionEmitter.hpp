@@ -11,6 +11,7 @@
 #include "capture/runtime/assignDataTypeMismatch.hpp"
 #include "capture/runtime/uselessStatement.hpp"
 #include "capture/runtime/undefinedVariable.hpp"
+#include "capture/runtime/undefinedMethod.hpp"
 
 #include "shared/compiler/instructions/pushStringInstruction.hpp"
 #include "shared/compiler/instructions/pushIntegerInstruction.hpp"

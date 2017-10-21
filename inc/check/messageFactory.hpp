@@ -8,6 +8,7 @@
 #include "check/events/uselessStatement.hpp"
 #include "check/events/unexpectedToken.hpp"
 #include "check/events/undefinedVariable.hpp"
+#include "check/events/undefinedMethod.hpp"
 
 namespace Check
 {
