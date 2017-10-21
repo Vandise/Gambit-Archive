@@ -219,7 +219,7 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
     this->cg->getFrameStack()->getCurrentFrame()->getCurrentSelf()
   );
 
-  std::string methodSignature = name;
+  std::string methodSignature = this->cg->getFrameStack()->getCurrentFrame()->getCurrentSelf()->getName().append("_").append(name);
   std::map<std::string, std::string>::iterator it;
 
   for ( it = params.begin(); it != params.end(); it++ )
