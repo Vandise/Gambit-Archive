@@ -8,17 +8,21 @@ Compiler::InstructionBuffer::InstructionBuffer(Compiler::iCodeGenerator *cg)
 
 Compiler::InstructionBuffer::~InstructionBuffer()
 {
+  /*
   std::vector<Compiler::iInstructionSet*>::iterator it;
   for( it = this->instructions.begin(); it != this->instructions.end(); it++ )
   {
     delete(*it);
   }
+  */
 }
 
 void
 Compiler::InstructionBuffer::pushInstruction(Compiler::iInstructionSet* instruction)
 {
-  this->instructions.push_back(instruction);
+  //this->instructions.push_back(instruction);
+  instruction->emit(this->cg);
+  delete(instruction);
 }
 
 Compiler::iInstructionSet*
@@ -49,7 +53,7 @@ void
 Compiler::InstructionBuffer::emitLabelLine(std::string label)
 {
   std::string labelLine = std::string(".").append(label).append("\n");
-  if (cg->getState() != CS_METHOD)
+  if (!cg->hasState(CS_METHOD))
   {
     this->instructionBuffer.append(labelLine);
   }
@@ -63,7 +67,8 @@ void
 Compiler::InstructionBuffer::emitInstructionLine(std::string instruction)
 {
   std::string line = std::string("\t").append(instruction).append("\n");
-  if (cg->getState() != CS_METHOD)
+
+  if (!cg->hasState(CS_METHOD))
   {
     this->instructionBuffer.append(line);
   }
@@ -76,12 +81,13 @@ Compiler::InstructionBuffer::emitInstructionLine(std::string instruction)
 void
 Compiler::InstructionBuffer::writeToFile(std::string filename)
 {
+  /*
   std::vector<Compiler::iInstructionSet*>::iterator it;
   for( it = this->instructions.begin(); it != this->instructions.end(); it++ )
   {
     (*it)->emit(this->cg);
   }
-
+  */
   if (!this->instructionBuffer.empty())
   {
 
@@ -96,6 +102,7 @@ Compiler::InstructionBuffer::writeToFile(std::string filename)
 
     if(!this->methodBuffer.empty())
     {
+      std::cout << "Method buffer: " << std::endl << this->methodBuffer << std::endl;
       this->outBuffer.append(this->methodBuffer);
     }
 

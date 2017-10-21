@@ -1,8 +1,8 @@
 #ifndef __iMATECODEGENERATOR
 #define __iMATECODEGENERATOR 1
 
+#include <algorithm>
 #include <string>
-#include <stack>
 
 #include "shared/runtime/langRuntime.hpp"
 #include "shared/compiler/compilerState.hpp"
@@ -31,7 +31,7 @@ namespace Compiler
       Compiler::InstructionEmitter *instructionEmitter;
       Compiler::InstructionBuffer *instructionBuffer;
       COMPILERSTATE defaultState = CS_DEFAULT;
-      std::stack<COMPILERSTATE> stateStack;
+      std::vector<COMPILERSTATE> stateStack;
 
     public:
 
@@ -46,15 +46,24 @@ namespace Compiler
 
       virtual void setState(COMPILERSTATE state)
       {
-        this->stateStack.push(state);
+        this->stateStack.push_back(state);
       };
 
       virtual void popState()
       {
         if (!this->stateStack.empty())
         {
-          this->stateStack.pop();
+          this->stateStack.pop_back();
         }
+      };
+
+      virtual bool hasState(COMPILERSTATE state)
+      {
+        if( std::find( this->stateStack.begin(), this->stateStack.end(), state) != this->stateStack.end() )
+        {
+          return true;
+        }
+        return false;
       };
 
       virtual COMPILERSTATE getState()
@@ -63,7 +72,7 @@ namespace Compiler
         {
           return this->defaultState;
         }
-        return this->stateStack.top();
+        return this->stateStack.back();
       };
 
       virtual Compiler::InstructionEmitter* emit()

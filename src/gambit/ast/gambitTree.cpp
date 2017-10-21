@@ -37,9 +37,10 @@ Gambit::Tree::treeSize()
 void
 Gambit::Tree::compile(Compiler::iCodeGenerator *cg)
 {
+  cg->setState(CS_DEFAULT);
   for (auto &n : nodes)
   {
     if (n != nullptr) n->compile(cg);
   }
-  cg->setState(CS_DEFAULT);
+  cg->popState();
 }
