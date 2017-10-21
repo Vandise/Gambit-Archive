@@ -180,6 +180,7 @@ Compiler::InstructionEmitter::call(std::string method, int parameters)
 
   // TODO:
   //  Change frames
+  //  Create label tracker, check if label exists first, then check native methods
 
   Runtime::iStandardClass* currentSelf = this->cg->getFrameStack()->getCurrentFrame()->popStack();
 
@@ -244,7 +245,7 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
   this->cg->getInstructionBuffer()->emitLabelLine(methodSignature);
 
   //  TODO:
-  //    push method label
+  //    Create label tracker
 
   this->cg->getFrameStack()->pushFrame(f);
     f = nullptr;
