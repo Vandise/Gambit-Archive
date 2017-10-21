@@ -7,12 +7,13 @@ puts("string")
 
 @echo -> Void
 {
- puts(12)
+ puts("asdf")
 }
 
-@print -> Integer::x -> Integer::y -> Void
+@print -> String::x -> String::y -> Void
 {
-  puts(10)
+  puts(x)
+  puts(y)
 }
 
 puts("hello world")

@@ -102,7 +102,6 @@ Compiler::InstructionBuffer::writeToFile(std::string filename)
 
     if(!this->methodBuffer.empty())
     {
-      std::cout << "Method buffer: " << std::endl << this->methodBuffer << std::endl;
       this->outBuffer.append(this->methodBuffer);
     }
 

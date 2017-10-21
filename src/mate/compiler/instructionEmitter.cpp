@@ -241,6 +241,7 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
   }
 
   std::cout << "Method signature " << methodSignature << std::endl;
+  this->cg->getInstructionBuffer()->emitLabelLine(methodSignature);
 
   //  TODO:
   //    push method label
