@@ -19,5 +19,17 @@ Gambit::MethodDefinitionNode::~MethodDefinitionNode()
 void
 Gambit::MethodDefinitionNode::compile(Compiler::iCodeGenerator *cg)
 {
-  std::cout << "Compiling method definition" << std::endl;
+  cg->setState(CS_METHOD);
+
+    std::map<std::string, std::string> p;
+    if (this->params != nullptr)
+    {
+      p = this->params->getParams();
+    }
+
+    cg->emit()->withTrace(this->trace)->defineMethod(this->identifier,
+      p, this->returnType, this->body
+    );
+
+  cg->popState();
 }

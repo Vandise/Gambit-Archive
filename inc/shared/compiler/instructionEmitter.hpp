@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include <map>
+
 #include "shared/ast/sourceTrace.hpp"
 #include "shared/pawn/instructions.hpp"
 #include "shared/compiler/iCodeGenerator.hpp"
@@ -19,6 +21,11 @@
 #include "shared/compiler/instructions/getLocalInstruction.hpp"
 
 #define TRACE_PARAMETERS this->trace->filename, this->trace->line, this->trace->column
+
+namespace AST
+{
+  class Node;
+}
 
 namespace Compiler
 {
@@ -43,6 +50,7 @@ namespace Compiler
       void getLocal(std::string identifier);
       void pushSelf();
       void call(std::string method, int parameters);
+      void defineMethod(std::string name, std::map<std::string, std::string> params, std::string returnType, AST::Node* body);
 
   };
 

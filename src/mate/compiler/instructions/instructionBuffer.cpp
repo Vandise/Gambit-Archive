@@ -74,12 +74,12 @@ Compiler::InstructionBuffer::emitInstructionLine(std::string instruction)
 }
 
 void
-Compiler::InstructionBuffer::writeToFile(std::string filename, Compiler::iCodeGenerator *cg)
+Compiler::InstructionBuffer::writeToFile(std::string filename)
 {
   std::vector<Compiler::iInstructionSet*>::iterator it;
   for( it = this->instructions.begin(); it != this->instructions.end(); it++ )
   {
-    (*it)->emit(cg);
+    (*it)->emit(this->cg);
   }
 
   if (!this->instructionBuffer.empty())

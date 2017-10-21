@@ -39,7 +39,7 @@ namespace Compiler
 
       virtual void emitInstructionLine(std::string instruction);
 
-      virtual void writeToFile(std::string filename, Compiler::iCodeGenerator *cg);
+      virtual void writeToFile(std::string filename);
 
   };
 

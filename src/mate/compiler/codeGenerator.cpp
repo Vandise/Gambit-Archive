@@ -25,5 +25,5 @@ void
 Mate::CodeGenerator::generate(std::string outfile)
 {
   this->tree->compile( (this) );
-  this->instructionBuffer->writeToFile(outfile, (this));
+  this->instructionBuffer->writeToFile(outfile);
 }

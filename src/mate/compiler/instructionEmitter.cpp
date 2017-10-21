@@ -1,3 +1,4 @@
+#include "shared/ast/node.hpp"
 #include "shared/compiler/instructionEmitter.hpp"
 
 Compiler::InstructionEmitter::InstructionEmitter(Compiler::iCodeGenerator *cg)
@@ -208,4 +209,50 @@ Compiler::InstructionEmitter::call(std::string method, int parameters)
   //std::cout << "[Instruction End]Call" << std::endl;
 }
 
+void
+Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::string, std::string> params, std::string returnType, AST::Node* body)
+{
+  std::cout << "Define method: " << name << std::endl;
 
+  VM::iFrame* f = new VM::iFrame(name);
+  f->setCurrentSelf(
+    this->cg->getFrameStack()->getCurrentFrame()->getCurrentSelf()
+  );
+
+  std::string methodSignature = name;
+  std::map<std::string, std::string>::iterator it;
+
+  for ( it = params.begin(); it != params.end(); it++ )
+  {
+    if (this->cg->getRuntime()->hasConstant(it->second))
+    {
+       std::cout << "Class " << it->second << " found" << std::endl;
+      methodSignature.append("_").append(it->second);
+      f->setLocal(
+        it->first,
+        this->cg->getRuntime()->getConstant(it->second)->newInstance()
+      );
+    }
+    else
+    {
+      std::cout << "Class " << it->second << " not found" << std::endl;
+      exit(1);
+    }
+  }
+
+  std::cout << "Method signature " << methodSignature << std::endl;
+
+  //  TODO:
+  //    push method label
+
+  this->cg->getFrameStack()->pushFrame(f);
+    f = nullptr;
+
+    body->compile(this->cg);
+
+    // TODO:
+    //    validate return type
+
+  this->cg->getFrameStack()->popFrame();
+
+}
