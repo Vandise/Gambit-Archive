@@ -262,7 +262,7 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
       {
         std::string klass = this->cg->getFrameStack()->getCurrentFrame()->getReturnClass();
 
-        // clean memory
+        // free memory
           this->cg->getFrameStack()->popFrame();
 
         throw Exception::InvalidReturnType(methodSignature, returnType, klass, TRACE_PARAMETERS);
@@ -270,6 +270,17 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
     }
     else
     {
+      if (returnType == VOID_DATA_TYPE)
+      {
+        //
+        //  TODO
+        //    add check for if user explicitly included a return statement
+        //    this may add multiple returns on void methods
+        //    doesn't affect the VM, but it's an instruction that will never run
+        //
+        this->putReturn(false);
+      }
+
       //
       //  No Return statement made
       //  On non-void method
