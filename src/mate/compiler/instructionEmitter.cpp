@@ -212,7 +212,6 @@ Compiler::InstructionEmitter::call(std::string method, int parameters)
 void
 Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::string, std::string> params, std::string returnType, AST::Node* body)
 {
-  std::cout << "Define method: " << name << std::endl;
 
   VM::iFrame* f = new VM::iFrame(name);
   f->setCurrentSelf(
@@ -226,7 +225,6 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
   {
     if (this->cg->getRuntime()->hasConstant(it->second))
     {
-       std::cout << "Class " << it->second << " found" << std::endl;
       methodSignature.append("_").append(it->second);
       f->setLocal(
         it->first,
@@ -240,8 +238,12 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
     }
   }
 
-  std::cout << "Method signature " << methodSignature << std::endl;
   this->cg->getInstructionBuffer()->emitLabelLine(methodSignature);
+
+  //
+  //  TODO:
+  //    Add return type to signature for any calls to method, possibly map?
+  //
   this->cg->getInstructionBuffer()->addMethodSignature(methodSignature);
 
   this->cg->getFrameStack()->pushFrame(f);
@@ -249,21 +251,32 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
 
     body->compile(this->cg);
 
-    // TODO:
-    //    validate return type
+    //
+    //  Validate return type
+    //    Return type is stored in current frame
+    //
 
     if ( this->cg->getFrameStack()->getCurrentFrame()->getReturnFlag() )
     {
       if ( returnType != this->cg->getFrameStack()->getCurrentFrame()->getReturnClass() )
       {
-        std::cout << "Datatype mismatch on return" << std::endl;
+        std::string klass = this->cg->getFrameStack()->getCurrentFrame()->getReturnClass();
+
+        // clean memory
+          this->cg->getFrameStack()->popFrame();
+
+        throw Exception::InvalidReturnType(methodSignature, returnType, klass, TRACE_PARAMETERS);
       }
     }
     else
     {
-      if ( returnType == VOID_DATA_TYPE )
+      //
+      //  No Return statement made
+      //  On non-void method
+      //
+      if ( returnType != VOID_DATA_TYPE )
       {
-        this->putReturn(false);
+        std::cout << "No Return statement made On non-void method" << std::endl;
       }
     }
 
@@ -282,9 +295,10 @@ Compiler::InstructionEmitter::putReturn(bool returnedValue)
   if (returnedValue)
   {
     Runtime::iStandardClass* v = this->cg->getFrameStack()->getCurrentFrame()->popStack();
+    std::string name = v->getName();
     this->cg->getFrameStack()->getCurrentFrame()->setReturnFlag(returnedValue);
     this->cg->getFrameStack()->getCurrentFrame()->setReturnClass(
-      v->getName()
+      name
     );
       delete(v);
       v = nullptr;

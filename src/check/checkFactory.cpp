@@ -22,6 +22,9 @@ Check::MessageFactory::MessageFactory(CaptureEvents e)
     case UNDEFINED_METHOD:
       this->E = new Check::UndefinedMethod();
       break;
+    case INVALID_RETURN_TYPE:
+      this->E = new Check::InvalidReturnType();
+      break;
     default:
       this->E = new Check::DefaultEvent();
       break;

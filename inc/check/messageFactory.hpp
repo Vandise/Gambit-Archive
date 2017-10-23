@@ -9,6 +9,7 @@
 #include "check/events/unexpectedToken.hpp"
 #include "check/events/undefinedVariable.hpp"
 #include "check/events/undefinedMethod.hpp"
+#include "check/events/invalidReturnType.hpp"
 
 namespace Check
 {
