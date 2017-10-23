@@ -244,9 +244,6 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
   this->cg->getInstructionBuffer()->emitLabelLine(methodSignature);
   this->cg->getInstructionBuffer()->addMethodSignature(methodSignature);
 
-  //  TODO:
-  //    Create label tracker
-
   this->cg->getFrameStack()->pushFrame(f);
     f = nullptr;
 
@@ -266,4 +263,16 @@ Compiler::InstructionEmitter::putReturn(bool returnedValue)
   this->cg->getInstructionBuffer()->pushInstruction(
     (new Compiler::ReturnInstruction( Pawn::Instructions::getInstruction(Pawn::Instructions::RETURN), returnedValue ))
   );
+
+  if (returnedValue)
+  {
+    Runtime::iStandardClass* v = this->cg->getFrameStack()->getCurrentFrame()->popStack();
+    this->cg->getFrameStack()->getCurrentFrame()->setReturnFlag(returnedValue);
+    this->cg->getFrameStack()->getCurrentFrame()->setReturnClass(
+      v->getName()
+    );
+      delete(v);
+      v = nullptr;
+  }
+
 }

@@ -20,6 +20,8 @@ namespace VM
       std::map<std::string, Runtime::iStandardClass*> locals;
       std::vector<Runtime::iStandardClass*> localStack;
       Runtime::iStandardClass* currentSelf;
+      bool returnFlag = false;
+      std::string returnClass;
 
     public:
 
@@ -51,6 +53,26 @@ namespace VM
         }
 
         //this->localStack.clear();
+      };
+
+      virtual void setReturnClass(std::string returnClass)
+      {
+        this->returnClass = returnClass;
+      };
+
+      virtual std::string getReturnClass()
+      {
+        return this->returnClass;
+      };
+
+      virtual void setReturnFlag(bool returnFlag)
+      {
+        this->returnFlag = returnFlag;
+      };
+
+      virtual bool getReturnFlag()
+      {
+        return this->returnFlag;
       };
 
       virtual bool hasLocal(std::string name)
