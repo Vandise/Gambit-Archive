@@ -130,7 +130,8 @@ Compiler::InstructionEmitter::getLocal(std::string identifier)
       Runtime::iStandardClass* local = this->cg->getFrameStack()->getCurrentFrame()->getLocal(identifier);
 
       // parameters are never passed by reference
-      if ( this->cg->getState() == CS_ARGUMENTS )
+
+      if ( this->cg->getState() == CS_ARGUMENTS || this->cg->getState() == CS_RETURN)
       {
         cloneFlag = true;
         local = local->clone();
