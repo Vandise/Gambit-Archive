@@ -258,3 +258,19 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
   this->cg->getFrameStack()->popFrame();
 
 }
+
+void
+Compiler::InstructionEmitter::putReturn(bool returnedValue, AST::Node* body)
+{
+  if ( returnedValue )
+  {
+    body->compile(this->cg);
+  }
+  Runtime::iStandardClass* klass = this->cg->getFrameStack()->getCurrentFrame()->popStack();
+  delete(klass);
+  this->cg->getInstructionBuffer()->pushInstruction(
+    (new Compiler::ReturnInstruction( Pawn::Instructions::getInstruction(Pawn::Instructions::RETURN), returnedValue ))
+  );
+}
+
+

@@ -78,6 +78,7 @@
 %token                   T_CLOSE_PAREN
 %token                   T_COMMA
 %token                   T_SKINNY_ARROW
+%token                   T_FAT_ARROW
 %token                   T_OPEN_BRACE
 %token                   T_CLOSE_BRACE
 %token                   T_DEFINE
@@ -94,7 +95,7 @@
 }
 
 %type <tree>      Expressions
-%type <node>      Expression Literals LocalDefinition Call Locals MethodDefinition
+%type <node>      Expression Literals LocalDefinition Call Locals MethodDefinition Returns
 %type <arguments> Arguments
 %type <params>    ParameterDefinition
 %type <NOOP>      Terminator
@@ -130,6 +131,7 @@ Expression:
   | Call
   | Locals
   | MethodDefinition
+  | Returns
   ;
 
 Literals:
@@ -187,6 +189,11 @@ Arguments:
                }
   | Arguments T_COMMA Expression { $1->add($3); $$ = $1; }
   |            { $$ = new Gambit::Arguments();  }
+  ;
+
+Returns:
+    T_FAT_ARROW          { $$ = new Gambit::ReturnNode(nullptr, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN))); }
+  | T_FAT_ARROW Expression { $$ = new Gambit::ReturnNode($2, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN))); }
   ;
 
 Terminator:

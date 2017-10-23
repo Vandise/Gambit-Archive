@@ -15,20 +15,18 @@ Gambit::ReturnNode::~ReturnNode()
 void
 Gambit::ReturnNode::compile(Compiler::iCodeGenerator *cg)
 {
-  /*
+  cg->setState(CS_RETURN);
   //
   // Something was returned and pushed to the stack
   //  Otherwise treat everything as VOID
   //
+  bool returnNode = false;
+
   if ( this->expression != nullptr )
   {
-    cg->triggerFlag(RETURN_FLAG);
+    returnNode = true;
   }
 
-  this->expression->compile(cg);
-
-  cg->emit()->withTrace(this->trace)->putReturn(
-    cg->getFlag(RETURN_FLAG)
-  );
-  */
+  cg->emit()->withTrace(this->trace)->putReturn(returnNode, this->expression);
+  cg->popState();
 }

@@ -6,7 +6,8 @@ typedef enum {
   CS_LOCAL_DEFINITION,
   CS_ARGUMENTS,
   CS_CALL,
-  CS_METHOD
+  CS_METHOD,
+  CS_RETURN
 } COMPILERSTATE;
 
 #endif
