@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #include "shared/compiler/iCodeGenerator.hpp"
 #include "shared/compiler/instructions/iInstructionSet.hpp"
@@ -19,6 +20,7 @@ namespace Compiler
       std::string outBuffer;
       std::string instructionBuffer;
       std::string methodBuffer;
+      std::vector<std::string> methodSignatures;
       std::vector<std::string> literals;
       std::vector<Compiler::iInstructionSet*> instructions;
       Compiler::iCodeGenerator *cg;
@@ -34,6 +36,8 @@ namespace Compiler
       virtual Compiler::iInstructionSet* popInstruction();
 
       virtual int addLiteral(std::string literal);
+      virtual bool hasMethodSignature(std::string sig);
+      virtual void addMethodSignature(std::string sig);
 
       virtual void emitLabelLine(std::string label);
 

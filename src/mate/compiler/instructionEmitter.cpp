@@ -184,7 +184,7 @@ Compiler::InstructionEmitter::call(std::string method, int parameters)
 
   Runtime::iStandardClass* currentSelf = this->cg->getFrameStack()->getCurrentFrame()->popStack();
 
-  if ( currentSelf->hasMethod(method) )
+  if ( currentSelf->hasMethod(method) || this->cg->getInstructionBuffer()->hasMethodSignature(method) )
   {
 
     for (int i = 0; i < parameters; i++)
@@ -242,6 +242,7 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
 
   std::cout << "Method signature " << methodSignature << std::endl;
   this->cg->getInstructionBuffer()->emitLabelLine(methodSignature);
+  this->cg->getInstructionBuffer()->addMethodSignature(methodSignature);
 
   //  TODO:
   //    Create label tracker
