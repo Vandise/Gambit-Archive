@@ -1,4 +1,9 @@
+Integer::x = 13
+Integer::y = 14
 String::s = "this is a test string"
+
+puts(s)
+puts("string")
 
 @echo -> Void
 {
@@ -11,4 +16,4 @@ String::s = "this is a test string"
   puts(y)
 }
 
-print(s, "hello")
+puts("hello world")

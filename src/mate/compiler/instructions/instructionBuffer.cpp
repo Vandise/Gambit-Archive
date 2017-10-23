@@ -61,7 +61,6 @@ Compiler::InstructionBuffer::emitLabelLine(std::string label)
   {
     this->methodBuffer.append(labelLine);
   }
-  this->labels[label] = this->cg->getState();
 }
 
 void
@@ -77,12 +76,6 @@ Compiler::InstructionBuffer::emitInstructionLine(std::string instruction)
   {
     this->methodBuffer.append(line);
   }
-}
-
-bool
-Compiler::InstructionBuffer::hasLabel(std::string label)
-{
-  return (this->labels.count(label) > 0);
 }
 
 void

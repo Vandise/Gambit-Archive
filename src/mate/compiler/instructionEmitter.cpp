@@ -184,7 +184,7 @@ Compiler::InstructionEmitter::call(std::string method, int parameters)
 
   Runtime::iStandardClass* currentSelf = this->cg->getFrameStack()->getCurrentFrame()->popStack();
 
-  if ( currentSelf->hasMethod(method) || this->cg->getInstructionBuffer()->hasLabel(method) )
+  if ( currentSelf->hasMethod(method) )
   {
 
     for (int i = 0; i < parameters; i++)
