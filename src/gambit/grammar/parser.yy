@@ -192,7 +192,8 @@ Arguments:
   ;
 
 Returns:
-    T_FAT_ARROW          { $$ = new Gambit::ReturnNode(nullptr, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN))); }
+    T_FAT_ARROW Expression { $$ = new Gambit::ReturnNode($2, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN))); }
+  | T_FAT_ARROW            { $$ = new Gambit::ReturnNode(nullptr, (new AST::SourceTrace(SOURCE_FILE, SOURCE_LINE, SOURCE_COLUMN))); }
   ;
 
 Terminator:

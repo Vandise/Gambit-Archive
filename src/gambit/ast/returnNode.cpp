@@ -25,6 +25,7 @@ Gambit::ReturnNode::compile(Compiler::iCodeGenerator *cg)
   if ( this->expression != nullptr )
   {
     returnNode = true;
+    this->expression->compile(cg);
   }
 
   cg->emit()->withTrace(this->trace)->putReturn(returnNode);
