@@ -226,6 +226,7 @@ The bytecode output by the Mate Compiler.
 | PUSH_SELF     |               |               |               |               | Pushes the current object context onto the stack |
 | CALL          | String MethodSignature | Args Count |         |               | Executes a method. Pushes result to stack. Void types are popped from the stack immediately |
 | GET_LOCAL     | < *&>LiteralOffset |          |               |               | Gets local from current scope. ByReference or Value |
+| RETURN		    | Bool PopStack	| 	            |               |               | Exits current frame. Operand 1 tells the VM whether or not to return a value  |
 | POP           |               |               |               |               | Pops top element from the Stack |
 
 The following are operators that can be appended to operands to modify the state/behavior of the virtual machine.
