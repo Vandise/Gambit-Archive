@@ -22,6 +22,7 @@
 #include "shared/compiler/instructions/getLocalInstruction.hpp"
 #include "shared/compiler/instructions/returnInstruction.hpp"
 
+#define VOID_DATA_TYPE "Void"
 #define TRACE_PARAMETERS this->trace->filename, this->trace->line, this->trace->column
 
 namespace AST

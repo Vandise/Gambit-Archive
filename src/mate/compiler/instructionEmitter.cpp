@@ -252,6 +252,21 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
     // TODO:
     //    validate return type
 
+    if ( this->cg->getFrameStack()->getCurrentFrame()->getReturnFlag() )
+    {
+      if ( returnType != this->cg->getFrameStack()->getCurrentFrame()->getReturnClass() )
+      {
+        std::cout << "Datatype mismatch on return" << std::endl;
+      }
+    }
+    else
+    {
+      if ( returnType == VOID_DATA_TYPE )
+      {
+        this->putReturn(false);
+      }
+    }
+
   this->cg->getFrameStack()->popFrame();
 
 }
