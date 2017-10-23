@@ -24,6 +24,7 @@ namespace Pawn
         PUSH_SELF,
         CALL,
         GET_LOCAL,
+        RETURN,
         POP
       } OPCODE;
 

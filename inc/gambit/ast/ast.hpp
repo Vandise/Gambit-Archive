@@ -9,5 +9,6 @@
 #include "gambit/ast/callNode.hpp"
 #include "gambit/ast/getLocalNode.hpp"
 #include "gambit/ast/methodDefinitionNode.hpp"
+#include "gambit/ast/returnNode.hpp"
 
 #endif

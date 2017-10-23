@@ -20,6 +20,7 @@
 #include "shared/compiler/instructions/pushSelfInstruction.hpp"
 #include "shared/compiler/instructions/callInstruction.hpp"
 #include "shared/compiler/instructions/getLocalInstruction.hpp"
+#include "shared/compiler/instructions/returnInstruction.hpp"
 
 #define TRACE_PARAMETERS this->trace->filename, this->trace->line, this->trace->column
 
@@ -52,6 +53,7 @@ namespace Compiler
       void pushSelf();
       void call(std::string method, int parameters);
       void defineMethod(std::string name, std::map<std::string, std::string> params, std::string returnType, AST::Node* body);
+      void putReturn(bool returnedValue);
 
   };
 

@@ -73,6 +73,7 @@ float_num ({digit}+\.{digit}+)
 "::"                {
                       return( token::T_BIND );
                     }
+"=>"                { return( token::T_FAT_ARROW ); }
 "->"                {
                       return( token::T_SKINNY_ARROW );
                     }
