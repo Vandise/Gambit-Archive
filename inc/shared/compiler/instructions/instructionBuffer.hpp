@@ -1,6 +1,7 @@
 #ifndef __MATEINSTRUCTIONBUFFER
 #define __MATEINSTRUCTIONBUFFER 1
 
+#include <algorithm>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -19,6 +20,7 @@ namespace Compiler
       std::string outBuffer;
       std::string instructionBuffer;
       std::string methodBuffer;
+      std::vector<std::string> methodSignatures;
       std::vector<std::string> literals;
       std::vector<Compiler::iInstructionSet*> instructions;
       Compiler::iCodeGenerator *cg;
@@ -36,6 +38,10 @@ namespace Compiler
       virtual int addLiteral(std::string literal);
 
       virtual void emitLabelLine(std::string label);
+
+
+      virtual bool hasMethodSignature(std::string sig);
+      virtual void addMethodSignature(std::string sig);
 
       virtual void emitInstructionLine(std::string instruction);
 

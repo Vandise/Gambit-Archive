@@ -78,6 +78,22 @@ Compiler::InstructionBuffer::emitInstructionLine(std::string instruction)
   }
 }
 
+bool
+Compiler::InstructionBuffer::hasMethodSignature(std::string sig)
+{
+  if( std::find(this->methodSignatures.begin(), this->methodSignatures.end(), sig) != this->methodSignatures.end() )
+  {
+    return true;
+  }
+  return false;
+}
+
+void
+Compiler::InstructionBuffer::addMethodSignature(std::string sig)
+{
+  this->methodSignatures.push_back(sig);
+}
+
 void
 Compiler::InstructionBuffer::writeToFile(std::string filename)
 {
