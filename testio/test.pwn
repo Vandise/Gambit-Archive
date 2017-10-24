@@ -5,6 +5,8 @@
 	s
 	"string"
 	"asdf"
+	a
+	b
 	"hello world"
 .code
 	PUSH_INTEGER 13
@@ -19,17 +21,21 @@
 	PUSH_STRING 4
 	PUSH_SELF
 	CALL Object_puts_String 1
-	PUSH_STRING 6
+	GET_LOCAL *3
+	PUSH_STRING 8
 	PUSH_SELF
-	CALL Object_puts_String 1
-.echo
+	CALL Object_print_String_String 2
+.Object_echo
 	PUSH_STRING 5
 	PUSH_SELF
 	CALL Object_puts_String 1
-.print_String_String
-	GET_LOCAL *0
+	RETURN 0
+.Object_print_String_String
+	GET_LOCAL *6
 	PUSH_SELF
 	CALL Object_puts_String 1
-	GET_LOCAL *1
+	GET_LOCAL *7
 	PUSH_SELF
 	CALL Object_puts_String 1
+	GET_LOCAL *6
+	RETURN 1

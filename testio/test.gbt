@@ -8,12 +8,14 @@ puts("string")
 @echo -> Void
 {
  puts("asdf")
+ =>
 }
 
-@print -> String::x -> String::y -> Void
+@print -> String::a -> String::b -> String
 {
-  puts(x)
-  puts(y)
+  puts(a)
+  puts(b)
+  => a
 }
 
-puts("hello world")
+print(s, "hello world")
