@@ -251,3 +251,8 @@ The following are operators that can be appended to operands to modify the state
 | *             | By Value - Clone        |
 | &             | By Reference - Pointer  |
 
+## Where are the unit tests?
+Test first, or you'll never write tests. That is the case with this project, except this is strictly a proof-of-concept as opposed to me actually wanting to build something to be taken seriously. It's for my and others learning purposes. Eventually I'll rewrite the entire project with tests (with catch.h) from the start as there is an end goal with the POC. Yes, a compiler and virtual machine require a lot of code to not consider writing tests from the start, but I'm patient.
+
+## License
+MIT - For educational purposes only.
