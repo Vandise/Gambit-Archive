@@ -6,7 +6,7 @@ Check::MissingReturnStatement::with(std::vector<std::string> parameters)
 
   this->emitHeader(parameters[0]);
 
-  std::string error = std::string("Method ").append(parameters[1]).append(" was expected to return a type of ").append(parameters[2]).append(" but not return statement was specified. ");
+  std::string error = std::string("Method ").append(parameters[1]).append(" was expected to return a type of ").append(parameters[2]).append(" but no return statement was specified. ");
 
   this->emitError(error);
 
