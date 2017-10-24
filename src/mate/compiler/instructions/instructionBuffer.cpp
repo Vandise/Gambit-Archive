@@ -95,6 +95,22 @@ Compiler::InstructionBuffer::addMethodSignature(std::string sig)
 }
 
 void
+Compiler::InstructionBuffer::trackOpCode(std::string opCode)
+{
+  if ( this->traceOpCode.size() == MAX_DEQUE_TRACE_SIZE )
+  {
+    this->traceOpCode.pop_front();
+  }
+  this->traceOpCode.push_back(opCode);
+}
+
+std::string
+Compiler::InstructionBuffer::peekOpCode(int offset)
+{
+  return this->traceOpCode[ (this->traceOpCode.size() - 1) - offset ];
+}
+
+void
 Compiler::InstructionBuffer::writeToFile(std::string filename)
 {
   /*

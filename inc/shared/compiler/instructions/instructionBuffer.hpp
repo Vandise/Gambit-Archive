@@ -1,6 +1,7 @@
 #ifndef __MATEINSTRUCTIONBUFFER
 #define __MATEINSTRUCTIONBUFFER 1
 
+#include <deque>
 #include <algorithm>
 #include <fstream>
 #include <string>
@@ -8,6 +9,8 @@
 
 #include "shared/compiler/iCodeGenerator.hpp"
 #include "shared/compiler/instructions/iInstructionSet.hpp"
+
+#define MAX_DEQUE_TRACE_SIZE 10
 
 namespace Compiler
 {
@@ -22,6 +25,7 @@ namespace Compiler
       std::string methodBuffer;
       std::vector<std::string> methodSignatures;
       std::vector<std::string> literals;
+      std::deque<std::string> traceOpCode;
       std::vector<Compiler::iInstructionSet*> instructions;
       Compiler::iCodeGenerator *cg;
 
@@ -39,6 +43,8 @@ namespace Compiler
 
       virtual void emitLabelLine(std::string label);
 
+      virtual void trackOpCode(std::string opCode);
+      virtual std::string peekOpCode(int offset = 0);
 
       virtual bool hasMethodSignature(std::string sig);
       virtual void addMethodSignature(std::string sig);

@@ -14,6 +14,7 @@ Compiler::PushStringInstruction::~PushStringInstruction()
 void
 Compiler::PushStringInstruction::emit(Compiler::iCodeGenerator *cg)
 {
+  cg->getInstructionBuffer()->trackOpCode(this->opCode);
   int offset = cg->getInstructionBuffer()->addLiteral(std::string("\"").append(this->value).append("\""));
   cg->getInstructionBuffer()->emitInstructionLine(
     std::string(this->opCode).append(" ").append(std::to_string(offset))

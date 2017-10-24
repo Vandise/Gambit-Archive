@@ -274,12 +274,13 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
       if (returnType == VOID_DATA_TYPE)
       {
         //
-        //  TODO
-        //    add check for if user explicitly included a return statement
-        //    this may add multiple returns on void methods
-        //    doesn't affect the VM, but it's an instruction that will never run
+        // Check if the last opcode was a return statement
+        // add it if the user to not explicitly state "return"
         //
-        this->putReturn(false);
+        if ( this->cg->getInstructionBuffer()->peekOpCode() != Pawn::Instructions::getInstruction(Pawn::Instructions::RETURN) )
+        {
+          this->putReturn(false);
+        }
       }
 
       //

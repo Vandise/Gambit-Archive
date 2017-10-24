@@ -16,6 +16,7 @@ Compiler::CallInstruction::~CallInstruction()
 void
 Compiler::CallInstruction::emit(Compiler::iCodeGenerator *cg)
 {
+  cg->getInstructionBuffer()->trackOpCode(this->opCode);
   cg->getInstructionBuffer()->emitInstructionLine(
     std::string(this->opCode).append(" ").append(this->method).append(" ").append(std::to_string(this->parameters))
   );

@@ -17,4 +17,5 @@ Compiler::PushIntegerInstruction::emit(Compiler::iCodeGenerator *cg)
   cg->getInstructionBuffer()->emitInstructionLine(
     std::string(this->opCode).append(" ").append(this->value)
   );
+  cg->getInstructionBuffer()->trackOpCode(this->opCode);
 };

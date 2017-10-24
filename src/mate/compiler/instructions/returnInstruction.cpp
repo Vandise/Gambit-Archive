@@ -14,6 +14,7 @@ Compiler::ReturnInstruction::~ReturnInstruction()
 void
 Compiler::ReturnInstruction::emit(Compiler::iCodeGenerator *cg)
 {
+  cg->getInstructionBuffer()->trackOpCode(this->opCode);
   std::string line = this->opCode.append(" ").append(std::to_string(this->returnedValue));
   cg->getInstructionBuffer()->emitInstructionLine(line);
 }

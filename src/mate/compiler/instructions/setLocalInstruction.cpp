@@ -19,6 +19,7 @@ Compiler::SetLocalInstruction::emit(Compiler::iCodeGenerator *cg)
   // TODO:
   //  check to see if already defined, throw exception if it is
   //
+  cg->getInstructionBuffer()->trackOpCode(this->opCode);
 
   int offset = cg->getInstructionBuffer()->addLiteral(this->identifier);
   cg->getInstructionBuffer()->emitInstructionLine(

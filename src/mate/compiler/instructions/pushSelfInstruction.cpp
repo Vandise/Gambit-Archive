@@ -10,4 +10,5 @@ void
 Compiler::PushSelfInstruction::emit(Compiler::iCodeGenerator *cg)
 {
   cg->getInstructionBuffer()->emitInstructionLine(this->opCode);
+  cg->getInstructionBuffer()->trackOpCode(this->opCode);
 };

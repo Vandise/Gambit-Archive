@@ -15,6 +15,7 @@ Compiler::GetLocalInstruction::~GetLocalInstruction()
 void
 Compiler::GetLocalInstruction::emit(Compiler::iCodeGenerator *cg)
 {
+  cg->getInstructionBuffer()->trackOpCode(this->opCode);
   int offset = cg->getInstructionBuffer()->addLiteral(this->identifier);
 
   cg->getInstructionBuffer()->emitInstructionLine(
