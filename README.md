@@ -45,12 +45,26 @@ String::my_name = "Benjamin Anderson"
 
 puts(my_name)
 
+# method definitions
+@echo -> Void
+{
+ puts("asdf")
+}
+
+
+@print_and_return -> String::a -> String::b -> String
+{
+  puts(a)
+  puts(b)
+  => a
+}
+
 ```
 
 ## Check
 Check is a human-readable error handler. Though optimized for the Mate compiler, it is a shared library that can be utilized for any C++ project. Features of Check are still being implemented and error messages continue to be improved upon.
 
-![check handler error](doc/image/check_trace.png)
+![check handler error](doc/image/return_type.png)
 
 ### Handling Errors with Check
 Check provides a simple interface for when you throw errors in your application. With Check, you have to wrap your application in a `try - catch` block in order to handle errors properly. Your errors must also implement the `iException` interface.
