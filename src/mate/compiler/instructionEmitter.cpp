@@ -289,7 +289,9 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
       //
       if ( returnType != VOID_DATA_TYPE )
       {
-        std::cout << "No Return statement made On non-void method" << std::endl;
+        // free memory
+          this->cg->getFrameStack()->popFrame();
+        throw Exception::MissingReturnStatement(methodSignature, returnType, "Void", TRACE_PARAMETERS);
       }
     }
 

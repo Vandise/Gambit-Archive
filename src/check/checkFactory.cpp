@@ -25,6 +25,9 @@ Check::MessageFactory::MessageFactory(CaptureEvents e)
     case INVALID_RETURN_TYPE:
       this->E = new Check::InvalidReturnType();
       break;
+    case MISSING_RETURN_NON_VOID:
+      this->E = new Check::MissingReturnStatement();
+      break;
     default:
       this->E = new Check::DefaultEvent();
       break;

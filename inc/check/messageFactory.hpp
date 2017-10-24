@@ -10,6 +10,7 @@
 #include "check/events/undefinedVariable.hpp"
 #include "check/events/undefinedMethod.hpp"
 #include "check/events/invalidReturnType.hpp"
+#include "check/events/missingReturnStatement.hpp"
 
 namespace Check
 {

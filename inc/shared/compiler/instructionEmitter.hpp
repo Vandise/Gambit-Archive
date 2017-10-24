@@ -13,6 +13,7 @@
 #include "capture/runtime/undefinedVariable.hpp"
 #include "capture/runtime/undefinedMethod.hpp"
 #include "capture/runtime/invalidReturnType.hpp"
+#include "capture/runtime/missingReturnStatement.hpp"
 
 #include "shared/compiler/instructions/pushStringInstruction.hpp"
 #include "shared/compiler/instructions/pushIntegerInstruction.hpp"
