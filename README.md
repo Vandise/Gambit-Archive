@@ -251,6 +251,80 @@ The following are operators that can be appended to operands to modify the state
 | *             | By Value - Clone        |
 | &             | By Reference - Pointer  |
 
+
+### Pawn to Assembler 
+Pawns instructions are slowly being optimized to have a 1 ~ 2 or 3 corrospondence to Assembler. The Rook VM does many assumptions for us, for example, for each method and the initial `.code` block, Rook does the following:
+
+```C++
+// create a new frame and push it onto the stack
+VM::iFrame* f = new VM::iFrame("frame identifier");
+this->cg->getFrameStack()->pushFrame(f);
+```
+
+Whereas in Assembler, we have to explicitly state we are pushing up the base pointer
+
+```asm
+  pushl   %ebp
+  movl    %esp,   %ebp
+```
+
+So each code and method label would have to begin with the above.
+
+Pawn, like assembler, has a return statement at the end of each method and code block. Pawn, however, has an operand that states if the return value will be pushed to the parent frame/stack. Assembler moves the return value into `eax / rax`.
+
+```
+.code
+// pawn bytecode
+PUSH_INTEGER	10
+RETURN 1
+```
+
+Would be the ASM equivelent
+
+```asm
+.start
+  pushl   %ebp
+  movl    %esp,   %ebp
+  pushl	$10
+  popl    %eax
+  movl    %ebp,   %esp
+  popl    %ebp
+  ret						; 10 is in eax
+```
+
+### The RookVM Doesn't Care
+The RookVM doesn't care about data types, it will call any function in its bytecode ie:
+
+```
+PUSH_INTEGER 10
+CALL Object_puts_String
+```
+
+Even if the datatype on the stack would be incorrect. That is why we have the Mate Compiler to handle this for us.
+
+### Literals Section is Just Data
+The literals section in the Pawn Bytecode. C++ can easily load parsed text into memory, ASM needs a few extra steps
+
+```asm
+; pawn bytecode
+; .literals
+;	"this is a string"
+; needs to translate to
+
+.section data
+	s_01: .ascii "this is a string\0"
+
+; whenever it's used, you need to get the length
+.start
+	; frame pushing etc inferred
+	pushl	$s_01
+	call	str_len
+	; eax now has the string length
+```
+
+### The issue with locals
+Due to the nature of the Gambit Runtime, locals are not offset-based; but rather identifier-offset based. The RookVM still tracks identifiers, which is simple for VM reasons, but not practical in an ASM environment. The solution would be to add identifier offset tracking on a frame-basis.
+
 ## Where are the unit tests?
 Test first, or you'll never write tests. That is the case with this project, except this is strictly a proof-of-concept as opposed to me actually wanting to build something to be taken seriously. It's for my and others learning purposes. Eventually I'll rewrite the entire project with tests (with catch.h) from the start as there is an end goal with the POC. Yes, a compiler and virtual machine require a lot of code to not consider writing tests from the start, but I'm patient.
 
