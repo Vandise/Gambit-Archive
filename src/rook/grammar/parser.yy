@@ -66,6 +66,7 @@
 %token                   T_PUSH_SELF
 %token                   T_CALL
 %token                   T_BY_VALUE
+%token                   T_RETURN
 %token       <sval>      T_METHOD_SIGNATURE
 %token       <sval>      T_ADD_LITERAL
 %token       <sval>      T_LABEL
@@ -117,6 +118,7 @@ Instructions:
   | T_GET_LOCAL ReferenceTypes T_INTEGER  { $$ = new RookAST::GetLocalNode($3, $2); }
   | T_PUSH_SELF                           { $$ = new RookAST::PushSelfNode(); }
   | T_CALL T_METHOD_SIGNATURE T_INTEGER   { $$ = new RookAST::CallNode(*$2, $3); delete($2); }
+  | T_RETURN T_INTEGER                    { $$ = new RookAST::ReturnNode($2); }
   ;
 
 ReferenceTypes:

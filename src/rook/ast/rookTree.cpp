@@ -71,7 +71,7 @@ RookAST::RookTree::compile(RookVM::PawnExecutor* e)
   //    --- node
   //    --- go to labelnode1 if condition 
   //
-  while(e->getNodePointer() < treeSize)
+  while(e->getNodePointer() < treeSize && !e->isTerminated() )
   {
     RookAST::Node* n = this->nodes[e->getNodePointer()];
     if (n != nullptr ) { n->compile(e); } else { e->incrementNodePointer(); }

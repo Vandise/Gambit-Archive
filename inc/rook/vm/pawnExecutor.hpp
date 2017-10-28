@@ -24,6 +24,7 @@ namespace RookVM
     protected:
 
       int currentNode = 0;
+      bool terminated = false;
       Runtime::iStandardClass* runtime;
       VM::iFrameStack *frameStack;
       RookAST::Tree *tree;
@@ -46,6 +47,8 @@ namespace RookVM
       virtual int getNodePointer();
       virtual void addLabel(std::string label);
       virtual void jumpToLabel(std::string label);
+      virtual void terminate();
+      virtual bool isTerminated();
 
   };
 

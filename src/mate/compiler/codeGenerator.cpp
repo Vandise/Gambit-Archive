@@ -25,9 +25,13 @@ void
 Mate::CodeGenerator::generate(std::string outfile)
 {
   this->tree->compile( (this) );
-  if ( this->instructionBuffer->peekOpCode() != Pawn::Instructions::getInstruction(Pawn::Instructions::RETURN) )
-  {
+  //
+  // TODO:
+  //  Force return token, it might duplicate due to methods also shoving to the opcodes tracking
+  //
+  //if ( this->instructionBuffer->peekOpCode() != Pawn::Instructions::getInstruction(Pawn::Instructions::RETURN) )
+  //{
     this->instructionEmitter->putReturn(false);
-  }
+  //}
   this->instructionBuffer->writeToFile(outfile);
 }

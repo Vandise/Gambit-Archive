@@ -45,12 +45,14 @@ RookVM::PawnExecutor::getLiteralsTable()
 void
 RookVM::PawnExecutor::incrementNodePointer()
 {
+  // TODO: move to current frame
   this->currentNode += 1;
 }
 
 void
 RookVM::PawnExecutor::setNodePointer(int value)
 {
+  // TODO: move to current frame
   this->currentNode = value;
 }
 
@@ -72,6 +74,18 @@ RookVM::PawnExecutor::jumpToLabel(std::string label)
 {
   int point = this->labels[label];
   this->setNodePointer(point);
+}
+
+void
+RookVM::PawnExecutor::terminate()
+{
+  this->terminated = true;
+}
+
+bool
+RookVM::PawnExecutor::isTerminated()
+{
+  return this->terminated;
 }
 
 

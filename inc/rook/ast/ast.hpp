@@ -10,5 +10,6 @@
 #include "rook/ast/pushSelf.hpp"
 #include "rook/ast/call.hpp"
 #include "rook/ast/getLocal.hpp"
+#include "rook/ast/return.hpp"
 
 #endif
