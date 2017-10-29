@@ -9,6 +9,7 @@
   "author": "Benjamin J. Anderson <andeb2804@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "node-datetime": "^2.0.3",
     "socket.io": "^1.7.2",
     "socket.io-events": "^0.4.6",
     "ws": "~0.4.31"

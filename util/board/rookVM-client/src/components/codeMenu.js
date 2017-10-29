@@ -12,7 +12,7 @@ class CodeMenu extends React.Component {
   }
 
   render() {
-    const fileLines = this.props.file.split('\n');
+    const fileLines = this.props.file.data.split('\n');
     let output = [];
 
     for (let i = 0; i < fileLines.length; i++)

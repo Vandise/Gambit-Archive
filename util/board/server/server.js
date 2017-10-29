@@ -4,7 +4,9 @@
   
 */
 
+var dateTime = require('node-datetime');
 var clients = [];
+var msgCounter = 0;
 
 /*
   
@@ -30,8 +32,17 @@ wss.on('connection', function(ws) {
         if (flags.binary) { return; }
         clients.forEach(function(client){
           var fmt = data.split('|');
+          var dt = dateTime.create();
+          var formatted = dt.format('Y-m-d H:M:S:N');
+
+          formatted = String(formatted) + "-" + msgCounter;
+
           console.log(fmt[0] + ' >>> ' + fmt[1]);
-          client.emit(fmt[0], fmt[1]);
+          client.emit(fmt[0], {
+            timestamp: formatted,
+            data: fmt[1]
+          });
+          msgCounter++;
         });
     });
 

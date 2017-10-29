@@ -4,6 +4,14 @@ html, body {
   background-color: #231C2D;
 }
 
+table {
+  width: 100%;  
+}
+
+table .odd {
+  background-color: #F9e6ff;
+}
+
 .code-menu pre {
   background-color: #F0FBFF;
 }
@@ -34,4 +42,9 @@ html, body {
 
 .commands {
   max-height: 350px;
+}
+
+.logs-menu .tile-body {
+  max-height: 500px;
+  overflow-y: scroll;
 }

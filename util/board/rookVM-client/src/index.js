@@ -11,7 +11,8 @@ import serverMiddleware from './middleware/';
 
 
 // Views
-import CodeMenu from './components/CodeMenu';
+import CodeMenu from './components/codeMenu';
+import LogMenu from './components/logMenu';
 
 // eslint-disable-next-line no-unused-vars
 import Bulma from './stylesheets/bulma.scss';
@@ -41,9 +42,18 @@ export const counterReducer = handleActions({
     };    
   },
   FILE: (state, action) => {
+    console.log(action);
     return {
       ...state,
       file: action.payload,
+    };    
+  },
+  LOG: (state, action) => {
+    const data = Object.assign({}, state.logs);
+    data[action.payload.timestamp] = action.payload.data;
+    return {
+      ...state,
+      logs: data,
     };    
   },
   CONNECTED: (state, action) => {
@@ -54,7 +64,8 @@ export const counterReducer = handleActions({
   },
 }, {
   message: '',
-  file: '',
+  file: { data: '' },
+  logs: {},
   connected: false,
 });
 
@@ -64,7 +75,8 @@ export const counterReducer = handleActions({
 */
 export const initialState = {
   message: '',
-  file: '',
+  file: { data: '' },
+  logs: {},
   connected: false,
 };
 
@@ -175,16 +187,7 @@ export default ReactDOM.render(
 
           </div>
 
-          <div className='tile is-parent'>
-            <div className='tile is-child'>
-              <header>
-                Logs
-              </header>
-              <div className='tile-body'>
-                Logs will be listed here
-              </div>
-            </div>
-          </div>
+          <LogMenu />
 
         </div>
 
