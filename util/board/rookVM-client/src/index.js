@@ -13,6 +13,7 @@ import serverMiddleware from './middleware/';
 // Views
 import CodeMenu from './components/codeMenu';
 import LogMenu from './components/logMenu';
+import FrameMenu from './components/frameMenu';
 
 // eslint-disable-next-line no-unused-vars
 import Bulma from './stylesheets/bulma.scss';
@@ -56,6 +57,18 @@ export const counterReducer = handleActions({
       logs: data,
     };    
   },
+  PUSH_FRAME: (state, action) => {
+    const frame = {
+      locals: {},
+      stack: {}
+    };
+    const data = Object.assign({}, state.frames);
+    data[action.payload.data] = frame;
+    return {
+      ...state,
+      frames: data
+    };    
+  },
   CONNECTED: (state, action) => {
     return {
       ...state,
@@ -66,6 +79,7 @@ export const counterReducer = handleActions({
   message: '',
   file: { data: '' },
   logs: {},
+  frames: {},
   connected: false,
 });
 
@@ -77,6 +91,7 @@ export const initialState = {
   message: '',
   file: { data: '' },
   logs: {},
+  frames: {},
   connected: false,
 };
 
@@ -150,14 +165,7 @@ export default ReactDOM.render(
 
             <div className='tile is-parent is-vertical is-4'>
 
-              <div className='tile is-child'>
-                <header>
-                  Frames
-                </header>
-                <div className='tile-body'>
-                  Frames on the stack listed here
-                </div>
-              </div>
+              <FrameMenu />
 
               <div className='tile is-child'>
                 <header>
