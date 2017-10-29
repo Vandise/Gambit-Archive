@@ -227,15 +227,12 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
     if (this->cg->getRuntime()->hasConstant(it->second))
     {
       methodSignature.append("_").append(it->second);
+      /*
       f->setLocal(
         it->first,
         this->cg->getRuntime()->getConstant(it->second)->newInstance()
       );
-      //
-      //  TODO:
-      //    Emit SET_LOCAL instructions
-      //    for setting local parameters
-      //
+      */
     }
     else
     {
@@ -254,6 +251,13 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
 
   this->cg->getFrameStack()->pushFrame(f);
     f = nullptr;
+
+    for ( it = params.begin(); it != params.end(); it++ )
+    {
+      this->cg->getFrameStack()->getCurrentFrame()->pushStack(this->cg->getRuntime()->getConstant(it->second)->newInstance());
+      this->setLocal(it->second, it->first, false);
+    }
+
 
     body->compile(this->cg);
 
