@@ -4,6 +4,7 @@
 
 #include "shared/config.hpp"
 #include "dev/debugnew/debug_new.h"
+#include "shared/dev/board.hpp"
 #include "shared/exception/iException.hpp"
 #include "shared/runtime/langRuntime.hpp"
 #include "ext/loader/extensionLoader.hpp"
@@ -98,6 +99,8 @@ main( const int argc, const char **argv )
   if (run)
   {
 
+    Dev::Board::initialize();
+
     Runtime::LangRuntime::bootstrap();
     // eventually this will load all extensions specified in a file
     Extensions::ExtensionLoader *extLoader = new Extensions::ExtensionLoader("sqlite");
@@ -139,6 +142,7 @@ main( const int argc, const char **argv )
     if (parser != nullptr) delete(parser);
     if (vm != nullptr) delete(vm);
 
+    Dev::Board::terminate();
   }
 
   return 0;

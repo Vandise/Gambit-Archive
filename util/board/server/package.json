@@ -1,0 +1,15 @@
+
+{
+  "name": "BoardServer",
+  "version": "0.0.1",
+  "description": "Dispatches messages to clients for compiler and VM state debugging",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Benjamin J. Anderson <andeb2804@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "~0.4.31"
+  }
+}

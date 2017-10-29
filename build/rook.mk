@@ -1,4 +1,5 @@
 DEBUGFILES := $(shell find $(SRCDIR)/dev/debugnew -type f -name *.$(SRCEXT))
+BOARDFILES := $(shell find $(SRCDIR)/dev/board -type f -name *.$(SRCEXT))
 LOADER := $(shell find $(SRCDIR)/ext/loader -type f -name *.$(SRCEXT))
 RUNTIME := $(shell find $(SRCDIR)/runtime -type f -name *.$(SRCEXT))
 ROOKFILES := $(shell find $(SRCDIR)/rook -type f -name *.$(SRCEXT))
@@ -10,4 +11,4 @@ rook_lexer: $(SRCDIR)/rook/grammar/lexer.l
 	flex --outfile=$(SRCDIR)/rook/lexer.yy.cpp  $<
 
 rook: rook_parser rook_lexer
-	$(CC) $(CXXSTD) $(INC) $(DEBUGFILES) $(RUNTIME) $(LOADER) $(ROOKFILES) -o $(TARGETDIR)/rook
+	$(CC) $(CXXSTD) $(INC) $(BOARDFILES) $(DEBUGFILES) $(RUNTIME) $(LOADER) $(ROOKFILES) -o $(TARGETDIR)/rook
