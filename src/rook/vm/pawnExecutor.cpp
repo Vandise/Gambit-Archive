@@ -7,6 +7,9 @@ RookVM::PawnExecutor::PawnExecutor(RookAST::Tree *tree)
   this->runtime = Runtime::LangRuntime::objectClass;
   this->frameStack = new VM::iFrameStack();
   this->frameStack->pushFrame( (new VM::iFrame(DEFAULT_FRAME)) );
+
+  Dev::Board::sendMessage(std::string("PUSH_FRAME|").append(DEFAULT_FRAME));
+
   this->literalsTable = new RookVM::LiteralsTable();
   this->tree = tree;
 };
@@ -46,12 +49,14 @@ void
 RookVM::PawnExecutor::incrementNodePointer()
 {
   this->frameStack->getCurrentFrame()->incrementNodePointer();
+  Dev::Board::sendMessage(std::string("INSTRUCTION_POSITION|").append(std::to_string(this->getNodePointer())));
 }
 
 void
 RookVM::PawnExecutor::setNodePointer(int value)
 {
   this->frameStack->getCurrentFrame()->setNodePointer(value);
+  Dev::Board::sendMessage(std::string("INSTRUCTION_POSITION|").append(std::to_string(this->getNodePointer())));
 }
 
 int

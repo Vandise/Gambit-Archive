@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import { Provider, connect } from 'react-redux';
 import { createAction } from 'redux-actions';
 import { handleActions } from 'redux-actions';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import serverMiddleware from './middleware/';
 
 
@@ -69,10 +69,31 @@ export const counterReducer = handleActions({
       frames: data
     };    
   },
+  POP_FRAME: (state, action) => {
+    const data = Object.assign({}, state.frames);
+    const newFrames = {};
+    for (let frame in data) {
+      if (frame != action.payload.data)
+      {
+        newFrames[frame] = data[frame];
+      }
+    }
+    return {
+      ...state,
+      frames: newFrames
+    };    
+  },
   CONNECTED: (state, action) => {
     return {
       ...state,
       connected: true,
+    };
+  },
+  INSTRUCTION_POSITION: (state, action) => {
+    console.log(action);
+    return {
+      ...state,
+      instructionPosition: parseInt(action.payload.data),
     };
   },
 }, {
@@ -81,6 +102,7 @@ export const counterReducer = handleActions({
   logs: {},
   frames: {},
   connected: false,
+  instructionPosition: 0
 });
 
 
@@ -96,7 +118,7 @@ export const initialState = {
 };
 
 const store = createStore(counterReducer, initialState,
-  applyMiddleware(thunk, serverMiddleware)
+  compose(applyMiddleware(thunk, serverMiddleware), window.devToolsExtension ? window.devToolsExtension({maxAge: 1000}) : f => f)
 );
 
 

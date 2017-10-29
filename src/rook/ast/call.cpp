@@ -80,7 +80,7 @@ RookAST::CallNode::compile(RookVM::PawnExecutor* e)
     // Clean up memory
     //
     Dev::Board::sendMessage(std::string("LOG|Pop frame"));
-    Dev::Board::sendMessage(std::string("POP_FRAME|pop"));
+    Dev::Board::sendMessage(std::string("POP_FRAME|").append(this->methodSignature));
     e->getFrameStack()->popFrame();
 
     e->incrementNodePointer();

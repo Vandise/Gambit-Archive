@@ -17,8 +17,9 @@ class CodeMenu extends React.Component {
 
     for (let i = 0; i < fileLines.length; i++)
     {
+      const klass = i == this.props.instructionPosition ? 'current' : ''
       output.push(
-        <div id={`code-line-${i}`}>
+        <div id={`code-line-${i}`} className={`code-line ${klass}`}>
           <span className='code-line-number'>{i}: </span>
           <span>{fileLines[i]}</span>
         </div>
@@ -45,6 +46,7 @@ class CodeMenu extends React.Component {
 
 const mapStateToProps = state => ({
   file: state.file,
+  instructionPosition: state.instructionPosition
 });
 
 export default connect(mapStateToProps)(CodeMenu);

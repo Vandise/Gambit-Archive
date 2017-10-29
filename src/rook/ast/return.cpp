@@ -16,6 +16,7 @@ RookAST::ReturnNode::compile(RookVM::PawnExecutor* e)
   //
   // Are we on the main frame and returning?
   //
+  std::string frameName = e->getFrameStack()->getCurrentFrame()->getFrameName();
   if ( e->getFrameStack()->stackSize() == 1 )
   {
     e->terminate();
@@ -34,7 +35,7 @@ RookAST::ReturnNode::compile(RookVM::PawnExecutor* e)
       // remove the frame
       Dev::Board::sendMessage(std::string("LOG|Return"));
       Dev::Board::sendMessage(std::string("LOG|Pop frame"));
-      Dev::Board::sendMessage(std::string("POP_FRAME|pop"));
+      Dev::Board::sendMessage(std::string("POP_FRAME|").append(frameName));
       e->getFrameStack()->popFrame();
 
       // TODO:

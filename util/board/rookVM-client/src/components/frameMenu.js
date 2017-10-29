@@ -26,8 +26,6 @@ class FrameMenu extends React.Component {
       i++;
     }
 
-    console.log(this.props.frames);
-
     return (
       <div className='tile is-child frames-menu'>
         <header>
