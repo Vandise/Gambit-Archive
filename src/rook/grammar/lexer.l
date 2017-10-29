@@ -42,8 +42,8 @@ float_num ({digit}+\.{digit}+)
                       return( token::T_NEWLINE );
                     }
 
-<*>.literals  		 		 { BEGIN(literals); yylval->sval = new std::string(yytext); return( token::T_LABEL );  }
-<*>.code  		 		     { BEGIN(code);     yylval->sval = new std::string(yytext); return( token::T_LABEL ); }
+<*>.literals  		 		 { BEGIN(literals); yylval->sval = new std::string(yytext); yylval->sval->erase(0, 1); return( token::T_LABEL );  }
+<*>.code  		 		     { BEGIN(code);     yylval->sval = new std::string(yytext); yylval->sval->erase(0, 1); return( token::T_LABEL ); }
 
 <literals>[_a-zA-Z\\?\\!]+   { yylval->sval = new std::string(yytext); return( token::T_ADD_LITERAL ); }
 <literals>\"[^"]*\"          {
@@ -52,7 +52,7 @@ float_num ({digit}+\.{digit}+)
                                 return( token::T_ADD_LITERAL );
                              }
 
-<code>^\.[a-zA-Z0-9_]+        { yylval->sval = new std::string(yytext); return( token::T_LABEL ); }
+<code>^\.[a-zA-Z0-9_]+        { yylval->sval = new std::string(yytext); yylval->sval->erase(0, 1); return( token::T_LABEL ); }
 <code>CALL                   { return( token::T_CALL ); }
 <code>SET_LOCAL              { return( token::T_SET_LOCAL ); }
 <code>GET_LOCAL              { return( token::T_GET_LOCAL ); }

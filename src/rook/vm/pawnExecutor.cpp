@@ -45,27 +45,31 @@ RookVM::PawnExecutor::getLiteralsTable()
 void
 RookVM::PawnExecutor::incrementNodePointer()
 {
-  // TODO: move to current frame
-  this->currentNode += 1;
+  this->frameStack->getCurrentFrame()->incrementNodePointer();
 }
 
 void
 RookVM::PawnExecutor::setNodePointer(int value)
 {
-  // TODO: move to current frame
-  this->currentNode = value;
+  this->frameStack->getCurrentFrame()->setNodePointer(value);
 }
 
 int
 RookVM::PawnExecutor::getNodePointer()
 {
-  return this->currentNode;
+  return this->frameStack->getCurrentFrame()->getNodePointer();
+}
+
+bool
+RookVM::PawnExecutor::hasLabel(std::string label)
+{
+  return (this->labels.count(label) > 0);
 }
 
 void
 RookVM::PawnExecutor::addLabel(std::string label)
 {
-  std::cout << label << " at position: " << this->getNodePointer() << std::endl;
+  std::cout << label << " added at position: " << this->getNodePointer() << std::endl;
   this->labels[label] = this->getNodePointer();
 }
 
@@ -73,7 +77,19 @@ void
 RookVM::PawnExecutor::jumpToLabel(std::string label)
 {
   int point = this->labels[label];
-  this->setNodePointer(point);
+  this->frameStack->getCurrentFrame()->setNodePointer(point);
+}
+
+int
+RookVM::PawnExecutor::labelSize()
+{
+  return this->labels.size();
+}
+
+std::map<std::string, int>
+RookVM::PawnExecutor::getLabels()
+{
+  return this->labels;
 }
 
 void

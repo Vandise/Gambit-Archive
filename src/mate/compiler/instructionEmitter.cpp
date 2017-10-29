@@ -231,6 +231,11 @@ Compiler::InstructionEmitter::defineMethod(std::string name, std::map<std::strin
         it->first,
         this->cg->getRuntime()->getConstant(it->second)->newInstance()
       );
+      //
+      //  TODO:
+      //    Emit SET_LOCAL instructions
+      //    for setting local parameters
+      //
     }
     else
     {

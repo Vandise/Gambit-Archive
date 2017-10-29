@@ -17,6 +17,12 @@ RookAST::CallNode::compile(RookVM::PawnExecutor* e)
   std::cout << "Compiling CALL: " << methodSignature << " " << parameters << std::endl;
 
   //
+  // cache current node position
+  //  in case of label transition
+  //
+  int nodePosition = e->getFrameStack()->getCurrentFrame()->getNodePointer();
+
+  //
   // Set up current method frame
   //  top-of-stack is the current object
   //
@@ -24,6 +30,7 @@ RookAST::CallNode::compile(RookVM::PawnExecutor* e)
   f->setCurrentSelf(
     e->getFrameStack()->getCurrentFrame()->popStack()
   );
+  f->setNodePointer(nodePosition);
 
   //
   //  Clone parameters from parent stack
@@ -43,15 +50,34 @@ RookAST::CallNode::compile(RookVM::PawnExecutor* e)
   //
   // Call the method
   //
-  e->getFrameStack()->getCurrentFrame()->getCurrentSelf()->lookup(this->methodSignature)->call(
-     e->getFrameStack()->getCurrentFrame()->getCurrentSelf(),
-      e->getFrameStack()->getCurrentFrame()->getLocalStack()
-  );
 
-  //
-  // Clean up memory
-  //
-  e->getFrameStack()->popFrame();
+  if ( e->hasLabel(this->methodSignature) )
+  {
+    //
+    // User defined method
+    //
+      std::cout << "Transitioning to label: " << this->methodSignature << std::endl;
+      e->jumpToLabel(methodSignature);
+    // Note:
+    //  On return node, it will clear and remove the frame
+    //  then return to the original node position + 1
+  }
+  else
+  {
+    //
+    // Native Methods
+    //
+    e->getFrameStack()->getCurrentFrame()->getCurrentSelf()->lookup(this->methodSignature)->call(
+       e->getFrameStack()->getCurrentFrame()->getCurrentSelf(),
+        e->getFrameStack()->getCurrentFrame()->getLocalStack()
+    );
 
-  e->incrementNodePointer();
+    //
+    // Clean up memory
+    //
+    e->getFrameStack()->popFrame();
+
+    e->incrementNodePointer();
+  }
+
 }

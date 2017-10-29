@@ -22,6 +22,7 @@ namespace VM
       Runtime::iStandardClass* currentSelf;
       bool returnFlag = false;
       std::string returnClass;
+      int currentNode = 0;
 
     public:
 
@@ -54,6 +55,29 @@ namespace VM
 
         //this->localStack.clear();
       };
+
+      //
+      // VM Only Methods
+      //
+
+      virtual void incrementNodePointer()
+      {
+        this->currentNode += 1;
+      };
+
+      virtual void setNodePointer(int value)
+      {
+        this->currentNode = value;
+      };
+
+      virtual int getNodePointer()
+      {
+        return this->currentNode;
+      };
+
+      //
+      // End VM Only Methods
+      //
 
       virtual void setReturnClass(std::string returnClass)
       {

@@ -45,8 +45,11 @@ namespace RookVM
       virtual void incrementNodePointer();
       virtual void setNodePointer(int value);
       virtual int getNodePointer();
+      virtual bool hasLabel(std::string label);
       virtual void addLabel(std::string label);
       virtual void jumpToLabel(std::string label);
+      virtual int labelSize();
+      virtual std::map<std::string, int> getLabels();
       virtual void terminate();
       virtual bool isTerminated();
 
