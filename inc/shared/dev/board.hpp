@@ -15,6 +15,7 @@ namespace Dev
       static WebSocket::pointer ws;
       static void initialize();
       static void terminate();
+      static void sendMessage(std::string msg);
   };
 
 }

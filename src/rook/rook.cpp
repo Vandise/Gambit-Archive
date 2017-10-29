@@ -101,6 +101,8 @@ main( const int argc, const char **argv )
 
     Dev::Board::initialize();
 
+    Dev::Board::sendMessage(std::string("Hello World"));
+
     Runtime::LangRuntime::bootstrap();
     // eventually this will load all extensions specified in a file
     Extensions::ExtensionLoader *extLoader = new Extensions::ExtensionLoader("sqlite");
