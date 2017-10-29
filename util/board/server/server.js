@@ -28,9 +28,10 @@ wss.on('connection', function(ws) {
 
     ws.on('message', function(data, flags) {
         if (flags.binary) { return; }
-        console.log('>>> ' + data);
         clients.forEach(function(client){
-          client.emit('MESSAGE', data);
+          var fmt = data.split('|');
+          console.log(fmt[0] + ' >>> ' + fmt[1]);
+          client.emit(fmt[0], fmt[1]);
         });
     });
 

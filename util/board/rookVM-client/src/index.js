@@ -9,7 +9,12 @@ import { handleActions } from 'redux-actions';
 import { createStore, applyMiddleware } from 'redux';
 import serverMiddleware from './middleware/';
 
+
+// Views
+import CodeMenu from './components/CodeMenu';
+
 // eslint-disable-next-line no-unused-vars
+import Bulma from './stylesheets/bulma.scss';
 import Style from './stylesheets/main.scss';
 
 const el = document.getElementById('app');
@@ -30,10 +35,15 @@ export const actions = {
 */
 export const counterReducer = handleActions({
   MESSAGE: (state, action) => {
-    console.log(action);
     return {
       ...state,
       message: action.payload.value,
+    };    
+  },
+  FILE: (state, action) => {
+    return {
+      ...state,
+      file: action.payload,
     };    
   },
   CONNECTED: (state, action) => {
@@ -44,6 +54,7 @@ export const counterReducer = handleActions({
   },
 }, {
   message: '',
+  file: '',
   connected: false,
 });
 
@@ -53,6 +64,7 @@ export const counterReducer = handleActions({
 */
 export const initialState = {
   message: '',
+  file: '',
   connected: false,
 };
 
@@ -64,7 +76,7 @@ const store = createStore(counterReducer, initialState,
 /*
   Specify the form
 */
-const Menu = class extends React.Component {
+const StatusMenu = class extends React.Component {
 
   constructor(props) {
     super(props);
@@ -77,18 +89,14 @@ const Menu = class extends React.Component {
 
   render() {
     const props = this.props;
-    if (props.connected) {
-      return (
-        <div className='value-container'>
-          <div className='value-message'>
-            <p> The current message is: {props.message} </p>
-          </div>
-        </div>
-      );
-    }
     return (
-      <div>
-        <p>Connecting to server...</p>
+      <div className='tile is-child server-status'>
+        <header>
+          Server Status
+        </header>
+        <div className='tile-body'>
+          <p> Status: {props.connected ? 'Connected' : 'Disconnected'} </p>
+        </div>
       </div>
     );
   }
@@ -101,14 +109,87 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-const View = connect(mapStateToProps)(Menu);
+const StatusView = connect(mapStateToProps)(StatusMenu);
 
 /*
   Attach the view to the DOM
 */
 export default ReactDOM.render(
   <Provider store={store}>
-    <View />
+    <div className='app-container'>
+      <div className='tile is-ancestor'>
+
+        <CodeMenu />
+
+        <div className='tile is-vertical is-8'>
+          <div className='tile'>
+
+            <div className='tile is-parent is-4'>
+              <div className='tile is-child'>
+                <header>
+                  Stack
+                </header>
+                <div className='tile-body'>
+                  Stack will be listed here
+                </div>
+              </div>
+            </div>
+
+
+            <div className='tile is-parent is-vertical is-4'>
+
+              <div className='tile is-child'>
+                <header>
+                  Frames
+                </header>
+                <div className='tile-body'>
+                  Frames on the stack listed here
+                </div>
+              </div>
+
+              <div className='tile is-child'>
+                <header>
+                  Locals
+                </header>
+                <div className='tile-body'>
+                  Frame Locals will be listed here
+                </div>
+              </div>
+
+            </div>
+
+            <div className='tile is-parent is-vertical is-4'>
+
+              <StatusView />
+              
+              <div className='tile is-child commands'>
+                <header>
+                  Commands
+                </header>
+                <div className='tile-body'>
+                  Replay/ VM commands here
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div className='tile is-parent'>
+            <div className='tile is-child'>
+              <header>
+                Logs
+              </header>
+              <div className='tile-body'>
+                Logs will be listed here
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
   </Provider>, el
 );
 

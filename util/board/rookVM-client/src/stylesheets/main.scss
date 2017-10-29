@@ -1,4 +1,37 @@
-body {
-  margin: 0;
-  padding: 0;
+html, body {
+  margin: 0.5em;
+  padding: 0.5em;
+  background-color: #231C2D;
+}
+
+.code-menu pre {
+  background-color: #F0FBFF;
+}
+
+.code-menu .code-list * {
+  white-space: pre;
+}
+
+.tile-body {
+  background-color: #F0FBFF;
+  padding: 1em;
+}
+
+
+
+.app-container header {
+  color: white;
+  text-align: center;
+  background-color:	#323A45;
+  padding: 1em;
+}
+
+
+
+.server-status {
+  max-height: 100px;
+}
+
+.commands {
+  max-height: 350px;
 }
