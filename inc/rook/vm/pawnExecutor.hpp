@@ -9,6 +9,7 @@
 #include "shared/runtime/langRuntime.hpp"
 #include "shared/vm/frame/iFrameStack.hpp"
 #include "rook/vm/literalsTable.hpp"
+#include "shared/dev/board.hpp"
 
 namespace RookAST
 {

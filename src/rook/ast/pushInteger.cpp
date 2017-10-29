@@ -13,11 +13,10 @@ RookAST::PushIntegerNode::~PushIntegerNode()
 void
 RookAST::PushIntegerNode::compile(RookVM::PawnExecutor* e)
 {
-  std::cout << "Compiling PUSH_INTEGER: " << this->value << std::endl;
-
   Runtime::iStandardClass* integer = e->getRuntime()->getConstant("Integer")->newInstance();
   integer->setInstanceVariable("value", (new Runtime::ValueObject(value)) );
 
+  Dev::Board::sendMessage(std::string("PUSH_STACK|").append(std::to_string(this->value)));
   e->getFrameStack()->getCurrentFrame()->pushStack(integer);
     integer = nullptr;
 

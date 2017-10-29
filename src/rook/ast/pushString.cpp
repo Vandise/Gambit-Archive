@@ -13,13 +13,14 @@ RookAST::PushStringNode::~PushStringNode()
 void
 RookAST::PushStringNode::compile(RookVM::PawnExecutor* e)
 {
-  std::cout << "Compiling PUSH_STRING: " << this->literalOffset << std::endl;
-
-
   Runtime::iStandardClass* str = e->getRuntime()->getConstant("String")->newInstance();
   str->setInstanceVariable("value", (new Runtime::ValueObject(
     e->getLiteralsTable()->getLiteral(this->literalOffset) ))
   );
+
+  Dev::Board::sendMessage(std::string("PUSH_STACK|").append(
+    e->getLiteralsTable()->getLiteral(this->literalOffset)
+  ));
 
   e->getFrameStack()->getCurrentFrame()->pushStack(str);
     str = nullptr;

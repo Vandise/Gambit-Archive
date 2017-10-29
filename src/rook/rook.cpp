@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <cassert>
+#include <streambuf>
 
 #include "shared/config.hpp"
 #include "dev/debugnew/debug_new.h"
@@ -101,8 +102,6 @@ main( const int argc, const char **argv )
 
     Dev::Board::initialize();
 
-    Dev::Board::sendMessage(std::string("Hello World"));
-
     Runtime::LangRuntime::bootstrap();
     // eventually this will load all extensions specified in a file
     Extensions::ExtensionLoader *extLoader = new Extensions::ExtensionLoader("sqlite");
@@ -128,6 +127,10 @@ main( const int argc, const char **argv )
       parser = new Rook::Parser( (*scanner), (*tree) );
 
       parser->parse();
+
+      std::ifstream filesrc( filename );
+      std::string filestr((std::istreambuf_iterator<char>(filesrc)), std::istreambuf_iterator<char>());
+      Dev::Board::sendMessage(std::string("FILE|").append(filestr));
 
       vm->run();
 

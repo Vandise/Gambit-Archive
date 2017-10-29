@@ -14,7 +14,8 @@ RookAST::CallNode::~CallNode()
 void
 RookAST::CallNode::compile(RookVM::PawnExecutor* e)
 {
-  std::cout << "Compiling CALL: " << methodSignature << " " << parameters << std::endl;
+
+  Dev::Board::sendMessage(std::string("LOG|Calling method ").append(this->methodSignature));
 
   //
   // cache current node position
@@ -46,6 +47,8 @@ RookAST::CallNode::compile(RookVM::PawnExecutor* e)
   //  push the frame onto the stack
   //
   e->getFrameStack()->pushFrame(f);
+  Dev::Board::sendMessage(std::string("LOG|Frame ").append(this->methodSignature).append(" added to the Frame Stack"));
+  Dev::Board::sendMessage(std::string("PUSH_FRAME|").append(this->methodSignature));
 
   //
   // Call the method
@@ -56,7 +59,7 @@ RookAST::CallNode::compile(RookVM::PawnExecutor* e)
     //
     // User defined method
     //
-      std::cout << "Transitioning to label: " << this->methodSignature << std::endl;
+      Dev::Board::sendMessage(std::string("LOG|Jump to label ").append(this->methodSignature));
       e->jumpToLabel(methodSignature);
     // Note:
     //  On return node, it will clear and remove the frame
@@ -67,6 +70,7 @@ RookAST::CallNode::compile(RookVM::PawnExecutor* e)
     //
     // Native Methods
     //
+    Dev::Board::sendMessage(std::string("LOG|Call native method ").append(this->methodSignature));
     e->getFrameStack()->getCurrentFrame()->getCurrentSelf()->lookup(this->methodSignature)->call(
        e->getFrameStack()->getCurrentFrame()->getCurrentSelf(),
         e->getFrameStack()->getCurrentFrame()->getLocalStack()
@@ -75,6 +79,8 @@ RookAST::CallNode::compile(RookVM::PawnExecutor* e)
     //
     // Clean up memory
     //
+    Dev::Board::sendMessage(std::string("LOG|Pop frame"));
+    Dev::Board::sendMessage(std::string("POP_FRAME|pop"));
     e->getFrameStack()->popFrame();
 
     e->incrementNodePointer();

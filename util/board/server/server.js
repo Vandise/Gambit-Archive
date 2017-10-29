@@ -39,6 +39,7 @@ wss.on('connection', function(ws) {
     });
   
     ws.on('error', function(e) {
+
     });
 
 });

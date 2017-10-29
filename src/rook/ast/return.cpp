@@ -18,7 +18,6 @@ RookAST::ReturnNode::compile(RookVM::PawnExecutor* e)
   //
   if ( e->getFrameStack()->stackSize() == 1 )
   {
-    std::cout << "Compile RETURN " << " terminate main frame" << std::endl;
     e->terminate();
   }
   else
@@ -29,11 +28,13 @@ RookAST::ReturnNode::compile(RookVM::PawnExecutor* e)
     //
     if ( popStack > 0)
     {
-      std::cout << "Compile RETURN " << " return value" << std::endl;
       // TODO:
       //  get current frame and pop a value
 
       // remove the frame
+      Dev::Board::sendMessage(std::string("LOG|Return"));
+      Dev::Board::sendMessage(std::string("LOG|Pop frame"));
+      Dev::Board::sendMessage(std::string("POP_FRAME|pop"));
       e->getFrameStack()->popFrame();
 
       // TODO:
@@ -45,6 +46,9 @@ RookAST::ReturnNode::compile(RookVM::PawnExecutor* e)
       //
       // No return value and not on main frame
       //
+      Dev::Board::sendMessage(std::string("LOG|Return"));
+      Dev::Board::sendMessage(std::string("LOG|Pop frame"));
+      Dev::Board::sendMessage(std::string("POP_FRAME|pop"));
       e->getFrameStack()->popFrame();
     }
   }

@@ -5,6 +5,7 @@
 #include "shared/runtime/iStandardClass.hpp"
 #include "runtime/objectspace/valueObject.hpp"
 #include "rook/vm/pawnExecutor.hpp"
+#include "shared/dev/board.hpp"
 
 namespace RookAST
 {

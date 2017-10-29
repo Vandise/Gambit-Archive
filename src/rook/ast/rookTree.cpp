@@ -49,6 +49,7 @@ RookAST::RookTree::compile(RookVM::PawnExecutor* e)
   //
   // Preprocess labels
   //
+  Dev::Board::sendMessage(std::string("LOG|Preprocessing Labels"));
   for (auto &n : nodes)
   {
     if ( n->getType() == "LabelNode" )
@@ -62,6 +63,7 @@ RookAST::RookTree::compile(RookVM::PawnExecutor* e)
   }
 
   e->setNodePointer(0);
+  Dev::Board::sendMessage(std::string("LOG|Executing instructions"));
   //
   //  The Executor process loop for each instruction.
   //    - tree

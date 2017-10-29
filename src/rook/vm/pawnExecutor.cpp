@@ -69,7 +69,9 @@ RookVM::PawnExecutor::hasLabel(std::string label)
 void
 RookVM::PawnExecutor::addLabel(std::string label)
 {
-  std::cout << label << " added at position: " << this->getNodePointer() << std::endl;
+  Dev::Board::sendMessage(
+    std::string("LOG|Label ").append(label).append(" added at position: ").append(std::to_string(this->getNodePointer()))
+  );
   this->labels[label] = this->getNodePointer();
 }
 
@@ -96,6 +98,7 @@ void
 RookVM::PawnExecutor::terminate()
 {
   this->terminated = true;
+  Dev::Board::sendMessage(std::string("LOG|RookVM terminated"));
 }
 
 bool

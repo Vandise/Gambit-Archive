@@ -14,6 +14,6 @@ void
 RookAST::AddLiteralNode::compile(RookVM::PawnExecutor* e)
 {
   e->getLiteralsTable()->addLiteral(this->literal);
-  std::cout << "adding literal: " << this->literal << std::endl;
+    Dev::Board::sendMessage(std::string("LOG|Literal ").append(this->literal).append(" added"));
   e->incrementNodePointer();
 }
