@@ -1,6 +1,7 @@
 #ifndef __DEVBOARD_HPP
 #define __DEVBOARD_HPP 1
 
+#include "shared/config.hpp"
 #include "shared/dev/wsclient.hpp"
 
 using WsClient::WebSocket;

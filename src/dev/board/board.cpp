@@ -6,20 +6,31 @@ WsClient::WebSocket::pointer Dev::Board::ws = NULL;
 void
 Dev::Board::initialize()
 {
-   Dev::Board::ws = WsClient::WebSocket::from_url("ws://localhost:8080/RookVM");
+  if (_DEBUG)
+  {
+    Dev::Board::ws = WsClient::WebSocket::from_url("ws://localhost:8080/RookVM");
+  }
 }
 
 void
 Dev::Board::sendMessage(std::string msg)
 {
-  std::cout << "Sending message " << msg << std::endl;
-  Dev::Board::ws->send(msg);
-  Dev::Board::ws->poll();
+  if (_DEBUG && Dev::Board::ws != NULL)
+  {
+    if (Dev::Board::ws->getReadyState() == WsClient::WebSocket::OPEN)
+    {
+      Dev::Board::ws->send(msg);
+      Dev::Board::ws->poll();
+    }
+  }
 }
 
 void
 Dev::Board::terminate()
 {
-  delete(Dev::Board::ws);
-  Dev::Board::ws = NULL;
+  if (_DEBUG)
+  {
+    delete(Dev::Board::ws);
+    Dev::Board::ws = NULL;
+  }
 }
