@@ -1,4 +1,5 @@
 #include "rook/ast/call.hpp"
+#include <sstream>
 
 RookAST::CallNode::CallNode(std::string methodSignature, int parameters)
 {
@@ -33,6 +34,8 @@ RookAST::CallNode::compile(RookVM::PawnExecutor* e)
   );
   f->setNodePointer(nodePosition);
 
+  Dev::Board::sendMessage(std::string("POP_STACK|self"));
+
   //
   //  Clone parameters from parent stack
   //
@@ -41,6 +44,7 @@ RookAST::CallNode::compile(RookVM::PawnExecutor* e)
     f->pushStack(
       e->getFrameStack()->getCurrentFrame()->popStack()
     );
+    Dev::Board::sendMessage(std::string("POP_STACK|param_").append(std::to_string(i)));
   }
 
   //
@@ -49,6 +53,18 @@ RookAST::CallNode::compile(RookVM::PawnExecutor* e)
   e->getFrameStack()->pushFrame(f);
   Dev::Board::sendMessage(std::string("LOG|Frame ").append(this->methodSignature).append(" added to the Frame Stack"));
   Dev::Board::sendMessage(std::string("PUSH_FRAME|").append(this->methodSignature));
+
+  // Debug, TODO: add _DEBUG flag check
+  std::vector<Runtime::iStandardClass*> stack = f->getLocalStack();
+  for (int i = 0; i < this->parameters; i++)
+  {
+    const void * address = static_cast<const void*>(stack[i]);
+    std::stringstream ss;
+    ss << address;
+    Dev::Board::sendMessage(std::string("PUSH_STACK|").append(
+      (stack[i])->getName()
+    ).append("<").append(ss.str()).append(">") );
+  }
 
   //
   // Call the method

@@ -12,6 +12,22 @@ table .odd {
   background-color: #F9e6ff;
 }
 
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 0.5em 2em;
+  margin-right: 0.5em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.button.red {
+  background-color: #f44336;
+}
+
 .code-menu pre {
   background-color: #F0FBFF;
 }

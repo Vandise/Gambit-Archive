@@ -130,7 +130,9 @@ main( const int argc, const char **argv )
 
       std::ifstream filesrc( filename );
       std::string filestr((std::istreambuf_iterator<char>(filesrc)), std::istreambuf_iterator<char>());
+
       Dev::Board::sendMessage(std::string("FILE|").append(filestr));
+      Dev::Board::sendMessage(std::string("SET_PROGRAM|").append(filename));
 
       vm->run();
 

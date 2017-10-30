@@ -4,6 +4,9 @@ import log from './log';
 import pushFrame from './pushFrame';
 import popFrame from './popFrame';
 import instructionPosition from './instructionPosition';
+import pushStack from './pushStack';
+import popStack from './popStack';
+import setProgram from './setProgram';
 
 export default [
   message,
@@ -11,5 +14,8 @@ export default [
   log,
   pushFrame,
   popFrame,
-  instructionPosition
+  instructionPosition,
+  pushStack,
+  popStack,
+  setProgram
 ];
