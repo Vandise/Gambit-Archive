@@ -61,6 +61,11 @@ puts(my_name)
 
 ```
 
+## Board
+Board is an in-memory log and VM state capture system that allows you to visualize the state of the RookVM. It can be utilized for debugging memory, bugs in the VM/instruction set, or for educational purposes.
+
+![check handler error](doc/image/board_debug.png)
+
 ## Check
 Check is a human-readable error handler. Though optimized for the Mate compiler, it is a shared library that can be utilized for any C++ project. Features of Check are still being implemented and error messages continue to be improved upon.
 

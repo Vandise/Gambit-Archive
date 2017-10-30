@@ -196,7 +196,10 @@ export const counterReducer = handleActions({
   },  
 
   RESET: (state, action) => {
-    return initialState;
+    return {
+      ...initialState,
+      program: state.program
+    };
   },
 
 }, {
