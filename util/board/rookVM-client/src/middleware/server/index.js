@@ -7,6 +7,7 @@ import instructionPosition from './instructionPosition';
 import pushStack from './pushStack';
 import popStack from './popStack';
 import setProgram from './setProgram';
+import setLocal from './setLocal';
 
 export default [
   message,
@@ -17,5 +18,6 @@ export default [
   instructionPosition,
   pushStack,
   popStack,
-  setProgram
+  setProgram,
+  setLocal
 ];

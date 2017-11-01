@@ -16,6 +16,7 @@ import LogMenu from './components/logMenu';
 import FrameMenu from './components/frameMenu';
 import StackMenu from './components/stackMenu';
 import ActionsMenu from './components/actionsMenu';
+import LocalsMenu from './components/localsMenu';
 
 // eslint-disable-next-line no-unused-vars
 import Bulma from './stylesheets/bulma.scss';
@@ -88,7 +89,7 @@ export const counterReducer = handleActions({
     const stacks = Object.assign({}, state.stacks);
 
     data[action.payload.data] = frame;
-    locals[action.payload.data] = [];
+    locals[action.payload.data] = {};
     stacks[action.payload.data] = [];
 
     return {
@@ -115,8 +116,8 @@ export const counterReducer = handleActions({
 
     const locals = Object.assign({}, state.locals);
     const stacks = Object.assign({}, state.stacks);
-    locals[action.payload.data] = [];
-    stacks[action.payload.data] = [];
+    locals[action.payload.data] = {};
+    stacks[action.payload.data] = {};
   
     return {
       ...state,
@@ -171,6 +172,20 @@ export const counterReducer = handleActions({
     return {
       ...state,
       program: action.payload.data,
+    };    
+  },
+
+  SET_LOCAL: (state, action) => {
+     window.reduxActions.push(action);
+     const stateLocals = Object.assign({}, state.locals);
+     const variable = {};
+     const data = action.payload.data.split(',');
+     variable[data[0]] = data[1];
+     stateLocals[state.currentFrame] = Object.assign({}, stateLocals[state.currentFrame], variable );
+    console.log("SET_LOCAL", stateLocals);
+    return {
+      ...state,
+      locals: stateLocals,
     };    
   },
 
@@ -292,14 +307,7 @@ export default ReactDOM.render(
 
               <FrameMenu />
 
-              <div className='tile is-child'>
-                <header>
-                  Locals
-                </header>
-                <div className='tile-body'>
-                  Frame Locals will be listed here
-                </div>
-              </div>
+              <LocalsMenu />
 
             </div>
 
