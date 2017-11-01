@@ -23,8 +23,8 @@ RookAST::GetLocalNode::compile(RookVM::PawnExecutor* e)
     l = l->clone();
   }
 
-  Dev::Board::sendMessage(std::string("PUSH_STACK|").append(local).append(",").append(std::to_string(this->identifierOffset)).append(",").append(
-    std::to_string(this->isClone)
+  Dev::Board::sendMessage(std::string("PUSH_STACK|").append(" ").append(this->isClone ? "*" : "").append(
+    Dev::Board::formatClassMsg(l)
   ));
   e->getFrameStack()->getCurrentFrame()->pushStack(l);
     l = nullptr;

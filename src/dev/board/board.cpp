@@ -1,4 +1,5 @@
 #include "shared/dev/board.hpp"
+#include "shared/runtime/iStandardClass.hpp"
 #include <iostream>
 
 WsClient::WebSocket::pointer Dev::Board::ws = NULL;
@@ -33,4 +34,13 @@ Dev::Board::terminate()
     delete(Dev::Board::ws);
     Dev::Board::ws = NULL;
   }
+}
+
+std::string
+Dev::Board::formatClassMsg(Runtime::iStandardClass* klass)
+{
+  const void * address = static_cast<const void*>(klass);
+  std::stringstream ss;
+  ss << address;
+  return std::string(klass->getName()).append("<").append(ss.str()).append(">");
 }

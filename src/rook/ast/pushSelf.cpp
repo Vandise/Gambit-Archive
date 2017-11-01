@@ -14,7 +14,7 @@ void
 RookAST::PushSelfNode::compile(RookVM::PawnExecutor* e)
 {
   Dev::Board::sendMessage(std::string("PUSH_STACK|").append(
-    e->getFrameStack()->getCurrentFrame()->getCurrentSelf()->getName()
+    Dev::Board::formatClassMsg(e->getFrameStack()->getCurrentFrame()->getCurrentSelf())
   ));
   e->getFrameStack()->getCurrentFrame()->pushStack(
     e->getFrameStack()->getCurrentFrame()->getCurrentSelf()

@@ -1,5 +1,4 @@
 #include "rook/ast/call.hpp"
-#include <sstream>
 
 RookAST::CallNode::CallNode(std::string methodSignature, int parameters)
 {
@@ -58,12 +57,7 @@ RookAST::CallNode::compile(RookVM::PawnExecutor* e)
   std::vector<Runtime::iStandardClass*> stack = f->getLocalStack();
   for (int i = 0; i < this->parameters; i++)
   {
-    const void * address = static_cast<const void*>(stack[i]);
-    std::stringstream ss;
-    ss << address;
-    Dev::Board::sendMessage(std::string("PUSH_STACK|").append(
-      (stack[i])->getName()
-    ).append("<").append(ss.str()).append(">") );
+    Dev::Board::sendMessage(std::string("PUSH_STACK|").append(Dev::Board::formatClassMsg(stack[i])));
   }
 
   //

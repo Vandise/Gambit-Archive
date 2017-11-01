@@ -19,7 +19,7 @@ RookAST::PushStringNode::compile(RookVM::PawnExecutor* e)
   );
 
   Dev::Board::sendMessage(std::string("PUSH_STACK|").append(
-    e->getLiteralsTable()->getLiteral(this->literalOffset)
+    Dev::Board::formatClassMsg(str)
   ));
 
   e->getFrameStack()->getCurrentFrame()->pushStack(str);

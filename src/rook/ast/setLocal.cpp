@@ -26,9 +26,9 @@ RookAST::SetLocalNode::compile(RookVM::PawnExecutor* e)
       klass
     );
 
-    Dev::Board::sendMessage(std::string("SET_LOCAL|").append(
-      e->getLiteralsTable()->getLiteral(this->identifierOffset)
-    ).append(",").append(klass->getName()));
+    Dev::Board::sendMessage( std::string("SET_LOCAL|").append( e->getLiteralsTable()->getLiteral(this->identifierOffset) ).append(",").append(
+      Dev::Board::formatClassMsg(klass)
+    ));
 
     klass = nullptr;
   }
