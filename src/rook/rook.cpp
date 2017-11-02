@@ -114,6 +114,7 @@ main( const int argc, const char **argv )
     try
     {
       extLoader->load(Runtime::LangRuntime::objectClass);
+      std::cout << extLoader->loaded() << extLoader->getError() << std::endl;
 
       std::string filename = args::get(run);
 

@@ -8,4 +8,4 @@ sqlite_src: $(SQLITE_FILES)
 	$(GCC) -c $(SQLITE_FILES) -fPIC -o $(EXTDIR)/sqlite/obj/sqlite.o
 
 ext_sqlite:
-	$(CC) $(CXXSTD) $(INC) -rdynamic $(DYNLIBPARAM) $(SQLITE_EXT_FILES) $(RUNTIME_FILES) $(EXTDIR)/sqlite/obj/sqlite.o $(DEBUGFILES) -Wl,--no-as-needed -ldl -o $(LIBDIR)/sqlite.so
+	$(CC) $(CXXSTD) $(INC) -rdynamic $(DYNLIBPARAM) $(SQLITE_EXT_FILES) $(RUNTIME_FILES) $(EXTDIR)/sqlite/obj/sqlite.o $(DEBUGFILES) -Wl,--no-as-needed -ldl -lpthread -o $(LIBDIR)/sqlite.so

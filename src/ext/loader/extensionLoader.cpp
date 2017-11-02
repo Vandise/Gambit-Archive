@@ -2,7 +2,7 @@
 
 Extensions::ExtensionLoader::ExtensionLoader(std::string module)
 {
-  this->moduleName = "./lib/" + module + ".so";
+  this->moduleName = "lib/" + module + ".so";
   this->handle = dlopen(this->moduleName.c_str(), RTLD_NOW);
 }
 
@@ -19,6 +19,7 @@ Extensions::ExtensionLoader::load(Runtime::iStandardClass* obj)
   if (!this->handle)
   {
     this->errored = true;
+    this->errorMsg = std::string(dlerror());
     return;
   }
 
