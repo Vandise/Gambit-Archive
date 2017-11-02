@@ -5,10 +5,10 @@ RUNTIME := $(shell find $(SRCDIR)/runtime -type f -name *.$(SRCEXT))
 ROOKFILES := $(shell find $(SRCDIR)/rook -type f -name *.$(SRCEXT))
 
 rook_parser: $(SRCDIR)/rook/grammar/parser.yy
-	bison -d -v $(SRCDIR)/rook/grammar/parser.yy -o $(SRCDIR)/rook/parser.tab.cpp
+	./util/bison-3.0.4/src/bison -d -v $(SRCDIR)/rook/grammar/parser.yy -o $(SRCDIR)/rook/parser.tab.cpp
 
 rook_lexer: $(SRCDIR)/rook/grammar/lexer.l
-	flex --outfile=$(SRCDIR)/rook/lexer.yy.cpp  $<
+	./util/flex-2.5.37/flex --outfile=$(SRCDIR)/rook/lexer.yy.cpp  $<
 
 rook: rook_parser rook_lexer
-	$(CC) $(CXXSTD) $(INC) $(BOARDFILES) $(DEBUGFILES) $(RUNTIME) $(LOADER) $(ROOKFILES) -o $(TARGETDIR)/rook
+	$(CC) $(CXXSTD) $(INC) $(BOARDFILES) $(DEBUGFILES) $(RUNTIME) $(LOADER) $(ROOKFILES) -Wl,--no-as-needed -ldl -o $(TARGETDIR)/rook

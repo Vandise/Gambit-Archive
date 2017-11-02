@@ -100,7 +100,7 @@ main( const int argc, const char **argv )
   if (run)
   {
 
-    Dev::Board::initialize();
+    //Dev::Board::initialize();
 
     Runtime::LangRuntime::bootstrap();
     // eventually this will load all extensions specified in a file
@@ -149,7 +149,7 @@ main( const int argc, const char **argv )
     if (parser != nullptr) delete(parser);
     if (vm != nullptr) delete(vm);
 
-    Dev::Board::terminate();
+    //Dev::Board::terminate();
   }
 
   return 0;

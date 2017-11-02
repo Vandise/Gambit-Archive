@@ -5,7 +5,7 @@ DEBUGFILES := $(shell find $(SRCDIR)/dev/debugnew -type f -name *.$(SRCEXT))
 
 sqlite_src: $(SQLITE_FILES)
 	mkdir -p $(EXTDIR)/sqlite/obj
-	$(GCC) -c $(SQLITE_FILES) -o $(EXTDIR)/sqlite/obj/sqlite.o
+	$(GCC) -c $(SQLITE_FILES) -fPIC -o $(EXTDIR)/sqlite/obj/sqlite.o
 
 ext_sqlite:
-	$(CC) $(CXXSTD) $(INC) $(DYNLIBPARAM) $(SQLITE_EXT_FILES) $(RUNTIME_FILES) $(EXTDIR)/sqlite/obj/sqlite.o $(DEBUGFILES) -o $(LIBDIR)/sqlite.so
+	$(CC) $(CXXSTD) $(INC) -rdynamic $(DYNLIBPARAM) $(SQLITE_EXT_FILES) $(RUNTIME_FILES) $(EXTDIR)/sqlite/obj/sqlite.o $(DEBUGFILES) -Wl,--no-as-needed -ldl -o $(LIBDIR)/sqlite.so

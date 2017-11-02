@@ -36,7 +36,7 @@ namespace Extensions
 
       virtual ~iModuleLoader()
       {
-        dlclose(this->handle);
+        //dlclose(this->handle);
       };
 
       virtual void load()

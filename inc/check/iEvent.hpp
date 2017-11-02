@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 #include <vector>
 
 #define PUSH_BUFFER this->buffer + strlen(this->buffer)
@@ -16,6 +17,7 @@
   }                                             \
 }
 
+using namespace std;
 
 namespace Check
 {

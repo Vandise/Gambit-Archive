@@ -25,8 +25,8 @@ current_dir = $(shell pwd)
 CXXSTD      := -std=c++11 -Wno-deprecated-register
 CFLAGS      := $(CXXSTD) -fopenmp -Wall -O3 -g
 #LIB        := -fopenmp -lm -larmadillo
-DYNLIBPARAM := -dynamiclib
-INC         := -I$(INCDIR) -Isrc -Isrc/test -I$(LIBDIR) -I$(EXTDIR) -I/usr/local/opt/flex/include
+DYNLIBPARAM := -shared -fPIC
+INC         := -I$(INCDIR) -Isrc -Isrc/test -I$(LIBDIR) -I$(EXTDIR) -Iutil/flex-2.5.37/
 PARSER_LEXER =  parser lexer
 
 #---------------------------------------------------------------------------------
@@ -89,15 +89,15 @@ cleaner: clean
 
 #Link
 $(TARGET): $(filter-out $(TESTOBJS),$(OBJECTS))
-	$(CC) -o $(TARGETDIR)/$(TARGET) $^
+	$(CC) -Wl,--no-as-needed -ldl -o $(TARGETDIR)/$(TARGET) $^
 
 $(TESTTARGET): $(filter-out $(BUILDDIR)/$(TARGET).$(OBJEXT),$(OBJECTS))
-	$(CC) -o $(TARGETDIR)/$(TESTTARGET) $^
+	$(CC) -Wl,--no-as-needed -ldl -o $(TARGETDIR)/$(TESTTARGET) $^
 
 #Compile src
 $(BUILDDIR)/%.$(OBJEXT): $(SRCDIR)/%.$(SRCEXT)
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INC) -c -o $@ $<
+	$(CC) $(CFLAGS) $(INC) -Wl,--no-as-needed -ldl -c -o $@ $<
 	$(CC) $(CFLAGS) $(INC) -MM $(SRCDIR)/$*.$(SRCEXT) > $(BUILDDIR)/$*.$(DEPEXT) 
 	cp -f $(BUILDDIR)/$*.$(DEPEXT) $(BUILDDIR)/$*.$(DEPEXT).tmp
 	sed -e 's|.*:|$(BUILDDIR)/$*.$(OBJEXT):|' < $(BUILDDIR)/$*.$(DEPEXT).tmp > $(BUILDDIR)/$*.$(DEPEXT)
